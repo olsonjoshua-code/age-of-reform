@@ -542,7 +542,7 @@ const TEACHERS={
   'olson':{name:'Mr. Olson',periods:['1','2','3','4','5','6','7'],teacherCode:'OLSON219'},
 };
 const SHELL_KEY='ac_shell_state';
-const SHELL_UNIT_ID='unit5';
+const SHELL_UNIT_ID='unit2b';
 
 let G=null,currentChapterIdx=0,currentBeatIdx=0,chapterScore=0,chapterCorrect=0,chapterTotal=0,answeredCurrent=false,chapterLog=[];
 
@@ -1150,19 +1150,25 @@ function load(){try{const d=JSON.parse(localStorage.getItem(SAVE_KEY)||'null');i
 // ═══════════════════════════════════════════
 // SHELL INTEGRATION
 // ═══════════════════════════════════════════
-function getShellProfile(){try{const s=JSON.parse(localStorage.getItem(SHELL_KEY)||'null');return s&&s.profile?s:null;}catch(e){return null;}}
+function getShellProfile(){try{const s=JSON.parse(localStorage.getItem(SHELL_KEY)||'null');return s&&s.name&&s.name!=='Guest'?s:null;}catch(e){return null;}}
 function applyShellProfile(shellState){
-  const p=shellState.profile;if(!G)G=newGame();
-  G.name=p.name;G.teacher=p.teacher||'shell';G.period=p.period||'shell';G.isTeacher=!!p.isTeacher;G.avatarId=p.avatarId||G.avatarId;
+  if(!G)G=newGame();
+  G.name=shellState.name;
+  G.teacher='shell';
+  G.period=shellState.period?('shell-'+shellState.period):'shell-0';
+  G.isTeacher=!!shellState.isTeacher;
+  const avatarMap={scholar:'scholar',rebel:'activist',soldier:'soldier',reporter:'journalist',pioneer:'scholar',diplomat:'scholar',worker:'worker',artist:'activist'};
+  G.avatarId=avatarMap[shellState.avatar]||G.avatarId;
+  save();
 }
 function notifyShellComplete(){
   try{const s=JSON.parse(localStorage.getItem(SHELL_KEY)||'null');if(!s)return;
-    if(!s.completedUnits)s.completedUnits=[];if(!s.completedUnits.includes(SHELL_UNIT_ID))s.completedUnits.push(SHELL_UNIT_ID);
+    if(!s.unitsCompleted)s.unitsCompleted=[];if(!s.unitsCompleted.includes(SHELL_UNIT_ID))s.unitsCompleted.push(SHELL_UNIT_ID);
     s.lastScore={unit:SHELL_UNIT_ID,score:G.score,accuracy:G.totalAnswers>0?Math.round(G.correctAnswers/G.totalAnswers*100):0};
     localStorage.setItem(SHELL_KEY,JSON.stringify(s));
   }catch(e){}
 }
-function returnToShell(){window.location.href='index.html';}
+function returnToShell(){window.location.href='https://olsonjoshua-code.github.io/American-Chronicles-Shell/';}
 
 // ═══════════════════════════════════════════
 // SCREENS
