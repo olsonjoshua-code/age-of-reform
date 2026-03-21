@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age of Reform — The Progressive Era</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080a0d; --bg2: #0d1117; --bg3: #111820; --panel: #151d27;
+  --border: #1c2b3a; --border2: #283d52; --gold: #c8860a; --gold2: #a06808;
+  --gold3: #e8a820; --red: #a02828; --red2: #cc3838; --green: #186030;
+  --green2: #268840; --blue: #183880; --blue2: #2858b8; --teal: #167070;
+  --text: #e0d8c8; --text2: #808898; --text3: #384048; --cream: #e8e0d0;
+  --bebas: 'Bebas Neue', sans-serif; --playfair: 'Playfair Display', serif;
+  --crimson: 'Crimson Text', serif; --dm: 'DM Sans', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--text); font-family: var(--crimson);
+  min-height: 100vh; overflow-x: hidden;
+  background-image: radial-gradient(ellipse at 15% 10%, rgba(200,134,10,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 85%, rgba(24,96,48,0.05) 0%, transparent 50%);
+}
+body::before { content: ''; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9998; opacity: 0.5; }
+body::after { content: ''; position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.015) 3px, rgba(0,0,0,0.015) 4px);
+  pointer-events: none; z-index: 9999; }
+#root { max-width: 620px; margin: 0 auto; padding: 16px; min-height: 100vh; position: relative; z-index: 1; }
+.screen { display: none; } .screen.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pop { 0% { transform: scale(0.5); opacity: 0; } 70% { transform: scale(1.08); } 100% { transform: scale(1); opacity: 1; } }
+@keyframes floatUp { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-70px); } }
+@keyframes glowPulse { 0%,100% { box-shadow: 0 0 15px rgba(200,134,10,0.3); } 50% { box-shadow: 0 0 40px rgba(200,134,10,0.7); } }
+.btn { font-family: var(--bebas); font-size: 15px; letter-spacing: 2px; background: transparent;
+  border: 1.5px solid var(--gold); color: var(--gold); padding: 12px 28px; cursor: pointer;
+  transition: all 0.2s; display: inline-block; position: relative; overflow: hidden; text-transform: uppercase; }
+.btn::before { content: ''; position: absolute; inset: 0; background: var(--gold);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.2s; z-index: 0; }
+.btn:hover { color: var(--bg); box-shadow: 0 0 25px rgba(200,134,10,0.4); }
+.btn:hover::before { transform: scaleX(1); }
+.btn span { position: relative; z-index: 1; } .btn:active { transform: scale(0.97); }
+.btn.full { display: block; width: 100%; text-align: center; margin: 6px 0; }
+.btn.red { border-color: var(--red2); color: var(--red2); } .btn.red::before { background: var(--red2); } .btn.red:hover { color: #fff; }
+.btn.green { border-color: var(--green2); color: var(--green2); } .btn.green::before { background: var(--green2); } .btn.green:hover { color: #fff; }
+.btn.blue { border-color: var(--blue2); color: var(--blue2); } .btn.blue::before { background: var(--blue2); } .btn.blue:hover { color: #fff; }
+.btn.sm { font-size: 11px; padding: 8px 18px; } .btn:disabled { opacity: 0.25; cursor: not-allowed; pointer-events: none; }
+.loading-screen { position: fixed; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; }
+.loading-bar-wrap { width: 200px; height: 2px; background: var(--border2); margin-top: 16px; }
+.loading-bar-fill { height: 100%; background: var(--gold); transition: width 0.1s; width: 0; }
+#game-header { background: linear-gradient(180deg, rgba(8,10,13,0.98), rgba(13,17,23,0.95));
+  border-bottom: 1px solid var(--border2); padding: 10px 14px; display: none;
+  position: sticky; top: 0; z-index: 200; margin: -16px -16px 16px -16px; backdrop-filter: blur(12px); }
+.hud-inner { display: flex; align-items: center; gap: 12px; }
+.hud-avatar { width: 42px; height: 42px; flex-shrink: 0; cursor: pointer; }
+.hud-info { flex: 1; min-width: 0; }
+.hud-name { font-family: var(--playfair); font-size: 12px; color: var(--gold); margin-bottom: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-style: italic; }
+.hud-rank { font-family: var(--dm); font-size: 10px; color: var(--text2); }
+.momentum-bar-wrap { height: 3px; background: rgba(255,255,255,0.06); margin-top: 4px; border-radius: 2px; overflow: hidden; }
+.momentum-bar-fill { height: 100%; background: linear-gradient(90deg, var(--gold2), var(--gold3)); transition: width 0.6s; border-radius: 2px; }
+.hud-stats { display: flex; gap: 10px; flex-shrink: 0; }
+.hud-stat { font-family: var(--dm); font-size: 8px; color: var(--text3); text-align: center; }
+.hud-stat span { display: block; color: var(--gold); font-size: 13px; margin-top: 1px; font-weight: 600; }
+.notif { position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+  background: var(--panel); border: 1px solid var(--gold2); padding: 10px 20px;
+  font-family: var(--dm); font-size: 11px; color: var(--gold); z-index: 1000;
+  animation: pop 0.3s, floatUp 2.5s 0.8s forwards; white-space: nowrap; max-width: 90vw; text-align: center; }
+.notif.green { border-color: var(--green2); color: var(--green2); }
+.notif.red { border-color: var(--red2); color: var(--red2); }
+.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.94); z-index: 400; overflow-y: auto; padding: 20px 16px 80px; }
+.overlay.show { display: block; animation: fadeIn 0.2s; }
+.overlay-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
+  position: sticky; top: 0; background: rgba(8,10,13,0.97); padding: 10px 0; border-bottom: 1px solid var(--border2); z-index: 10; }
+.overlay-title { font-family: var(--bebas); font-size: 22px; color: var(--gold); letter-spacing: 2px; }
+.overlay-close { font-family: var(--dm); font-size: 10px; background: var(--bg3); border: 1px solid var(--border2); color: var(--text2); padding: 7px 14px; cursor: pointer; transition: all 0.2s; }
+.overlay-close:hover { border-color: var(--gold); color: var(--gold); }
+.std-tag { display: inline-block; font-family: var(--dm); font-size: 8px; color: var(--text3); border: 1px solid var(--border2); padding: 2px 6px; margin: 2px; border-radius: 2px; }
+#title-screen { text-align: center; padding: 2rem 1rem; }
+.title-scene { position: relative; width: 100%; height: 200px; margin-bottom: 1.5rem; overflow: hidden; border: 1px solid var(--border2); }
+.game-logo { font-family: var(--bebas); font-size: clamp(36px,8vw,56px); color: var(--gold); letter-spacing: 4px; text-shadow: 0 0 40px rgba(200,134,10,0.4), 3px 3px 0 rgba(0,0,0,0.5); line-height: 1; margin-bottom: 4px; }
+.game-subtitle { font-family: var(--playfair); font-size: 14px; color: var(--text2); font-style: italic; margin-bottom: 6px; letter-spacing: 1px; }
+.game-unit-badge { display: inline-block; background: rgba(200,134,10,0.1); border: 1px solid var(--gold2); color: var(--gold); font-family: var(--dm); font-size: 9px; padding: 4px 12px; letter-spacing: 2px; margin-bottom: 1.5rem; text-transform: uppercase; }
+#char-screen { padding: 1rem 0; }
+.section-head { font-family: var(--bebas); font-size: 18px; letter-spacing: 2px; color: var(--gold); border-bottom: 1px solid var(--border2); padding-bottom: 6px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.section-head::before { content: ''; display: block; width: 3px; height: 18px; background: var(--gold); }
+.char-preview { text-align: center; margin-bottom: 1.5rem; padding: 20px; background: var(--bg2); border: 1px solid var(--border); }
+.char-avatar-display { width: 100px; height: 100px; margin: 0 auto 12px; }
+.char-name-display { font-family: var(--playfair); font-size: 18px; color: var(--cream); font-style: italic; margin-bottom: 2px; }
+.char-title-display { font-family: var(--dm); font-size: 11px; color: var(--teal); letter-spacing: 1px; }
+.avatar-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.avatar-opt { flex: 1 1 calc(25% - 8px); min-width: 70px; aspect-ratio: 1; background: var(--bg2); border: 1.5px solid var(--border); cursor: pointer; transition: all 0.15s; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 8px 4px; }
+.avatar-opt:hover { border-color: var(--gold2); } .avatar-opt.selected { border-color: var(--gold); background: rgba(200,134,10,0.08); box-shadow: 0 0 12px rgba(200,134,10,0.2); }
+.avatar-opt.locked { opacity: 0.35; cursor: not-allowed; }
+.avatar-opt-label { font-family: var(--dm); font-size: 8px; color: var(--text2); text-align: center; line-height: 1.3; }
+.name-input { font-family: var(--playfair); font-size: 16px; font-style: italic; background: var(--bg2); border: 1.5px solid var(--border2); color: var(--cream); padding: 12px 16px; width: 100%; outline: none; margin-bottom: 8px; transition: border-color 0.2s; }
+.name-input:focus { border-color: var(--gold); } .name-input::placeholder { color: var(--text3); }
+.outfit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+.outfit-opt { background: var(--bg2); border: 1.5px solid var(--border); padding: 12px 8px; text-align: center; cursor: pointer; transition: all 0.15s; }
+.outfit-opt:hover { border-color: var(--gold2); } .outfit-opt.selected { border-color: var(--gold); background: rgba(200,134,10,0.07); }
+.outfit-opt.locked { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+.outfit-icon { font-size: 28px; margin-bottom: 4px; } .outfit-name { font-family: var(--dm); font-size: 9px; color: var(--text2); }
+.outfit-cost { font-family: var(--bebas); font-size: 10px; color: var(--gold2); margin-top: 2px; }
+#hub-screen { padding: 1rem 0; }
+.hub-banner { background: var(--bg2); border: 1px solid var(--border2); padding: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; }
+.hub-avatar { width: 60px; height: 60px; flex-shrink: 0; }
+.hub-player-info { flex: 1; }
+.hub-player-name { font-family: var(--playfair); font-size: 16px; color: var(--cream); font-style: italic; margin-bottom: 2px; }
+.hub-player-rank { font-family: var(--dm); font-size: 11px; color: var(--teal); margin-bottom: 6px; }
+.hub-momentum-wrap { background: rgba(255,255,255,0.05); height: 4px; border-radius: 2px; }
+.hub-momentum-fill { height: 100%; background: linear-gradient(90deg, var(--gold2), var(--gold3)); border-radius: 2px; transition: width 0.6s; }
+.unit-card { background: var(--bg2); border: 1px solid var(--border); margin-bottom: 10px; overflow: hidden; transition: border-color 0.2s; }
+.unit-card.available { cursor: pointer; } .unit-card.available:hover { border-color: var(--gold2); }
+.unit-card.locked { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+.unit-card.completed { border-color: var(--green); cursor: default; pointer-events: none; }
+.unit-card-header { display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
+.unit-icon { font-size: 28px; flex-shrink: 0; } .unit-info { flex: 1; }
+.unit-number { font-family: var(--dm); font-size: 9px; color: var(--text3); letter-spacing: 2px; text-transform: uppercase; }
+.unit-name { font-family: var(--playfair); font-size: 15px; color: var(--cream); margin: 2px 0; }
+.unit-desc { font-family: var(--crimson); font-size: 13px; color: var(--text2); font-style: italic; }
+.unit-status { font-family: var(--dm); font-size: 8px; padding: 4px 10px; border: 1px solid; }
+.unit-status.available { color: var(--gold); border-color: var(--gold2); background: rgba(200,134,10,0.08); }
+.unit-status.locked { color: var(--text3); border-color: var(--border); }
+.unit-status.completed { color: var(--green2); border-color: var(--green); background: rgba(38,136,64,0.08); }
+.unit-progress-bar { height: 2px; background: rgba(255,255,255,0.04); }
+.unit-progress-fill { height: 100%; background: var(--gold2); transition: width 0.5s; }
+.badges-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.badge-pill { background: var(--bg2); border: 1px solid var(--border); padding: 6px 10px; display: flex; align-items: center; gap: 6px; font-family: var(--dm); font-size: 9px; color: var(--text2); }
+.badge-pill.earned { border-color: var(--gold2); color: var(--gold); background: rgba(200,134,10,0.06); }
+.badge-icon { font-size: 16px; filter: grayscale(1); } .badge-pill.earned .badge-icon { filter: none; }
+#chapter-intro { padding: 1rem 0; }
+.chapter-scene-frame { position: relative; width: 100%; overflow: hidden; background: var(--bg2); border: 1px solid var(--border2); margin-bottom: 16px; }
+.chapter-title-block { padding: 20px; }
+.chapter-num { font-family: var(--bebas); font-size: 11px; color: var(--text3); letter-spacing: 3px; margin-bottom: 4px; }
+.chapter-name { font-family: var(--playfair); font-size: clamp(18px,4vw,26px); color: var(--cream); font-weight: 700; line-height: 1.2; margin-bottom: 6px; }
+.chapter-period { font-family: var(--crimson); font-size: 13px; color: var(--gold); font-style: italic; margin-bottom: 10px; }
+#story-screen { padding: 1rem 0; }
+.story-scene { position: relative; width: 100%; min-height: 220px; background: var(--bg2); border: 1px solid var(--border2); overflow: hidden; margin-bottom: 16px; }
+.story-scene-art { width: 100%; height: 220px; }
+.story-scene-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(8,10,13,0.97) 0%, transparent 100%); padding: 30px 16px 12px; }
+.story-location { font-family: var(--bebas); font-size: 11px; color: var(--gold2); letter-spacing: 2px; margin-bottom: 2px; }
+.story-year { font-family: var(--playfair); font-size: 20px; color: var(--cream); font-style: italic; }
+.story-text-panel { background: var(--bg2); border: 1px solid var(--border); padding: 18px; margin-bottom: 14px; position: relative; }
+.story-text-panel::before { content: '"'; font-family: var(--playfair); font-size: 80px; color: rgba(200,134,10,0.1); position: absolute; top: -10px; left: 10px; line-height: 1; }
+.story-narrative { font-family: var(--crimson); font-size: 17px; line-height: 1.7; color: var(--text); }
+.story-character-name { font-family: var(--playfair); font-size: 11px; color: var(--gold); font-style: italic; margin-bottom: 6px; }
+.decision-header { font-family: var(--bebas); font-size: 13px; letter-spacing: 2px; color: var(--text3); margin-bottom: 10px; text-transform: uppercase; }
+.choice-btn { display: block; width: 100%; background: var(--bg2); border: 1px solid var(--border2); color: var(--text); padding: 14px 16px; cursor: pointer; text-align: left; transition: all 0.2s; margin-bottom: 8px; position: relative; overflow: hidden; }
+.choice-btn::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); transform: scaleY(0); transition: transform 0.2s; }
+.choice-btn:hover { border-color: var(--gold2); background: rgba(200,134,10,0.04); } .choice-btn:hover::before { transform: scaleY(1); }
+.choice-btn.correct { border-color: var(--green2); background: rgba(38,136,64,0.1); }
+.choice-btn.correct::before { background: var(--green2); transform: scaleY(1); }
+.choice-btn.wrong { border-color: var(--red2); background: rgba(204,56,56,0.08); opacity: 0.7; }
+.choice-btn.wrong::before { background: var(--red2); transform: scaleY(1); }
+.choice-btn:disabled { cursor: not-allowed; }
+.choice-letter { font-family: var(--bebas); font-size: 13px; color: var(--gold2); margin-right: 10px; }
+.choice-text { font-family: var(--crimson); font-size: 16px; line-height: 1.5; }
+.feedback-panel { display: none; background: var(--bg3); border-left: 3px solid var(--green2); padding: 14px 16px; margin-bottom: 14px; }
+.feedback-panel.show { display: block; animation: slideUp 0.3s; }
+.feedback-panel.wrong { border-left-color: var(--red2); }
+.feedback-correct { font-family: var(--bebas); font-size: 11px; color: var(--green2); letter-spacing: 2px; margin-bottom: 6px; }
+.feedback-correct.wrong { color: var(--red2); }
+.feedback-text { font-family: var(--crimson); font-size: 15px; line-height: 1.6; color: var(--text2); }
+.feedback-std { font-family: var(--dm); font-size: 9px; color: var(--text3); margin-top: 8px; letter-spacing: 1px; }
+.score-pop { font-family: var(--bebas); font-size: 22px; color: var(--gold3); text-align: center; margin-bottom: 6px; }
+.momentum-display { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.momentum-label { font-family: var(--dm); font-size: 8px; color: var(--text3); letter-spacing: 2px; flex-shrink: 0; }
+.momentum-track { flex: 1; height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+.momentum-track-fill { height: 100%; background: linear-gradient(90deg, var(--gold2), var(--gold3)); transition: width 0.6s; border-radius: 2px; }
+.momentum-val { font-family: var(--bebas); font-size: 12px; color: var(--gold2); flex-shrink: 0; }
+.chapter-complete-overlay { display: none; position: fixed; inset: 0; background: rgba(8,10,13,0.97); z-index: 500; overflow-y: auto; padding: 20px 16px 80px; }
+.chapter-complete-overlay.show { display: block; animation: fadeIn 0.3s; }
+.complete-badge-display { font-size: 64px; margin-bottom: 16px; animation: pop 0.5s; }
+.card-earned { background: var(--bg2); border: 1px solid var(--gold2); padding: 16px; display: flex; gap: 14px; align-items: flex-start; animation: pop 0.5s 0.3s both; }
+.card-figure { font-size: 40px; }
+.card-info-name { font-family: var(--playfair); font-size: 16px; color: var(--cream); font-style: italic; margin-bottom: 4px; }
+.card-info-desc { font-family: var(--crimson); font-size: 14px; color: var(--text2); line-height: 1.5; }
+.card-info-quote { font-family: var(--crimson); font-size: 13px; color: var(--gold); font-style: italic; margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px; }
+.profile-stat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 16px; }
+.profile-stat { background: var(--bg2); border: 1px solid var(--border); padding: 12px 8px; text-align: center; }
+.profile-stat-val { font-family: var(--bebas); font-size: 20px; color: var(--gold); }
+.profile-stat-lbl { font-family: var(--dm); font-size: 8px; color: var(--text3); margin-top: 2px; letter-spacing: 1px; }
+.badge-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+.badge-item { background: var(--bg2); border: 1px solid var(--border); padding: 10px 6px; text-align: center; filter: grayscale(1); opacity: 0.4; transition: all 0.2s; }
+.badge-item.earned { filter: none; opacity: 1; border-color: var(--gold2); }
+.badge-item-icon { font-size: 22px; margin-bottom: 4px; }
+.badge-item-name { font-family: var(--dm); font-size: 8px; color: var(--text2); line-height: 1.3; }
+.coll-card { background: var(--bg2); border: 1px solid var(--border); padding: 14px; margin-bottom: 10px; filter: grayscale(1); opacity: 0.4; transition: all 0.2s; }
+.coll-card.unlocked { filter: none; opacity: 1; border-color: var(--gold2); }
+.coll-card-figure { font-size: 32px; margin-bottom: 8px; }
+.coll-card-name { font-family: var(--playfair); font-size: 14px; color: var(--cream); font-style: italic; margin-bottom: 4px; }
+.coll-card-desc { font-family: var(--crimson); font-size: 13px; color: var(--text2); line-height: 1.5; }
+.lb-table { width: 100%; border-collapse: collapse; }
+.lb-table th { font-family: var(--dm); font-size: 8px; color: var(--text3); letter-spacing: 2px; padding: 8px 6px; text-align: left; border-bottom: 1px solid var(--border2); }
+.lb-table td { padding: 10px 6px; border-bottom: 1px solid var(--border); }
+.lb-name { font-family: var(--playfair); font-size: 13px; color: var(--cream); font-style: italic; }
+.lb-score { font-family: var(--bebas); font-size: 16px; color: var(--gold); }
+.lb-tab { font-family: var(--dm); font-size: 9px; padding: 6px 12px; border: 1px solid var(--border2); color: var(--text2); cursor: pointer; transition: all 0.2s; letter-spacing: 1px; }
+.lb-tab:hover { border-color: var(--gold2); color: var(--gold); }
+.lb-tab.active { border-color: var(--gold); color: var(--gold); background: rgba(200,134,10,0.08); }
+.lb-you { background: rgba(200,134,10,0.06); }
+.shop-item { background: var(--bg2); border: 1px solid var(--border); padding: 12px 8px; text-align: center; cursor: pointer; transition: all 0.2s; }
+.shop-item:hover { border-color: var(--gold2); }
+.shop-item.owned { border-color: var(--gold); opacity: 0.8; }
+.shop-item.locked { opacity: 0.35; cursor: not-allowed; }
+.shop-item-icon { font-size: 24px; margin-bottom: 6px; }
+.shop-item-name { font-family: var(--dm); font-size: 9px; color: var(--cream); margin-bottom: 4px; }
+.shop-item-cost { font-family: var(--bebas); font-size: 11px; }
+.shop-item-req { font-family: var(--dm); font-size: 7px; color: var(--text3); margin-top: 2px; }
+#bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 300;
+  background: rgba(8,10,13,0.97); border-top: 1px solid var(--border2); backdrop-filter: blur(12px);
+  grid-template-columns: repeat(4,1fr); }
+.bn-btn { background: transparent; border: none; color: var(--text3); padding: 10px 8px; cursor: pointer; font-family: var(--dm); font-size: 8px; letter-spacing: 1px; transition: color 0.2s; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.bn-btn:hover { color: var(--gold); }
+.bn-icon { font-size: 18px; }
+.beat-progress { display: flex; gap: 4px; margin-bottom: 12px; }
+.beat-pip { flex: 1; height: 3px; background: var(--border2); border-radius: 2px; transition: background 0.3s; }
+.beat-pip.done { background: var(--green2); }
+.beat-pip.current { background: var(--gold); }
+.code-gate-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 600; align-items: center; justify-content: center; padding: 20px; }
+.code-gate-box { background: var(--bg2); border: 1px solid var(--border2); padding: 28px; max-width: 360px; width: 100%; }
+.teacher-dashboard { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 700; overflow-y: auto; padding: 20px 16px 80px; }
+.teacher-dashboard.show { display: block; animation: fadeIn 0.2s; }
+@media print { body > * { display: none !important; } #print-area { display: block !important; position: fixed; inset: 0; background: #fff; padding: 0; z-index: 99999; } }
+</style>
+</head>
+<body>
+
+<div id="loading-screen" class="loading-screen">
+  <div style="font-family:var(--bebas);font-size:28px;color:var(--gold);letter-spacing:4px">AGE OF REFORM</div>
+  <div style="font-family:var(--playfair);font-size:13px;color:var(--text2);margin-top:6px;font-style:italic">Loading the Progressive Era…</div>
+  <div class="loading-bar-wrap"><div id="loading-bar" class="loading-bar-fill"></div></div>
+</div>
+
+<div id="root">
+
+<div id="game-header">
+  <div class="hud-inner">
+    <div class="hud-avatar" id="hud-avatar-el" onclick="openProfile()"></div>
+    <div class="hud-info">
+      <div class="hud-name" id="hud-name">Your Name</div>
+      <div class="hud-rank" id="hud-rank">Concerned Citizen</div>
+      <div class="momentum-bar-wrap"><div class="momentum-bar-fill" id="hud-momentum-bar" style="width:70%"></div></div>
+    </div>
+    <div class="hud-stats">
+      <div class="hud-stat">SCORE<span id="hud-score">0</span></div>
+      <div class="hud-stat">LEVEL<span id="hud-level">1</span></div>
+      <div class="hud-stat">CARDS<span id="hud-cards">0</span></div>
+      <div class="hud-stat">GOLD<span id="hud-gold" style="color:var(--gold3)">0</span></div>
+    </div>
+  </div>
+</div>
+
+<div id="title-screen" class="screen active">
+  <div class="title-scene" id="title-scene-art"></div>
+  <div class="game-logo">Age of<br>Reform</div>
+  <div class="game-subtitle">An Interactive History Journey</div>
+  <div class="game-unit-badge">Unit — The Progressive Era</div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:10px;max-width:300px;margin:0 auto">
+    <div id="returning-player-panel" style="display:none;background:var(--bg2);border:1px solid var(--green2);padding:16px;width:100%;text-align:center;margin-bottom:4px">
+      <div style="font-family:var(--dm);font-size:9px;color:var(--green2);letter-spacing:2px;margin-bottom:4px">WELCOME BACK</div>
+      <div id="returning-name" style="font-family:var(--bebas);font-size:22px;color:var(--cream);letter-spacing:2px"></div>
+      <div id="returning-info" style="font-family:var(--dm);font-size:10px;color:var(--text2);margin-top:4px"></div>
+      <button class="btn full green" id="btn-continue" onclick="continueGame()" style="margin-top:12px"><span>▶ CONTINUE</span></button>
+      <button class="btn full" onclick="startNewGame()" style="border-color:var(--border2);color:var(--text3);margin-top:6px;font-size:10px"><span>NEW / SWITCH PLAYER</span></button>
+    </div>
+    <div id="new-player-panel">
+      <button class="btn full" onclick="startNewGame()"><span>Enter the Era</span></button>
+    </div>
+    <button class="btn full" style="border-color:var(--border2);color:var(--text2)" onclick="openLeaderboard()"><span>Leaderboard</span></button>
+    <div id="teacher-login-box" style="display:none;margin-top:8px">
+      <input id="teacher-code-input" type="password" maxlength="10"
+        style="font-family:var(--bebas);font-size:16px;letter-spacing:3px;background:var(--bg2);border:1.5px solid var(--teal);color:var(--cream);padding:10px 14px;width:100%;outline:none;text-align:center;text-transform:uppercase;margin-bottom:6px"
+        placeholder="ENTER CODE" onkeydown="if(event.key==='Enter')submitTeacherCode()">
+      <button class="btn full" style="border-color:var(--teal);color:var(--teal)" onclick="submitTeacherCode()"><span>Login as Teacher</span></button>
+      <div id="teacher-code-err" style="font-family:var(--dm);font-size:10px;color:var(--red2);min-height:14px;margin-top:4px"></div>
+    </div>
+    <button class="btn full" style="border-color:var(--teal);color:var(--teal);font-size:11px;margin-top:6px" onclick="document.getElementById('teacher-login-box').style.display=document.getElementById('teacher-login-box').style.display==='none'?'block':'none'"><span>Teacher Login</span></button>
+  </div>
+  <div style="margin-top:24px;font-family:var(--dm);font-size:9px;color:var(--text3);letter-spacing:1px">
+    FLORIDA EOC ALIGNED · SS.912.A.3.6 · SS.912.A.3.8 · SS.912.A.3.9 · SS.912.A.3.12
+  </div>
+  <div style="margin-top:10px;font-family:var(--dm);font-size:10px;color:var(--text3);letter-spacing:1px">
+    CREATED BY JOSHUA OLSON
+  </div>
+</div>
+
+<div id="char-screen" class="screen">
+  <div class="section-head">Create Your Character</div>
+  <div class="char-preview">
+    <div class="char-avatar-display" id="char-preview-avatar"></div>
+    <div class="char-name-display" id="char-preview-name">Your Name</div>
+    <div class="char-title-display" id="char-preview-title">Concerned Citizen · 1900</div>
+  </div>
+  <div class="section-head" style="font-size:13px">Choose Your Role</div>
+  <div class="avatar-grid" id="avatar-grid"></div>
+  <div class="section-head" style="font-size:13px">Your Name</div>
+  <input type="text" class="name-input" id="name-input" placeholder="Enter your name…" maxlength="24" oninput="updateCharPreview()">
+  <div class="outfit-grid" id="outfit-grid-creator"></div>
+  <button class="btn full green" onclick="confirmCharacter()"><span>Begin Your Story</span></button>
+</div>
+
+<div id="hub-screen" class="screen">
+  <div id="teacher-btn-wrap" style="display:none;margin-bottom:14px">
+    <button class="btn full" style="border-color:var(--teal);color:var(--teal)" onclick="openTeacherDashboard()"><span>📊 Teacher Dashboard</span></button>
+  </div>
+  <div id="shell-return-btn" style="display:none;margin-bottom:12px">
+    <button class="btn full" onclick="returnToShell()" style="border-color:var(--teal);color:var(--teal);">
+      <span>← Return to American Chronicles Hub</span>
+    </button>
+  </div>
+  <div id="journey-banner" style="display:none;background:var(--bg2);border:1px solid var(--gold2);padding:14px;margin-bottom:14px;text-align:center">
+    <div style="font-family:var(--playfair);font-size:14px;color:var(--gold);font-style:italic;margin-bottom:8px">🏛️ You have completed the Progressive Era!</div>
+    <div style="font-family:var(--crimson);font-size:13px;color:var(--text2);margin-bottom:10px">Start a new journey. Your score, gold, badges and items are kept.</div>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <button class="btn green" onclick="playAgain()"><span>↺ Begin New Journey</span></button>
+      <button class="btn" style="border-color:var(--gold2);color:var(--gold2)" onclick="printCertificate()"><span>🎓 Print Certificate</span></button>
+      <button class="btn" id="journey-shell-btn" style="display:none;border-color:var(--teal);color:var(--teal);" onclick="returnToShell()"><span>🏛️ Return to Hub</span></button>
+    </div>
+  </div>
+  <div class="hub-banner">
+    <div class="hub-avatar" id="hub-avatar"></div>
+    <div class="hub-player-info">
+      <div class="hub-player-name" id="hub-player-name">Your Name</div>
+      <div class="hub-player-rank" id="hub-player-rank">Concerned Citizen</div>
+      <div style="font-family:var(--dm);font-size:10px;color:var(--gold);margin-bottom:4px" id="hub-score-display">0 pts</div>
+      <div class="hub-momentum-wrap"><div class="hub-momentum-fill" id="hub-momentum-fill" style="width:100%"></div></div>
+      <div style="font-family:var(--dm);font-size:9px;color:var(--text3);margin-top:3px" id="hub-momentum-text">Influence: 100 / 100</div>
+    </div>
+  </div>
+  <div class="section-head">Your Badges</div>
+  <div class="badges-row" id="badges-row"></div>
+  <div class="section-head">The Journey</div>
+  <div id="unit-list"></div>
+</div>
+
+<div id="chapter-intro" class="screen">
+  <div class="chapter-scene-frame" id="chapter-intro-scene"></div>
+  <div class="chapter-title-block">
+    <div class="chapter-num" id="chapter-num-display">CHAPTER 1</div>
+    <div class="chapter-name" id="chapter-name-display">The Problems of Modern America</div>
+    <div class="chapter-period" id="chapter-period-display">United States — 1890s to 1910</div>
+    <div id="chapter-standards-display"></div>
+  </div>
+  <div style="background:var(--bg2);border:1px solid var(--border);padding:16px;margin-bottom:14px">
+    <div style="font-family:var(--bebas);font-size:11px;color:var(--text3);letter-spacing:2px;margin-bottom:8px">CONTEXT</div>
+    <div style="font-family:var(--crimson);font-size:16px;line-height:1.7;color:var(--text)" id="chapter-context"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px" id="chapter-key-vocab"></div>
+  <button class="btn full" onclick="startChapter()"><span>Enter This Moment</span></button>
+  <button class="btn full" style="border-color:var(--border2);color:var(--text2);margin-top:4px" onclick="showScreen('hub-screen')"><span>Back to Hub</span></button>
+</div>
+
+<div id="story-screen" class="screen">
+  <div style="display:flex;gap:8px;margin-bottom:10px">
+    <button class="btn sm full green" onclick="saveGame()"><span>💾 Save</span></button>
+    <button class="btn sm full" style="border-color:var(--border2);color:var(--text2)" onclick="confirmBackToHub()"><span>🏠 Back to Hub</span></button>
+  </div>
+  <div class="beat-progress" id="beat-progress"></div>
+  <div class="story-scene" id="story-scene">
+    <div class="story-scene-art" id="story-scene-art"></div>
+    <div class="story-scene-caption">
+      <div class="story-location" id="story-location">New York City</div>
+      <div class="story-year" id="story-year">1900</div>
+    </div>
+  </div>
+  <div class="momentum-display">
+    <div class="momentum-label">INFLUENCE</div>
+    <div class="momentum-track"><div class="momentum-track-fill" id="story-momentum-fill" style="width:100%"></div></div>
+    <div class="momentum-val" id="story-momentum-val">100 / 100</div>
+  </div>
+  <div class="story-text-panel">
+    <div class="story-character-name" id="story-char-name"></div>
+    <div class="story-narrative" id="story-narrative">Loading narrative…</div>
+  </div>
+  <div class="decision-header" id="decision-header">What do you do?</div>
+  <div id="choices-container"></div>
+  <div class="feedback-panel" id="feedback-panel"></div>
+  <button class="btn full green" id="next-btn" onclick="nextStoryBeat()" style="display:none"><span>Continue the Story →</span></button>
+</div>
+
+<div class="chapter-complete-overlay" id="chapter-complete-overlay">
+  <div style="max-width:480px;margin:0 auto;padding-top:20px">
+    <div style="font-family:var(--bebas);font-size:11px;color:var(--text3);letter-spacing:3px;margin-bottom:12px">CHAPTER COMPLETE</div>
+    <div class="complete-badge-display" id="complete-badge-icon">🏛️</div>
+    <div style="font-family:var(--playfair);font-size:22px;color:var(--cream);font-style:italic;margin-bottom:4px" id="complete-chapter-name"></div>
+    <div style="font-family:var(--crimson);font-size:15px;color:var(--text2);margin-bottom:20px;line-height:1.6" id="complete-chapter-outcome"></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px" id="complete-stats"></div>
+    <div style="margin-bottom:20px">
+      <div style="font-family:var(--bebas);font-size:12px;color:var(--text3);letter-spacing:2px;margin-bottom:10px">CARD EARNED</div>
+      <div class="card-earned" id="card-earned-display"></div>
+    </div>
+    <div style="font-family:var(--bebas);font-size:12px;color:var(--text3);letter-spacing:2px;margin-bottom:10px">STANDARDS COVERED</div>
+    <div id="complete-standards" style="margin-bottom:20px"></div>
+    <button class="btn full" onclick="closeChapterComplete()"><span>Return to Hub</span></button>
+  </div>
+</div>
+
+<div class="overlay" id="leaderboard-overlay">
+  <div class="overlay-header">
+    <div class="overlay-title">Leaderboard</div>
+    <button class="overlay-close" onclick="closeLeaderboard()">CLOSE</button>
+  </div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px" id="lb-period-tabs"></div>
+  <div style="font-family:var(--dm);font-size:9px;color:var(--text3);margin-bottom:10px" id="lb-sync-status">Loading…</div>
+  <div id="lb-content"></div>
+</div>
+
+<div class="overlay" id="profile-overlay">
+  <div class="overlay-header">
+    <div class="overlay-title">Your Profile</div>
+    <button class="overlay-close" onclick="closeProfile()">CLOSE</button>
+  </div>
+  <div id="profile-avatar-large" style="text-align:center;margin-bottom:16px"></div>
+  <div class="profile-stat-grid" id="profile-stat-grid"></div>
+  <div class="section-head" style="font-size:13px">Outfits</div>
+  <div class="outfit-grid" id="profile-outfit-grid" style="margin-bottom:16px"></div>
+  <div class="section-head" style="font-size:13px">Badges Earned</div>
+  <div class="badge-grid" id="profile-badge-grid"></div>
+  <div class="section-head" style="font-size:13px;margin-top:16px">Card Collection</div>
+  <div id="profile-card-grid"></div>
+</div>
+
+<div class="overlay" id="cardcoll-overlay">
+  <div class="overlay-header">
+    <div class="overlay-title">Card Collection</div>
+    <button class="overlay-close" onclick="document.getElementById('cardcoll-overlay').classList.remove('show')">CLOSE</button>
+  </div>
+  <div id="cardcoll-grid"></div>
+</div>
+
+<div id="bottom-nav">
+  <button class="bn-btn" onclick="showScreen('hub-screen')"><span class="bn-icon">🏠</span>Hub</button>
+  <button class="bn-btn" onclick="openProfile()"><span class="bn-icon">👤</span>Profile</button>
+  <button class="bn-btn" onclick="openShop()"><span class="bn-icon">🛒</span>Shop</button>
+  <button class="bn-btn" onclick="openCardCollection()"><span class="bn-icon">🃏</span>Cards</button>
+  <button class="bn-btn" id="shell-nav-btn" style="display:none;color:var(--teal);" onclick="returnToShell()"><span class="bn-icon">🏛️</span>Hub</button>
+</div>
+
+<div class="overlay" id="shop-overlay">
+  <div class="overlay-header">
+    <div class="overlay-title">Progressive Era Store</div>
+    <button class="overlay-close" onclick="document.getElementById('shop-overlay').classList.remove('show')">CLOSE</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;background:var(--bg2);border:1px solid var(--gold2);padding:10px 14px;margin-bottom:14px">
+    <span style="font-size:20px">⭐</span>
+    <div>
+      <div style="font-family:var(--bebas);font-size:11px;color:var(--text3);letter-spacing:2px">YOUR GOLD</div>
+      <div style="font-family:var(--bebas);font-size:24px;color:var(--gold)" id="shop-gold-display">0</div>
+    </div>
+    <div style="margin-left:auto;font-family:var(--crimson);font-size:13px;color:var(--text2);font-style:italic">Earn gold by answering correctly</div>
+  </div>
+  <div id="shop-tabs" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px"></div>
+  <div id="shop-items-grid"></div>
+</div>
+
+<div id="completion-overlay" style="display:none;position:fixed;inset:0;background:rgba(8,10,13,0.97);z-index:600;overflow-y:auto;padding:20px 16px 80px">
+  <div style="max-width:480px;margin:0 auto;text-align:center;padding-top:20px">
+    <div style="font-family:var(--bebas);font-size:11px;color:var(--gold2);letter-spacing:4px;margin-bottom:16px">UNIT COMPLETE</div>
+    <div style="font-size:64px;margin-bottom:16px">🔦</div>
+    <div style="font-family:var(--playfair);font-size:26px;color:var(--cream);font-style:italic;margin-bottom:6px" id="completion-name"></div>
+    <div style="font-family:var(--bebas);font-size:14px;color:var(--teal);letter-spacing:2px;margin-bottom:20px" id="completion-rank"></div>
+    <div style="font-family:var(--crimson);font-size:17px;color:var(--text);line-height:1.7;margin-bottom:24px;font-style:italic;border-left:3px solid var(--gold);padding:12px 16px;text-align:left;background:var(--bg2)">
+      "The government is us; we are the government, you and I."<br>
+      <span style="font-size:13px;color:var(--gold);font-style:normal">— Theodore Roosevelt</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:24px" id="completion-stats"></div>
+    <div style="background:var(--bg2);border:1px solid var(--gold2);padding:16px;margin-bottom:20px">
+      <div style="font-family:var(--bebas);font-size:12px;color:var(--text3);letter-spacing:2px;margin-bottom:12px">BADGES EARNED</div>
+      <div id="completion-badges" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center"></div>
+    </div>
+    <div style="font-family:var(--crimson);font-size:15px;color:var(--text2);margin-bottom:24px;line-height:1.6" id="completion-message"></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
+      <button class="btn full green" onclick="printCertificate()"><span>🖨️ Print Certificate</span></button>
+      <button class="btn full" onclick="document.getElementById('completion-overlay').style.display='none';renderHub();showScreen('hub-screen')"><span>Return to Hub</span></button>
+      <button class="btn full" id="completion-shell-btn" style="display:none;margin-top:4px;border-color:var(--teal);color:var(--teal);" onclick="returnToShell()"><span>🏛️ Return to American Chronicles</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Login overlay -->
+<div class="code-gate-overlay" id="code-gate-overlay">
+  <div class="code-gate-box">
+    <div style="font-family:var(--bebas);font-size:22px;color:var(--gold);letter-spacing:3px;margin-bottom:16px;text-align:center">Join the Reform</div>
+    <div id="login-step-1">
+      <div style="font-family:var(--dm);font-size:10px;color:var(--text3);letter-spacing:2px;margin-bottom:12px">SELECT YOUR TEACHER</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+        <div onclick="selectTeacher('olson')" style="background:var(--bg3);border:1.5px solid var(--border2);padding:14px;text-align:center;cursor:pointer;transition:all 0.15s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border2)'">
+          <div style="font-family:var(--bebas);font-size:18px;color:var(--cream)">MR. OLSON</div>
+        </div>
+        <div onclick="selectTeacher('guest')" style="background:var(--bg3);border:1.5px solid var(--border2);padding:14px;text-align:center;cursor:pointer;transition:all 0.15s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border2)'">
+          <div style="font-family:var(--bebas);font-size:18px;color:var(--cream)">GUEST</div>
+        </div>
+      </div>
+    </div>
+    <div id="login-step-2" style="display:none">
+      <div style="font-family:var(--dm);font-size:10px;color:var(--text3);letter-spacing:2px;margin-bottom:12px">SELECT YOUR PERIOD</div>
+      <div id="period-buttons" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px"></div>
+      <button class="btn full" style="border-color:var(--border2);color:var(--text3);font-size:11px" onclick="goToStep(1)"><span>← Back</span></button>
+    </div>
+    <div id="login-step-3" style="display:none">
+      <div style="font-family:var(--dm);font-size:10px;color:var(--text3);letter-spacing:2px;margin-bottom:6px" id="login-step3-label">Enter your name</div>
+      <input id="class-code-input" type="text" maxlength="24"
+        style="font-family:var(--playfair);font-size:16px;font-style:italic;background:var(--bg3);border:1.5px solid var(--border2);color:var(--cream);padding:12px 14px;width:100%;outline:none;margin-bottom:8px;transition:border-color 0.2s"
+        placeholder="Your name…" onkeydown="if(event.key==='Enter')submitClassCode()" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'">
+      <div id="code-error" style="font-family:var(--dm);font-size:10px;color:var(--red2);min-height:14px;margin-bottom:8px"></div>
+      <button class="btn full green" onclick="submitClassCode()"><span>Enter the Era</span></button>
+      <button class="btn full" style="border-color:var(--border2);color:var(--text3);font-size:11px;margin-top:4px" onclick="goToStep(1)"><span>← Back</span></button>
+    </div>
+  </div>
+</div>
+
+<div class="teacher-dashboard overlay" id="teacher-dashboard">
+  <div class="overlay-header">
+    <div class="overlay-title">Teacher Dashboard</div>
+    <button class="overlay-close" onclick="document.getElementById('teacher-dashboard').classList.remove('show')">CLOSE</button>
+  </div>
+  <div style="font-family:var(--dm);font-size:9px;color:var(--text3);margin-bottom:10px" id="td-sync-status">Loading…</div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px" id="td-period-tabs"></div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px" id="td-summary"></div>
+  <div style="font-family:var(--bebas);font-size:13px;color:var(--text3);letter-spacing:2px;margin-bottom:10px">CHAPTER PROGRESS</div>
+  <div id="td-chapter-bars" style="margin-bottom:20px"></div>
+  <div style="font-family:var(--bebas);font-size:13px;color:var(--text3);letter-spacing:2px;margin-bottom:10px">CLASS ROSTER</div>
+  <div id="td-roster" style="overflow-x:auto"></div>
+</div>
+
+</div><!-- end #root -->
+<div id="print-area" style="display:none"></div>
+
+<script>
+// ═══════════════════════════════════════════
+// CONSTANTS & CONFIG
+// ═══════════════════════════════════════════
+const SAVE_KEY='age_of_reform_v1_save';
+const SUPA_URL='https://iluvuartxsenbgylogit.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsdXZ1YXJ0eHNlbmJneWxvZ2l0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NjA2OTIsImV4cCI6MjA4OTQzNjY5Mn0.stAmdi5xy7ofDAB4AiRg78Eoky-7FXZEa-Ui1dgwHd0';
+const SUPA_HEADERS={'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY};
+const TEACHERS={
+  'olson':{name:'Mr. Olson',periods:['1','2','3','4','5','6','7'],teacherCode:'OLSON219'},
+};
+const SHELL_KEY='ac_shell_state';
+const SHELL_UNIT_ID='unit5';
+
+let G=null,currentChapterIdx=0,currentBeatIdx=0,chapterScore=0,chapterCorrect=0,chapterTotal=0,answeredCurrent=false,chapterLog=[];
+
+// ═══════════════════════════════════════════
+// AVATAR DATA
+// ═══════════════════════════════════════════
+const AVATAR_ERAS=[
+  {id:'journalist',label:'📰 Journalist',color:'#3a1a0a'},
+  {id:'reformer',label:'✊ Reformer',color:'#1a2a18'},
+  {id:'worker',label:'🔨 Worker',color:'#2a1808'},
+  {id:'politician',label:'🏛️ Politician',color:'#1a1a38'},
+];
+const AVATARS=[
+  {id:'muckraker_f',era:'journalist',label:'Muckraker',badge:'📰',desc:'Exposing the truth since 1900'},
+  {id:'reporter_m',era:'journalist',label:'City Reporter',badge:'✏️',desc:'Covering poverty in the slums'},
+  {id:'settlement_f',era:'reformer',label:'Settlement Worker',badge:'🏠',desc:'Living among the poor to help them'},
+  {id:'activist_m',era:'reformer',label:'Reform Activist',badge:'✊',desc:'Fighting for a fair society'},
+  {id:'factory_m',era:'worker',label:'Factory Worker',badge:'⚙️',desc:'Twelve-hour shifts, dangerous conditions'},
+  {id:'child_labor',era:'worker',label:'Child Laborer',badge:'🧵',desc:'Too young to work, too poor to stop',unlockScore:500},
+  {id:'senator_m',era:'politician',label:'Reform Senator',badge:'🗳️',desc:'Using government to fix the problems',unlockScore:800},
+  {id:'tr_av',era:'politician',label:'Theodore Roosevelt',badge:'🦁',desc:'The trust-busting president',unlockScore:2000},
+  {id:'wilson_av',era:'politician',label:'Woodrow Wilson',badge:'📜',desc:'The New Freedom reformer',unlockScore:1200},
+  {id:'addams_av',era:'reformer',label:'Jane Addams',badge:'🌹',desc:'Founder of Hull House',unlockScore:3000},
+  {id:'dubois_av',era:'journalist',label:'W.E.B. Du Bois',badge:'⚖️',desc:'Fighting for full equality',unlockScore:1500},
+  {id:'kelley_av',era:'reformer',label:'Florence Kelley',badge:'👧',desc:'Crusader for child labor reform',unlockScore:2500},
+];
+const STYLES={
+  muckraker_f:{skin:'#c4906a',top:'#3a1a40',bot:'#1a1a2a',hair:'#0d0808'},
+  reporter_m:{skin:'#b08058',top:'#1a2030',bot:'#0d1018',hair:'#1a1000'},
+  settlement_f:{skin:'#d4a870',top:'#2a4a38',bot:'#1a2a20',hair:'#1a0a00'},
+  activist_m:{skin:'#8a5030',top:'#3a3010',bot:'#2a2008',hair:'#0d0800'},
+  factory_m:{skin:'#9a6840',top:'#2a2018',bot:'#181010',hair:'#1a0800'},
+  child_labor:{skin:'#c09060',top:'#4a2818',bot:'#3a1808',hair:'#2a1000'},
+  senator_m:{skin:'#c8a060',top:'#1a2040',bot:'#0d1028',hair:'#2a1808'},
+  tr_av:{skin:'#c08040',top:'#2a3818',bot:'#1a2010',hair:'#3a1800'},
+  wilson_av:{skin:'#c4a878',top:'#1a1a38',bot:'#0d0d20',hair:'#2a2010'},
+  addams_av:{skin:'#d4b080',top:'#3a1840',bot:'#1a0d28',hair:'#0d0808'},
+  dubois_av:{skin:'#5a3018',top:'#1a2840',bot:'#0d1828',hair:'#0a0808'},
+  kelley_av:{skin:'#c89060',top:'#3a2040',bot:'#200d28',hair:'#100808'},
+};
+function makeAvatar(id){
+  const s=STYLES[id]||STYLES.factory_m;
+  const outfitColors={casual:null,newsboy:'#3a2818',suffragist:'#e8e0d0',reformer_coat:'#1a2838',worker_vest:'#2a1808',speech_suit:'#1a1a28'};
+  const topColor=(G&&outfitColors[G.outfitId])||s.top;
+  return `<svg viewBox="0 0 40 50" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;image-rendering:pixelated">
+    <rect x="14" y="2" width="12" height="12" fill="${s.skin}"/>
+    <rect x="12" y="4" width="2" height="8" fill="${s.skin}"/>
+    <rect x="26" y="4" width="2" height="8" fill="${s.skin}"/>
+    <rect x="15" y="0" width="10" height="5" fill="${s.hair}"/>
+    <rect x="14" y="2" width="2" height="3" fill="${s.hair}"/>
+    <rect x="24" y="2" width="2" height="3" fill="${s.hair}"/>
+    <rect x="16" y="8" width="2" height="2" fill="#1a0a00" opacity="0.8"/>
+    <rect x="22" y="8" width="2" height="2" fill="#1a0a00" opacity="0.8"/>
+    <rect x="17" y="11" width="6" height="1" fill="#8b3a2a" opacity="0.7"/>
+    <rect x="11" y="14" width="18" height="14" fill="${topColor}"/>
+    <rect x="8" y="14" width="4" height="12" fill="${s.skin}"/>
+    <rect x="28" y="14" width="4" height="12" fill="${s.skin}"/>
+    <rect x="13" y="28" width="7" height="14" fill="${s.bot}"/>
+    <rect x="20" y="28" width="7" height="14" fill="${s.bot}"/>
+    <rect x="12" y="40" width="8" height="4" fill="#1a1a1a"/>
+    <rect x="20" y="40" width="8" height="4" fill="#1a1a1a"/>
+  </svg>`;
+}
+
+// ═══════════════════════════════════════════
+// OUTFITS
+// ═══════════════════════════════════════════
+const OUTFITS=[
+  {id:'casual',name:'Work Clothes',icon:'👕',cost:0,desc:'Plain everyday attire'},
+  {id:'newsboy',name:'Newsboy Outfit',icon:'🗞️',cost:200,desc:'Ink-stained and ready to expose the truth',unlockChapter:1},
+  {id:'suffragist',name:'Suffragist White',icon:'🤍',cost:350,desc:'Worn at marches for the vote',unlockChapter:2},
+  {id:'reformer_coat',name:'Reformer\'s Coat',icon:'🧥',cost:500,desc:'The respectable face of change',unlockChapter:4},
+  {id:'worker_vest',name:'Worker\'s Vest',icon:'🦺',cost:300,desc:'Built by labor, worn with pride',unlockChapter:3},
+  {id:'speech_suit',name:'Campaign Suit',icon:'🎩',cost:600,desc:'Ready to address the nation',unlockChapter:5},
+];
+
+// ═══════════════════════════════════════════
+// BADGES
+// ═══════════════════════════════════════════
+const BADGES=[
+  {id:'first_step',icon:'👣',name:'First Step',desc:'Complete your first chapter'},
+  {id:'muckraker',icon:'📰',name:'Muckraker',desc:'Understand the problems of industrial America'},
+  {id:'reformer',icon:'✊',name:'Reformer',desc:'Evaluate local reform efforts'},
+  {id:'equality',icon:'⚖️',name:'Equality Seeker',desc:'Compare strategies for justice and civil rights'},
+  {id:'trustbuster',icon:'💥',name:'Trust Buster',desc:'Navigate the Progressive presidents'},
+  {id:'legislator',icon:'📜',name:'Legislator',desc:'Complete the national policy chapter'},
+  {id:'unit_complete',icon:'🔦',name:'Progressive Champion',desc:'Complete the full unit'},
+  {id:'historian',icon:'📖',name:'Historian',desc:'Earn all collectible cards'},
+  {id:'score_1000',icon:'🥉',name:'Rising Voice',desc:'Reach 1,000 points'},
+  {id:'score_5000',icon:'🥈',name:'Reform Thinker',desc:'Reach 5,000 points'},
+  {id:'score_10000',icon:'🥇',name:'Progressive Champion',desc:'Reach 10,000 points'},
+  {id:'card_collector',icon:'🃏',name:'Card Collector',desc:'Unlock 5 historical cards'},
+  {id:'perfect_chapter',icon:'💯',name:'Perfect Chapter',desc:'Score 100% on any chapter'},
+];
+
+// ═══════════════════════════════════════════
+// CARDS
+// ═══════════════════════════════════════════
+const CARDS=[
+  {id:'jacob_riis',figure:'📸',name:'Jacob Riis',desc:'Muckraker journalist and photographer who exposed tenement conditions in How the Other Half Lives, sparking public outrage over urban poverty.',quote:'"The sea of a great city\'s misery... comes home to us with all the vividness of reality."'},
+  {id:'jane_addams',figure:'🏠',name:'Jane Addams',desc:'Co-founder of Hull House in Chicago. Used settlement houses to provide education, childcare, and advocacy for immigrant communities and the urban poor.',quote:'"The good we secure for ourselves is precarious unless it is secured for all of us."'},
+  {id:'theodore_roosevelt',figure:'🦁',name:'Theodore Roosevelt',desc:'26th President. Busted trusts, expanded conservation, pushed the Square Deal, and used federal power to regulate industry in ways no president had before.',quote:'"We must treat each man on his worth and merits as a man."'},
+  {id:'florence_kelley',figure:'👧',name:'Florence Kelley',desc:'National Child Labor Committee leader who fought tirelessly for laws banning child labor and limiting working hours for women and children.',quote:'"We do not wish to see children robbed of their childhood."'},
+  {id:'dubois_card',figure:'⚖️',name:'W.E.B. Du Bois',desc:'Co-founder of the NAACP who argued that Black Americans must demand full civil and political equality immediately, challenging Booker T. Washington\'s accommodationist approach.',quote:'"The problem of the twentieth century is the problem of the color-line."'},
+  {id:'woodrow_wilson',figure:'📜',name:'Woodrow Wilson',desc:'28th President whose New Freedom program created the Federal Reserve, lowered tariffs, and established the Federal Trade Commission, completing major progressive reforms.',quote:'"Liberty does not consist in mere general declarations of the rights of man."'},
+  {id:'riis_bonus',figure:'🏚️',name:'The Tenement',desc:'Symbol of urban poverty in the Progressive Era. Jacob Riis documented the impossible conditions of New York tenements, where entire families lived in windowless rooms.',quote:'"In the tenement the problem of modern civilization is most starkly posed."'},
+];
+
+// ═══════════════════════════════════════════
+// RANKS
+// ═══════════════════════════════════════════
+const RANKS=[
+  {level:1,name:'Concerned Citizen',minScore:0},
+  {level:2,name:'Reform Sympathizer',minScore:400},
+  {level:3,name:'Muckraker',minScore:900},
+  {level:4,name:'Progressive Activist',minScore:1800},
+  {level:5,name:'Reform Organizer',minScore:3000},
+  {level:6,name:'Policy Advocate',minScore:5000},
+  {level:7,name:'Progressive Scholar',minScore:7500},
+  {level:8,name:'Reform Architect',minScore:10000},
+  {level:9,name:'Era Historian',minScore:14000},
+  {level:10,name:'Champion of the People',minScore:20000},
+];
+function getRank(){return[...RANKS].reverse().find(r=>G.score>=r.minScore)||RANKS[0];}
+
+// ═══════════════════════════════════════════
+// SHOP ITEMS
+// ═══════════════════════════════════════════
+const SHOP_CATEGORIES=['Hats','Accessories','Outfits'];
+const SHOP_ITEMS=[
+  {id:'hat_newsboy',cat:'Hats',icon:'🧢',name:'Newsboy Cap',cost:150,desc:'Worn by street reporters everywhere',req:null},
+  {id:'hat_tophat',cat:'Hats',icon:'🎩',name:'Top Hat',cost:400,desc:'The look of power and privilege',req:'Ch.4',reqChapter:'trustbusting'},
+  {id:'hat_bonnet',cat:'Hats',icon:'👒',name:'Reform Bonnet',cost:300,desc:'Worn by suffragists at marches',req:'Ch.2',reqChapter:'reformers_step_in'},
+  {id:'hat_hardhat',cat:'Hats',icon:'⛑️',name:'Worker\'s Helmet',cost:250,desc:'Earned in the factory',req:null},
+  {id:'acc_notebook',cat:'Accessories',icon:'📓',name:'Reporter\'s Notebook',cost:200,desc:'A muckraker\'s best tool',req:null},
+  {id:'acc_pamphlet',cat:'Accessories',icon:'📋',name:'Reform Pamphlet',cost:180,desc:'Spreading the word',req:null},
+  {id:'acc_badge',cat:'Accessories',icon:'📛',name:'Union Badge',cost:320,desc:'Solidarity forever',req:'Ch.1',reqChapter:'problems_of_modern_america'},
+  {id:'acc_camera',cat:'Accessories',icon:'📷',name:'Riis Camera',cost:500,desc:'Photograph the truth',req:'Ch.1',reqScore:1000},
+  {id:'outfit_newsboy',cat:'Outfits',icon:'🗞️',name:'Newsboy Outfit',cost:200,desc:'For the working journalist',req:'Ch.1',reqChapter:'problems_of_modern_america'},
+  {id:'outfit_suffragist',cat:'Outfits',icon:'🤍',name:'Suffragist White',cost:350,desc:'March for the vote',req:'Ch.3',reqChapter:'democracy_expands'},
+  {id:'outfit_reformer',cat:'Outfits',icon:'🧥',name:'Reformer\'s Coat',cost:500,desc:'The face of change',req:'Ch.4',reqChapter:'progressive_presidents'},
+  {id:'outfit_worker',cat:'Outfits',icon:'🦺',name:'Worker\'s Vest',cost:300,desc:'Made in America',req:'Ch.2',reqChapter:'reformers_step_in'},
+  {id:'outfit_speech',cat:'Outfits',icon:'🎩',name:'Campaign Suit',cost:600,desc:'Ready to lead',req:'Ch.5',reqScore:5000},
+];
+
+// ═══════════════════════════════════════════
+// CHAPTER DATA
+// ═══════════════════════════════════════════
+const CHAPTERS=[
+
+// ─── CHAPTER 1: The Problems of Modern America ───
+{
+  id:'problems_of_modern_america',num:1,title:'The Problems of Modern America',icon:'🏚️',
+  period:'United States — 1890s to 1910',
+  context:'Industrial growth created enormous wealth in the late 1800s, but it also created enormous suffering. In crowded city tenements, immigrants worked fourteen-hour days for poverty wages. Factories employed children as young as eight. Politicians in cities like New York took bribes and sold favors. A handful of monopolies controlled entire industries. Journalists known as muckrakers began exposing these conditions to a public that was starting to demand change.',
+  standards:['SS.912.A.3.6','SS.912.A.3.8','SS.912.A.3.9'],
+  eocFocus:'Industrial transformation, urban poverty, political corruption, muckraking journalism',
+  keyVocab:[
+    {term:'Muckraker',def:'Journalist who exposed corruption, poverty, and injustice in American society'},
+    {term:'Tenement',def:'Overcrowded, poorly built urban apartment housing occupied mostly by immigrant workers'},
+    {term:'Monopoly',def:'Single company that controls an entire industry, eliminating competition'},
+    {term:'Political Machine',def:'Corrupt urban political organization that controlled elections through patronage and bribery'},
+  ],
+  cardEarned:'jacob_riis',badge:'muckraker',
+  beats:[
+    {
+      scene:'tenement',location:'Lower East Side, New York City',date:'1890',
+      narrative:'You are a reform journalist following photographer Jacob Riis into a New York tenement. The building is seven stories tall but has no windows in the interior rooms. A family of eight lives in two rooms. The father works at a garment factory for ten cents an hour. The mother takes in piecework. The oldest daughter, age nine, works alongside her mother. Riis photographs a family huddled around a single candle. He calls it "the other half." He tells you the public does not know this world exists, and once they see it, they will not be able to look away.',
+      charVoice:'Riis tells you the goal of journalism here is not just to inform, but to force people to feel what they cannot ignore. What do you understand about the role of muckrakers in the Progressive Era?',
+      decision:'What made muckraking journalism an effective tool for reform in the Progressive Era?',
+      choices:[
+        {text:'Muckrakers were funded by the government, which gave their reports official authority and legal weight',correct:false,feedback:'Muckrakers were not government employees. They were independent journalists working for magazines and newspapers like McClure\'s. Their power came not from official authority but from public outrage. When Americans saw evidence of suffering and corruption, they demanded change from their elected officials. Government funding would actually have undermined their credibility.',std:'SS.912.A.3.8'},
+        {text:'By exposing specific, documented conditions to a mass audience, muckrakers created the public pressure that made reform politically possible',correct:true,feedback:'Exactly right. Muckrakers like Riis, Upton Sinclair, and Ida Tarbell worked in the tradition of investigative journalism, using photographs, statistics, and narrative to make invisible suffering visible. Without public outrage, politicians had little incentive to act. Riis\'s How the Other Half Lives, Sinclair\'s The Jungle, and Tarbell\'s exposure of Standard Oil all produced real legislative responses because they moved ordinary Americans.',std:'SS.912.A.3.8'},
+        {text:'Muckrakers had the legal authority to subpoena corporate records, which gave them access unavailable to ordinary citizens',correct:false,feedback:'Muckrakers had no special legal powers. They were journalists, not law enforcement. Riis gained access to tenements by going there himself. Sinclair worked in the meatpacking plants. Their power came from witnessing conditions firsthand and describing them clearly enough to make readers feel they had been there too.',std:'SS.912.A.3.8'},
+        {text:'Most Americans already knew about urban poverty, and muckrakers simply confirmed what people had already accepted',correct:false,feedback:'The opposite was true. Most middle-class Americans had little direct contact with tenement conditions or factory floors. One of the most powerful effects of muckraking was revealing a world that comfortable Americans did not know existed. Riis described his goal as making the public see "the other half," because until they could see it, they could not be moved by it.',std:'SS.912.A.3.8'},
+      ]
+    },
+    {
+      scene:'factory',location:'Chicago Meatpacking District',date:'1905',
+      narrative:'You are a food safety inspector reading a pre-publication copy of Upton Sinclair\'s novel The Jungle. Sinclair followed immigrant workers into the meatpacking plants of Chicago\'s "Packingtown." He describes floors thick with old blood, meat stored in rat-infested warehouses, workers who fell into rendering vats and were processed with the lard, spoiled meat dyed and chemically treated to mask the smell before being sold across the country. Sinclair was trying to write about the suffering of workers. But every reader you know is talking about the food.',
+      charVoice:'A senator calls you. He has read the book. The president has read the book. The president wants to meet with you about federal inspection of meatpacking plants. How did this novel change the political landscape?',
+      decision:'Why did The Jungle produce a demand for consumer protection rather than a demand for improved worker conditions, even though Sinclair intended the book as a critique of labor exploitation?',
+      choices:[
+        {text:'Most readers believed the working conditions Sinclair described were already illegal and being enforced',correct:false,feedback:'Readers were not under this impression. The horrific working conditions Sinclair described were widely understood to be real. The distinction is that readers felt moral distance from worker suffering, seeing it as a problem of poverty and immigration, while contaminated food was a threat that could reach anyone\'s dinner table regardless of class.',std:'SS.912.A.3.6'},
+        {text:'The food safety threat was personal and immediate for middle-class readers, while worker suffering felt more distant from their own lives',correct:true,feedback:'Sinclair famously said he had aimed at the public\'s heart and hit their stomach instead. Middle-class readers could not personally experience the exhaustion of a fourteen-hour shift or the danger of machinery, but they could imagine eating contaminated meat. The Pure Food and Drug Act of 1906 and the Meat Inspection Act were the political result, not a labor reform law. Sinclair\'s story illustrates how reform often depends on who feels the problem.',std:'SS.912.A.3.6'},
+        {text:'Sinclair\'s depictions of worker suffering were too fictional to be believed, while the food contamination scenes were documented with photographs',correct:false,feedback:'Sinclair included no photographs. Both the worker scenes and the food contamination scenes came from his direct observation working undercover in the plants. The distinction in public reaction was not about credibility, but about which threat felt personal to middle-class readers with political power.',std:'SS.912.A.3.6'},
+        {text:'Workers\' unions had already begun solving labor problems, so readers focused on the unsolved food safety issue instead',correct:false,feedback:'Labor conditions in meatpacking were not close to being solved in 1905. Union organizing in the industry was weak and often repressed. The distinction in reader response was driven by self-interest, not by any sense that worker problems were already being addressed.',std:'SS.912.A.3.6'},
+      ]
+    },
+    {
+      scene:'tammany',location:'New York City Hall',date:'1901',
+      narrative:'You are a reform candidate running against the Tammany Hall political machine in New York City. Tammany has controlled the city for decades. The machine provides jobs to immigrants who vote correctly, arranges bail for those arrested, and helps families in distress. In return, Tammany bosses take a percentage of all city contracts, accept bribes from businesses seeking permits, and appoint unqualified loyalists to city positions. When you ask voters to oppose the machine, many look at you with suspicion. They depend on Tammany.',
+      charVoice:'A ward captain for Tammany stops you on the street. "You want to take away the only people who ever helped us," he says. "Who will be there when the reformers go back uptown?" How do you respond to the political machine\'s defense of itself?',
+      decision:'Why did political machines like Tammany Hall maintain popular support even among the urban poor who were most harmed by political corruption?',
+      choices:[
+        {text:'Tammany Hall provided real, immediate services to immigrants and the poor that no other institution offered, making reform seem like a threat',correct:true,feedback:'This is the genuine complexity of machine politics. In an era before the welfare state, settlement houses, or government social services, the machine was often the only institution that helped immigrants navigate a difficult city. It found jobs, helped with legal trouble, provided food and coal in emergencies. Reformers who came from wealth and promised clean government often had no answer for how the poor would survive without the machine\'s services. Understanding this tension is essential to understanding why Progressive reform was difficult.',std:'SS.912.A.3.12'},
+        {text:'Most voters did not know that Tammany was corrupt, because the machine successfully kept all evidence of bribery secret',correct:false,feedback:'Tammany\'s corruption was not secret. Boss Tweed was arrested and his crimes well publicized. Machine corruption was an open fact in New York. Voters who supported Tammany did so despite knowing about corruption, not because they were ignorant of it, because the machine provided services they could not get anywhere else.',std:'SS.912.A.3.12'},
+        {text:'Tammany Hall had bribed enough judges and newspaper editors that no accurate reporting about its corruption ever reached ordinary voters',correct:false,feedback:'There was extensive reporting on Tammany corruption in reform newspapers and magazines. The problem was not information but the lack of alternatives. Poor and immigrant voters supported the machine because it helped them, not because they were deceived about its nature.',std:'SS.912.A.3.12'},
+        {text:'The immigrant poor actually benefited from Tammany\'s policy of taking city contracts, because the contracts created construction jobs',correct:false,feedback:'While machine contracts did create some jobs, this was a side effect of corruption, not its purpose. Overpriced contracts drained city budgets of money that could have built better schools, roads, and services. The real reason for machine support was direct personal services to individuals and families, not broad economic policy.',std:'SS.912.A.3.12'},
+      ]
+    },
+    {
+      scene:'monopoly',location:'Standard Oil Refinery, Cleveland',date:'1904',
+      narrative:'You are a journalist reading Ida Tarbell\'s nineteen-part investigation of Standard Oil for McClure\'s magazine. Tarbell, whose father\'s small oil business was destroyed by Rockefeller\'s practices, documents how Standard Oil used secret railroad rebates, industrial espionage, and predatory pricing to eliminate every competitor. When a small refiner refused to sell, Standard cut prices below cost in his region until he went bankrupt, then bought his business for pennies. Standard Oil controlled 91% of American oil refining. Rockefeller was the richest man in the world.',
+      charVoice:'A reader writes to you asking why, if competition is supposed to make markets fair, one company was allowed to eliminate all competition. What answer does the Standard Oil story provide?',
+      decision:'What did the Standard Oil monopoly reveal about the limits of unregulated market competition in the industrial age?',
+      choices:[
+        {text:'It showed that competition always eventually produces monopoly unless government intervenes to prevent it',correct:true,feedback:'Standard Oil\'s tactics illustrate the paradox of unregulated competition: in the short term, competition exists, but in the long term, the most powerful player can use its advantages to eliminate rivals and then raise prices without restraint. Once a monopoly is established, the market discipline of competition no longer applies. Progressives used this analysis to argue that government regulation was not an attack on capitalism but a defense of it, ensuring that markets remained competitive rather than being captured by monopolists.',std:'SS.912.A.3.6'},
+        {text:'It proved that large companies were always more efficient than small ones, and consumers benefited from monopoly through lower prices',correct:false,feedback:'Standard Oil did sometimes lower prices while eliminating competitors, but once competition was gone, it raised prices and fixed them. The efficiency argument for monopoly was made by Rockefeller himself, but the Progressive critique was that monopolies eventually used their market power against consumers and workers. The Supreme Court agreed, breaking up Standard Oil in 1911.',std:'SS.912.A.3.6'},
+        {text:'It demonstrated that American consumers preferred to buy from a single trusted national brand rather than from competing regional suppliers',correct:false,feedback:'Consumer preference for Standard Oil was not the mechanism of its monopoly. Standard used coercive tactics, secret railroad deals that were unavailable to competitors, and price warfare below cost to eliminate rivals, not consumer loyalty. Tarbell\'s investigation documented the elimination of consumer choice, not its expression.',std:'SS.912.A.3.6'},
+        {text:'It revealed that Rockefeller was personally dishonest, and the solution was simply to prosecute him as a criminal',correct:false,feedback:'While Rockefeller\'s tactics were legally challenged, Progressives understood that the problem was structural, not personal. Even if Rockefeller had been honest, the concentration of industrial power created by unrestricted corporate growth would remain dangerous. The Progressive solution was antitrust regulation and oversight, not just criminal prosecution of individuals.',std:'SS.912.A.3.6'},
+      ]
+    },
+  ]
+},
+
+// ─── CHAPTER 2: Reformers Step In ───
+{
+  id:'reformers_step_in',num:2,title:'Reformers Step In',icon:'🏠',
+  period:'United States — 1889 to 1912',
+  context:'While muckrakers exposed problems, a generation of reformers began building institutions to address them. Jane Addams opened Hull House in Chicago in 1889, living among the poor to provide education, childcare, and political advocacy. The Social Gospel movement argued that Christian faith required addressing poverty and injustice in this world. Florence Kelley and the National Child Labor Committee fought to end child labor. The temperance movement linked alcohol to poverty and violence in working-class families. Women led most of this reform work, despite being denied the right to vote.',
+  standards:['SS.912.A.3.8','SS.912.A.3.12'],
+  eocFocus:'Settlement houses, Social Gospel, temperance, child labor reform, women reformers',
+  keyVocab:[
+    {term:'Settlement House',def:'Community center in poor urban neighborhoods where reformers lived and provided services to immigrants and the poor'},
+    {term:'Social Gospel',def:'Protestant movement that argued Christian faith required addressing poverty and social injustice'},
+    {term:'Temperance',def:'Movement to restrict or ban alcohol, often linked to concerns about poverty and domestic violence'},
+    {term:'National Child Labor Committee',def:'Organization that campaigned to end child labor through photography, lobbying, and legislation'},
+  ],
+  cardEarned:'jane_addams',badge:'reformer',
+  beats:[
+    {
+      scene:'settlement',location:'Hull House, Chicago',date:'1895',
+      narrative:'You are working at Hull House, Jane Addams\'s settlement house on Chicago\'s Near West Side. Today you are teaching English to a group of Polish and Italian immigrant women. After class, Addams meets with a city alderman about a broken sewer line that has been flooding the neighborhood for three months. She knows the alderman is connected to the ward machine. She also meets with a union organizer trying to reduce factory hours for women. She provides a nursery for children of working mothers. She writes an article about conditions in the ward. You watch her do all of this in a single day.',
+      charVoice:'A visitor from a wealthy women\'s club asks Addams why she lives here rather than organizing from her comfortable background. Addams\'s answer defines the philosophy of the settlement house. What is it?',
+      decision:'What was the core philosophy behind settlement houses like Hull House that distinguished them from traditional charity organizations?',
+      choices:[
+        {text:'Settlement house workers believed the poor needed to be educated about middle-class values before they could receive financial assistance',correct:false,feedback:'This condescending approach describes traditional charity, not the settlement house philosophy. Addams rejected the idea that poverty was caused by moral failure or cultural deficiency. She believed poverty was caused by structural conditions like overcrowded housing, dangerous workplaces, and inadequate schools, and that reform required changing those conditions, not lecturing the poor.',std:'SS.912.A.3.8'},
+        {text:'By living among the poor and sharing their conditions, reformers could understand real problems and advocate for structural change from within the community',correct:true,feedback:'This is the settlement house philosophy. Addams and her colleagues believed that charity given from a distance was inadequate and often condescending. By living in the neighborhood, they learned what problems actually existed, built trust with immigrant families, and could advocate for the specific changes those families needed. Hull House\'s advocacy produced real policy changes: improved sanitation, reduced working hours, labor laws for women and children, and eventually suffrage.',std:'SS.912.A.3.8'},
+        {text:'Settlement houses were designed primarily as temporary housing for recent immigrants while they found permanent employment',correct:false,feedback:'Settlement houses were not immigrant housing. The reformers themselves lived there, not the immigrants they served. The settlement house provided services: education, childcare, healthcare referrals, legal advice, and political advocacy. The goal was to improve the neighborhood, not to house its residents temporarily.',std:'SS.912.A.3.8'},
+        {text:'Jane Addams believed the government should not be involved in social welfare, and private settlement houses were the correct alternative',correct:false,feedback:'Addams was a committed advocate for government intervention. Hull House\'s advocacy produced city ordinances, state labor laws, and eventually federal legislation. Addams understood that private charity was insufficient at the scale of urban poverty and that government action was necessary. She was among the most effective lobbyists for labor and child welfare legislation in Progressive Era Illinois.',std:'SS.912.A.3.8'},
+      ]
+    },
+    {
+      scene:'factory',location:'Cotton Mill, South Carolina',date:'1908',
+      narrative:'You are Lewis Hine, a photographer working for the National Child Labor Committee. Your assignment is to photograph child laborers in Southern textile mills. To gain access, you have posed as a Bible salesman, an industrial photographer documenting machinery, and a fire inspector. What you actually photograph is children as young as eight years old operating spinning frames for twelve hours a day. Their fingers are quick from years of practice and often missing from the machinery. Mill owners argue that the children are helping their families. The families often agree. The children have no say.',
+      charVoice:'A mill owner tells you that the children work because their families need the income, and that banning child labor will just make poor families poorer. He is not entirely wrong. How do you respond?',
+      decision:'How did reformers like Florence Kelley answer the argument that child labor bans would harm the very families they were trying to help?',
+      choices:[
+        {text:'Reformers argued that most child laborers were not actually helping their families and were spending the wages on themselves',correct:false,feedback:'Child labor wages were essential to many poor families\' survival. Reformers did not deny this. The argument they made was more structural: that child labor kept wages low for adult workers, that it prevented children from attending school and escaping poverty, and that the real solution was adult wages high enough that families did not need children to work, combined with compulsory education and child labor laws.',std:'SS.912.A.3.9'},
+        {text:'By ending child labor, reformers argued adult wages would rise and public education would prepare children for better-paying jobs, breaking the poverty cycle',correct:true,feedback:'This was the core reform argument. As long as children could be hired cheaply, employers had no incentive to pay adult workers more. Child labor and low adult wages reinforced each other. Reform required both ending child labor and providing compulsory education so that children developed the skills to earn more than their parents. Florence Kelley understood that charity for individual families could not solve structural poverty; only law could change the system.',std:'SS.912.A.3.9'},
+        {text:'Reformers believed child laborers were physically strong enough to work without harm and simply needed shorter hours rather than a complete ban',correct:false,feedback:'Medical evidence documented serious physical harm from child labor: spinal deformities from bending over machinery, lung damage from textile fibers, stunted growth from malnutrition and overwork. The National Child Labor Committee pushed for a complete ban on factory and mine work by children under fourteen, not just hour restrictions. Kelley understood that gradual reform would leave children in dangerous conditions for another generation.',std:'SS.912.A.3.9'},
+        {text:'Most families with child laborers could actually afford to have the children in school, and the mill owners were exaggerating the necessity',correct:false,feedback:'Family poverty was real. Child labor wages often represented 20-30% of a poor family\'s income. Reformers did not dismiss this. Their answer was that the system itself needed to change: better adult wages, public schools, and social safety nets. The argument that "families need the wages" was an argument for maintaining a system that kept families poor enough to need child labor, not a reason to leave children in factories.',std:'SS.912.A.3.9'},
+      ]
+    },
+    {
+      scene:'reform',location:'WCTU Convention, Evanston Illinois',date:'1900',
+      narrative:'You are a social worker attending a Women\'s Christian Temperance Union convention. Frances Willard\'s organization has grown to 150,000 members by linking temperance not just to religion but to the safety and economic security of women and children. In the neighborhoods you work in, you have seen what alcohol does: a factory worker who drinks away his wages while his family goes hungry, a wife beaten regularly by a drunk husband with no legal recourse, a child missing school because his father\'s weekend drinking ends with Monday arrests and job losses. The WCTU argues that alcohol is not just a moral failing but a social and economic problem.',
+      charVoice:'A WCTU member asks you whether prohibition is really a women\'s rights issue. You have worked in the settlement house. What do you tell her?',
+      decision:'What did the connection between the temperance movement and women\'s reform reveal about how Progressives understood the relationship between individual behavior and social conditions?',
+      choices:[
+        {text:'Progressives believed that individual moral failures like drinking were the root cause of poverty and that behavioral reform was more important than economic change',correct:false,feedback:'This view describes the conservative wing of temperance, not the Progressive approach. Jane Addams and most settlement house workers understood poverty as structural. But they also recognized that in conditions of poverty and powerlessness, alcohol abuse caused real harm to families. The Progressive view was that both individual behavior and structural conditions mattered, and that reforms like decent wages and women\'s rights would reduce the conditions that drove excessive drinking.',std:'SS.912.A.3.8'},
+        {text:'Temperance reformers recognized that alcohol abuse was both a symptom of structural poverty and a cause of immediate harm to women and children with no legal protection',correct:true,feedback:'This captures the complexity of the temperance movement at its best. The WCTU under Willard made connections: women had no right to vote, limited legal ability to control household finances, no protection against domestic violence, and no recourse when a husband\'s drinking destroyed the family\'s economic security. Temperance was linked to suffrage, labor reform, and legal protections for women because all these issues intersected in the lives of working-class families.',std:'SS.912.A.3.8'},
+        {text:'The WCTU primarily wanted to ban alcohol to comply with Biblical commandments and had little interest in economic or political reform',correct:false,feedback:'While religious motivation was certainly present, the WCTU under Frances Willard was explicitly political. The organization campaigned for women\'s suffrage, labor reform, and prison reform. Willard coined the phrase "Do Everything," meaning that temperance reformers should address all the social conditions connected to alcohol, not just ban the drink itself.',std:'SS.912.A.3.8'},
+        {text:'Most temperance advocates believed alcohol was the single root cause of poverty and that ending drinking would eliminate the need for any other reform',correct:false,feedback:'The more sophisticated reformers, including Addams and Kelley, rejected single-cause explanations for poverty. The WCTU\'s "Do Everything" philosophy recognized the interconnection of multiple social problems. While some temperance advocates did oversimplify, the movement\'s connection to suffrage, labor reform, and social services showed that leading Progressives understood poverty as multi-causal.',std:'SS.912.A.3.8'},
+      ]
+    },
+  ]
+},
+
+// ─── CHAPTER 3: Democracy and Justice Expands ───
+{
+  id:'democracy_expands',num:3,title:'Democracy and Justice Expands',icon:'⚖️',
+  period:'United States — 1895 to 1920',
+  context:'The Progressive Era produced competing visions of equality. Booker T. Washington argued that Black Americans should accept segregation for now and focus on economic self-improvement and vocational training through the Tuskegee Institute. W.E.B. Du Bois argued that accepting inequality only made it permanent, and co-founded the NAACP to demand full civil and political rights immediately. Women organized through NAWSA to win the right to vote. Democratic reforms like the direct election of senators, the initiative, referendum, and recall gave citizens more power over government. But these expansions of democracy excluded many Americans.',
+  standards:['SS.912.A.3.8','SS.912.A.3.12'],
+  eocFocus:'NAACP, NAWSA, Washington vs. Du Bois, women\'s suffrage, democratic reform mechanisms',
+  keyVocab:[
+    {term:'Tuskegee Institute',def:'Vocational school founded by Booker T. Washington to provide practical job training for Black Americans'},
+    {term:'NAACP',def:'National Association for the Advancement of Colored People, co-founded by Du Bois to fight for civil rights through legal challenges'},
+    {term:'NAWSA',def:'National American Woman Suffrage Association, the primary organization fighting for women\'s right to vote'},
+    {term:'Initiative/Referendum/Recall',def:'Progressive democratic mechanisms allowing voters to propose laws, vote on legislation, and remove elected officials'},
+  ],
+  cardEarned:'dubois_card',badge:'equality',
+  beats:[
+    {
+      scene:'reform',location:'Atlanta, Georgia',date:'1903',
+      narrative:'You are a young Black teacher in Atlanta. You have read both Booker T. Washington\'s Atlanta Compromise speech and W.E.B. Du Bois\'s response in The Souls of Black Folk. Washington argues: accept segregation for now, focus on economic self-improvement and vocational training, prove yourselves through work, and eventually white Americans will accept equality. Du Bois argues: Washington\'s approach accepts inferiority, and demanding civil rights now is not a threat but a necessity, because without political and legal equality, economic progress can always be taken away.',
+      charVoice:'You must advise young Black men and women in your school. You have seen Black-owned businesses burned by white mobs. You have seen educated Black professionals refused the vote. You have seen graduates of vocational schools still denied equal wages. What do you tell them?',
+      decision:'What was the fundamental disagreement between Booker T. Washington and W.E.B. Du Bois about the strategy for achieving equality for Black Americans?',
+      choices:[
+        {text:'Washington wanted to end segregation through the courts, while Du Bois believed economic prosperity should come first',correct:false,feedback:'This is reversed. It was Du Bois who co-founded the NAACP and used the courts to challenge segregation, while Washington accepted legal segregation as a political reality. Washington focused on economic advancement through vocational training, arguing that prosperity would eventually lead to social acceptance. Du Bois argued that legal equality had to come first or economic gains would always be insecure.',std:'SS.912.A.3.8'},
+        {text:'Washington accepted segregation as a temporary accommodation while building economic power, and Du Bois insisted that accepting inequality only made it permanent',correct:true,feedback:'This captures the core of the debate. Washington\'s Atlanta Compromise of 1895 accepted social separation in exchange for the right to pursue economic opportunity. Du Bois, in The Souls of Black Folk, argued that this was a "triple paradox": Washington urged Black Americans to give up political power, civil rights, and higher education while simultaneously expecting economic respect and full manhood rights. History would validate Du Bois\'s concern, as economic gains made without legal protection were repeatedly destroyed by violence and discriminatory law.',std:'SS.912.A.3.8'},
+        {text:'Du Bois believed only wealthy Black Americans could lead the movement, while Washington wanted leadership to come from the working class',correct:false,feedback:'Du Bois\'s "Talented Tenth" concept did argue that an educated Black leadership class was necessary, but his vision was of that leadership winning rights for all. Washington also drew heavily on the middle class and business community. The distinction was not really about which class should lead, but about whether to demand rights now or defer them in exchange for white tolerance.',std:'SS.912.A.3.8'},
+        {text:'Washington wanted Black Americans to leave the South, while Du Bois argued for staying and organizing within Southern communities',correct:false,feedback:'Washington specifically encouraged Black Americans to stay in the South and build economic communities there. The Great Migration northward that Du Bois was associated with came later. Washington\'s Tuskegee Institute was in Alabama. The debate was not about geography but about whether to accept the legal framework of segregation or challenge it directly.',std:'SS.912.A.3.8'},
+      ]
+    },
+    {
+      scene:'suffrage',location:'Washington D.C., Women\'s Suffrage Parade',date:'March 3, 1913',
+      narrative:'You are marching in the Women\'s Suffrage Parade, organized by Alice Paul the day before Woodrow Wilson\'s inauguration. 8,000 women march down Pennsylvania Avenue. The crowd is hostile. Police do little to protect the marchers. White Southern members of NAWSA pressured organizers to keep Black women at the back of the procession. Ida B. Wells, journalist and anti-lynching activist, refused to march in the segregated section and joined the Illinois delegation at the front instead. The parade is attacked by crowds while police watch.',
+      charVoice:'A reporter asks you: if the suffrage movement is about equality, why is it segregating its own parade? What does this moment reveal about the limits of Progressive Era reform?',
+      decision:'What did the segregation of the 1913 suffrage parade reveal about the tensions and limits within the Progressive reform movement?',
+      choices:[
+        {text:'It showed that NAWSA leaders were secretly opposed to women\'s suffrage and were trying to undermine the movement from within',correct:false,feedback:'NAWSA\'s leaders were committed suffragists. The segregation decision was a strategic and moral failure, not sabotage. Southern white suffragists threatened to abandon the movement if Black women marched alongside them. NAWSA chose to accommodate racist demands to protect the political coalition they thought they needed to win. This strategy prioritized short-term political calculation over principle.',std:'SS.912.A.3.12'},
+        {text:'Many Progressive reformers were willing to win rights for some Americans by sacrificing the rights of others, revealing that Progressive reform was not equally applied',correct:true,feedback:'This is the essential limitation of much Progressive Era reform. The movement expanded democracy and rights for some Americans while actively excluding others. Women won the vote in 1920, but Black women in the South were immediately disenfranchised by the same literacy tests, poll taxes, and violence that suppressed Black male voters. Progressive presidents including Wilson actively resegregated the federal government. Understanding this pattern, reform that benefits some groups while disadvantaging others, is essential to evaluating the Progressive Era honestly.',std:'SS.912.A.3.12'},
+        {text:'The parade demonstrated that women of different races fundamentally disagreed about whether suffrage was a worthy goal',correct:false,feedback:'Black women like Ida B. Wells were not opposed to suffrage. Wells herself was a committed suffragist who co-founded the Alpha Suffrage Club for Black women in Chicago. The disagreement was not about the goal of suffrage but about whether Black women would be included as equals within the movement. Wells\'s response, marching at the front with her state delegation, was an act of civil disobedience against the segregation policy.',std:'SS.912.A.3.12'},
+        {text:'The incident proved that women were not yet politically organized enough to run a large public event, suggesting they were not ready for the vote',correct:false,feedback:'This was the argument made by opponents of suffrage, but it misidentifies the cause of the problem. The parade was disrupted not by disorganization among women but by hostile crowds and police who refused to protect marchers. The segregation decision was a moral failure by movement leadership, not evidence of organizational incompetence.',std:'SS.912.A.3.12'},
+      ]
+    },
+    {
+      scene:'democracy',location:'Oregon State Legislature',date:'1908',
+      narrative:'You are a Progressive state legislator in Oregon, which has just adopted the initiative, referendum, and recall. Reformers argued that these tools would make government more directly responsive to the people, bypassing corrupt legislatures controlled by railroad and utility lobbies. Critics argue that direct democracy is dangerous, that the majority can vote to harm minorities, and that complex policy decisions should be made by elected experts rather than popular votes. A railroad lobby has just been defeated by a ballot initiative that would have cost them millions in special tax breaks. A voters\' coalition is proposing another initiative to fund public schools.',
+      charVoice:'A conservative colleague argues that "the mob" should not make law. A Progressive colleague argues that the legislature is already a mob, just owned by corporations. What is your analysis of these democratic reform tools?',
+      decision:'What was the Progressive argument for giving voters direct democracy tools like the initiative, referendum, and recall?',
+      choices:[
+        {text:'Progressives believed that professional politicians made better decisions than ordinary voters and wanted initiatives to force legislators to act faster',correct:false,feedback:'This is the opposite of the Progressive argument. The initiative and referendum were designed specifically to bypass professional politicians who Progressives believed were captured by corporate interests. The argument was that ordinary voters, freed from the influence of railroad money and political machine discipline, would make better policy decisions than legislators beholden to special interests.',std:'SS.912.A.3.12'},
+        {text:'Corrupt legislatures beholden to railroad and corporate interests could be bypassed by giving voters the direct power to make and repeal laws',correct:true,feedback:'This is the core Progressive argument for direct democracy. In states where railroad and utility lobbyists had effectively purchased legislative majorities, ordinary voters had no way to change policy through elections alone. The initiative, referendum, and recall allowed majorities of voters to act directly, without the filter of a captured legislature. Oregon became a model, and many western states adopted these tools. The reformers were not naive; they recognized that direct democracy could also be used by majorities to harm minorities, but they prioritized breaking the grip of corporate power on elected government.',std:'SS.912.A.3.12'},
+        {text:'Progressive reformers believed that removing professional politicians entirely and replacing all government decisions with popular votes would eliminate corruption',correct:false,feedback:'Progressives did not advocate for direct democracy on all issues. The initiative, referendum, and recall were tools to supplement representative government, not replace it. Most Progressives, including Roosevelt and Wilson, believed in professional administration and expert management of many government functions. Direct democracy was aimed at specific problems of legislative corruption, not a wholesale rejection of representative government.',std:'SS.912.A.3.12'},
+        {text:'The recall was designed so that governors could remove corrupt local officials without waiting for elections',correct:false,feedback:'The recall allowed voters to remove elected officials from office before their term ended, through a special election. It was a tool for voters against officials, not for governors against local politicians. The recall was directed upward at elected officials who had betrayed the public trust, giving citizens a mechanism to respond to corruption without waiting years for the next scheduled election.',std:'SS.912.A.3.12'},
+      ]
+    },
+  ]
+},
+
+// ─── CHAPTER 4: Progressive Presidents ───
+{
+  id:'progressive_presidents',num:4,title:'Progressive Presidents',icon:'🦁',
+  period:'United States — 1901 to 1916',
+  context:'Three presidents shaped the Progressive Era in different ways. Theodore Roosevelt used the presidency as a "bully pulpit" to regulate trusts, protect consumers, and expand conservation. He saw the federal government as the protector of the public interest against concentrated private power. William Howard Taft was more cautious, pursuing trust-busting through the courts but alienating Progressives by supporting higher tariffs and firing a popular conservation official. Woodrow Wilson\'s New Freedom focused on restoring competition rather than regulating monopoly, creating the Federal Reserve and the Federal Trade Commission. In 1912, all three competed in the most consequential three-way presidential election in American history.',
+  standards:['SS.912.A.3.6','SS.912.A.3.12'],
+  eocFocus:'Roosevelt Square Deal, trustbusting, conservation, Taft, 1912 election, Wilson New Freedom',
+  keyVocab:[
+    {term:'Square Deal',def:'Roosevelt\'s domestic program promising fair treatment to all citizens, regulation of business, and consumer protection'},
+    {term:'Bully Pulpit',def:'Roosevelt\'s term for using the presidency\'s public platform to shape national opinion and pressure Congress'},
+    {term:'New Freedom',def:'Wilson\'s program favoring competition over regulation, attacking monopoly while being skeptical of big government'},
+    {term:'Bull Moose Party',def:'Progressive Party formed by Roosevelt in 1912 after breaking with Taft, splitting the Republican vote and electing Wilson'},
+  ],
+  cardEarned:'theodore_roosevelt',badge:'trustbuster',
+  beats:[
+    {
+      scene:'white_house',location:'White House, Washington D.C.',date:'1902',
+      narrative:'You are an advisor to President Theodore Roosevelt. The United Mine Workers have been on strike for six months. Mine owners refuse to negotiate. Coal supplies are running low as winter approaches. Working-class families in northeastern cities depend on coal for heat. The mine owners, led by George Baer, have publicly stated that "God has placed the control of property interests in the hands of Christian men." Roosevelt is furious. No president has ever intervened in a private labor dispute on behalf of workers. He is considering threatening to seize the mines with federal troops, not to break the strike, but to force the owners to arbitrate.',
+      charVoice:'Mine owner J.P. Morgan calls you. He says Roosevelt has no legal authority to intervene in a private business dispute. Roosevelt replies that the public welfare is his legal authority. Whose argument is stronger?',
+      decision:'What principle did Roosevelt establish by intervening in the 1902 Coal Strike in a way that no previous president had?',
+      choices:[
+        {text:'Roosevelt established that the federal government could use military force to break strikes and force workers back to their jobs',correct:false,feedback:'Roosevelt\'s intervention was remarkable precisely because he did not use federal power against the workers. Previous presidents, including Cleveland in the 1894 Pullman Strike, had used federal troops to break strikes. Roosevelt instead threatened action against the mine owners, forcing them to accept arbitration. He treated labor and management as having roughly equal standing before the federal government, which was a significant departure.',std:'SS.912.A.3.12'},
+        {text:'By threatening to seize the mines from owners who refused to arbitrate, Roosevelt established that the public interest could override private property rights in a crisis',correct:true,feedback:'This was the revolutionary nature of Roosevelt\'s intervention. The mine owners were legally correct that property rights protected them from forced arbitration. Roosevelt\'s response was essentially that when private actions threaten public welfare, the president has an obligation to act even without clear legal authority. He called this the "Square Deal": fair treatment for all parties, with the government as the representative of the people\'s interests. This expanded the presidency\'s role in labor relations permanently.',std:'SS.912.A.3.12'},
+        {text:'Roosevelt established that labor unions had the legal right to strike and could not be prosecuted for organizing work stoppages',correct:false,feedback:'Roosevelt did not change the legal status of unions. Labor\'s right to organize remained legally contested for decades. What Roosevelt established was the president\'s willingness to use federal pressure against both sides of a labor dispute in the public interest, not a legal right for unions specifically.',std:'SS.912.A.3.12'},
+        {text:'The intervention showed that the Supreme Court had given Roosevelt emergency economic powers that previous presidents lacked',correct:false,feedback:'Roosevelt acted without a Supreme Court ruling granting him new powers. His intervention was a political act based on his expansive view of presidential authority. The Court did not validate the specific action. Roosevelt\'s power came from public opinion and the credibility of his threat to call Congress into session to authorize a seizure, not from a legal precedent.',std:'SS.912.A.3.12'},
+      ]
+    },
+    {
+      scene:'election_1912',location:'Campaign Trail, United States',date:'1912',
+      narrative:'You are a voter in the 1912 presidential election. Four candidates are running. William Howard Taft, the Republican incumbent, has been cautious about reform and sided with conservative party elements on the tariff and conservation. Theodore Roosevelt broke with Taft and formed the Bull Moose Progressive Party, calling for a "New Nationalism": federal regulation of big business, direct democracy, women\'s suffrage, and a minimum wage. Woodrow Wilson, the Democrat, offers a "New Freedom": break up monopolies and restore competition rather than regulate them. Socialist Eugene Debs argues that capitalism itself is the problem.',
+      charVoice:'You are a Progressive who supported Roosevelt in 1904 and 1908. He has promised the most comprehensive reform program ever proposed by a major candidate. But a vote for Roosevelt is likely to split the Republican vote and elect Wilson. What do you weigh?',
+      decision:'What did the 1912 election reveal about the different visions of Progressive reform and its relationship to government power?',
+      choices:[
+        {text:'Roosevelt and Wilson agreed completely on the role of government in the economy, and the election was primarily a personal conflict between two men',correct:false,feedback:'Roosevelt and Wilson had a genuine philosophical disagreement. Roosevelt\'s New Nationalism accepted that big business was inevitable and argued for strong federal regulation to control it in the public interest. Wilson\'s New Freedom held that monopoly should be broken up to restore competition, distrusting both concentrated corporate power and concentrated government power. These were different theories of political economy, not just a personality conflict.',std:'SS.912.A.3.6'},
+        {text:'The election showed that different Progressives held different views about whether to regulate big business or break it up, reflecting deeper disagreements about government power',correct:true,feedback:'Exactly. The 1912 election was a genuine intellectual debate among reformers. Roosevelt believed regulated monopoly was more efficient and could be made to serve the public good. Wilson believed that concentrated economic power inevitably corrupted democracy and that the government\'s role was to restore competitive markets, not to manage them. Both were Progressive, but their programs implied very different relationships between government and the economy. Wilson won, but Roosevelt\'s New Nationalism had more long-term influence on the New Deal.',std:'SS.912.A.3.6'},
+        {text:'The Progressive Party\'s platform was rejected by most voters, showing that Americans preferred conservative government over reform',correct:false,feedback:'Roosevelt\'s Progressive Party received 27% of the popular vote, the best performance of any third-party candidate in American history. When Roosevelt\'s and Wilson\'s votes are combined, over 75% of voters chose a candidate who was explicitly running on a reform platform. The election was not a rejection of reform but a division within the reform coalition.',std:'SS.912.A.3.6'},
+        {text:'Taft won the election because voters trusted his experience over Roosevelt\'s radicalism and Wilson\'s inexperience',correct:false,feedback:'Taft came in third, winning only 23% of the popular vote. Wilson won with 42%, the lowest winning percentage since Lincoln. The split between Roosevelt and Taft gave Wilson the electoral college in a landslide. Taft\'s poor showing reflected his estrangement from the Progressive wing of his own party.',std:'SS.912.A.3.6'},
+      ]
+    },
+    {
+      scene:'conservation',location:'Yosemite Valley, California',date:'1903',
+      narrative:'You are camping in Yosemite Valley with President Theodore Roosevelt and conservationist John Muir. Roosevelt has set aside 150 million acres of national forests since taking office. Muir wants pure preservation: no logging, no grazing, no commercial use. Roosevelt\'s chief forester, Gifford Pinchot, argues for "conservation," meaning managed use: careful harvesting of timber, regulated grazing, but no waste. He calls it "the greatest good for the greatest number." Roosevelt must decide between preservation and managed conservation, knowing that the western states have powerful economic interests on both sides.',
+      charVoice:'Muir argues that some places must be kept entirely wild, untouched, because once they are gone they cannot be replaced. Pinchot argues that the forests belong to the American people and must serve human needs. How should Roosevelt decide?',
+      decision:'What was the difference between the preservationist and conservationist approaches to protecting natural resources in the Progressive Era?',
+      choices:[
+        {text:'Preservationists like Muir wanted to sell national parks to private companies for careful development, while conservationists like Pinchot wanted total government ownership',correct:false,feedback:'This is backwards. Muir wanted no commercial development in wilderness areas, while Pinchot supported managed commercial use under government supervision. Muir and Pinchot\'s dispute over the Hetch Hetchy Valley, where San Francisco wanted to dam a river running through Yosemite National Park, eventually split the conservation movement and ended Muir\'s friendship with Roosevelt.',std:'SS.912.A.3.6'},
+        {text:'Preservationists argued some land should be kept permanently wild, while conservationists argued resources should be carefully managed for sustainable human use',correct:true,feedback:'This is the genuine distinction. Muir believed wilderness had intrinsic value beyond its usefulness to humans and that some places must be protected from any commercial development. Pinchot\'s conservation philosophy was utilitarian: resources existed to serve human needs and should be managed scientifically to prevent waste and ensure long-term availability. Roosevelt ultimately adopted more of Pinchot\'s approach, creating national forests subject to managed use, while preserving some areas as national parks. Both approaches were significant departures from the previous "use it up" attitude toward natural resources.',std:'SS.912.A.3.6'},
+        {text:'Both Muir and Pinchot agreed that private companies should manage forests under minimal government oversight to ensure efficiency',correct:false,feedback:'Neither Muir nor Pinchot supported private management of public lands. The Progressive conservation movement was united in opposing the transfer of public lands to corporate interests. Their disagreement was about whether government management should allow commercial use at all. The Progressive consensus was that natural resources belonged to the public and should be managed in the public interest.',std:'SS.912.A.3.6'},
+        {text:'Conservation was a minor issue during Roosevelt\'s presidency, overshadowed by his focus on trustbusting and labor policy',correct:false,feedback:'Conservation was one of Roosevelt\'s most consequential legacies. He established the U.S. Forest Service, created five national parks and eighteen national monuments, and protected 230 million acres of public land. He called natural resource depletion "the most vital internal problem facing the United States." His conservation work was among the most ambitious environmental actions by any American president.',std:'SS.912.A.3.6'},
+      ]
+    },
+  ]
+},
+
+// ─── CHAPTER 5: Reform Becomes National Policy ───
+{
+  id:'national_policy',num:5,title:'Reform Becomes National Policy',icon:'📜',
+  period:'United States — 1906 to 1920',
+  context:'Progressive reform moved from local activism and presidential pressure to permanent changes in federal law and the Constitution itself. The Pure Food and Drug Act, the Meat Inspection Act, the Federal Reserve System, and the Clayton Antitrust Act reshaped the relationship between government and the economy. Four constitutional amendments were ratified in the Progressive Era: the Sixteenth established the income tax, the Seventeenth provided for direct election of senators, the Eighteenth banned alcohol, and the Nineteenth gave women the right to vote. Not all of these reforms solved the problems they addressed, and the Eighteenth Amendment would eventually be repealed.',
+  standards:['SS.912.A.3.6','SS.912.A.3.12'],
+  eocFocus:'Pure Food and Drug Act, Meat Inspection Act, Federal Reserve, 16th, 17th, 18th, 19th Amendments',
+  keyVocab:[
+    {term:'Pure Food and Drug Act',def:'1906 law requiring accurate labeling of food and drugs and banning contaminated or falsely labeled products'},
+    {term:'Federal Reserve System',def:'Central banking system created in 1913 to stabilize the currency, regulate banks, and manage the money supply'},
+    {term:'Sixteenth Amendment',def:'1913 constitutional amendment authorizing a federal income tax, shifting the tax burden toward wealth'},
+    {term:'Nineteenth Amendment',def:'1920 constitutional amendment granting women the right to vote in all elections'},
+  ],
+  cardEarned:'woodrow_wilson',badge:'legislator',
+  beats:[
+    {
+      scene:'white_house',location:'U.S. Senate Chamber, Washington D.C.',date:'1913',
+      narrative:'You are a progressive senator debating the Seventeenth Amendment, which would change the method of electing U.S. senators from selection by state legislatures to direct election by voters. The current system has produced senators widely believed to be agents of railroad and banking interests: state legislatures, riddled with corruption and machine politics, have repeatedly selected senators who serve corporate donors rather than constituents. Opponents argue that the amendment will diminish the power of states in the federal system, which the founders intended. You believe the founders also intended for senators to represent the people.',
+      charVoice:'A colleague from a southern state argues that direct election will "bring the mob into the Senate." You have read Lincoln Steffens\'s reports on legislative corruption. How do you respond?',
+      decision:'What was the Progressive argument for replacing the indirect election of senators with direct popular election?',
+      choices:[
+        {text:'State legislatures were the appropriate body to select senators, because they understood federal policy better than ordinary voters',correct:false,feedback:'This is the argument Progressives were responding to. The problem, as documented by journalists like Lincoln Steffens, was that state legislatures had been systematically corrupted by railroad and corporate money. The men state legislatures selected as senators often represented donor interests rather than constituents. Progressives argued that ordinary voters, while imperfect, were less susceptible to concentrated corporate influence than legislators whose careers depended on patronage.',std:'SS.912.A.3.12'},
+        {text:'State legislatures controlled by railroad and corporate interests were selecting senators who served those interests rather than the public, and direct election would restore accountability to voters',correct:true,feedback:'This is the core Progressive argument. The Seventeenth Amendment was a direct response to documented corruption in the selection of senators. Multiple Senate deadlocks, bribery scandals, and years-long vacancies caused by corrupt state legislatures convinced Progressives that the indirect election system had been captured by corporate interests. Direct election was a democratic reform intended to return accountability to ordinary voters. It was ratified in 1913.',std:'SS.912.A.3.12'},
+        {text:'Direct election was designed to give the federal government more power to override state laws, strengthening national authority over the states',correct:false,feedback:'The Seventeenth Amendment changed how senators were selected, not the powers of the Senate or federal government relative to states. It was a democratic reform, not a federal power grab. The amendment actually expanded democratic participation without changing the constitutional balance of power between federal and state governments.',std:'SS.912.A.3.12'},
+        {text:'The founders originally intended for senators to be directly elected, and the Seventeenth Amendment simply restored the founders\' original design',correct:false,feedback:'The founders explicitly chose indirect election through state legislatures as a deliberate design. The Senate was intended as a check on democratic excess. The Seventeenth Amendment was a departure from the founders\' design, justified by Progressives on the grounds that the system had been corrupted in ways the founders did not anticipate.',std:'SS.912.A.3.12'},
+      ]
+    },
+    {
+      scene:'reform',location:'U.S. Treasury Department, Washington D.C.',date:'1913',
+      narrative:'You are a senator voting on the Federal Reserve Act, which will create a central banking system for the United States. The country has experienced four major financial panics since 1873, each causing bank failures, credit collapse, and economic depression. The Panic of 1907 was only stopped when J.P. Morgan personally organized a private bank rescue. Progressives argue that the financial system cannot be dependent on the good will of one banker. Conservatives argue that a central bank will be controlled by the government and used for political purposes. Bankers argue that a central bank controlled by private bankers is needed, not government control.',
+      charVoice:'A colleague from a rural state argues that farmers have always been victimized by Eastern bankers and asks whether the Federal Reserve will be any different. How do you explain what the Federal Reserve is designed to do?',
+      decision:'What problem was the Federal Reserve System designed to solve, and why was its creation a significant Progressive reform?',
+      choices:[
+        {text:'The Federal Reserve was created to give the government the power to print money to pay for federal programs without raising taxes',correct:false,feedback:'The Federal Reserve was not created to fund government spending. It was designed as a lender of last resort to prevent bank panics, to regulate the money supply to prevent inflation and deflation, and to provide a stable financial system that was not dependent on private decisions by individual bankers. It was a regulatory institution, not a spending mechanism.',std:'SS.912.A.3.6'},
+        {text:'By creating a central bank to manage the money supply and serve as a lender of last resort, the government replaced dependence on private bankers with a public institution accountable to law',correct:true,feedback:'The Federal Reserve Act of 1913 was a significant Progressive reform precisely because it established that the financial system was too important to be left entirely to private management. The Panic of 1907 demonstrated that having J.P. Morgan decide whether to save the banking system was unacceptable in a democracy. The Fed gave government the tools to stabilize the financial system, while its mixed public-private structure reflected Progressive compromises between those who wanted full government control and those who wanted banker control.',std:'SS.912.A.3.6'},
+        {text:'The Federal Reserve eliminated bank failures entirely, proving that government management was superior to private banking',correct:false,feedback:'The Federal Reserve did not eliminate bank failures. The Federal Reserve\'s policy failures during the Great Depression actually worsened the banking crisis of 1930 to 1933. The Fed was an imperfect institution from the beginning, reflecting the compromises required to pass the legislation. Its creation was nevertheless a significant structural reform of the financial system.',std:'SS.912.A.3.6'},
+        {text:'The Federal Reserve was primarily designed to help farmers by keeping agricultural prices stable through control of commodity markets',correct:false,feedback:'Agricultural price stability was not the Federal Reserve\'s primary function, though rural banking needs influenced the design of the regional Federal Reserve banks. The system was designed to manage the money supply and serve as a banking system\'s bank, providing liquidity during panics. Farmers\' primary financial concerns were addressed by other Progressive Era legislation, including cooperative banking reforms.',std:'SS.912.A.3.6'},
+      ]
+    },
+    {
+      scene:'reform',location:'Looking Back from 1920',date:'1920',
+      narrative:'It is 1920. You have lived through the Progressive Era. You were there when Riis photographed the tenements, when Sinclair exposed the meatpacking plants, when Roosevelt busted the trusts, when women finally won the vote. The income tax has been established. Senators are now elected directly. The food supply is regulated. The financial system has a central bank. Children\'s hours in factories have been restricted. But you also know: Black Americans in the South cannot vote. The Eighteenth Amendment has just been ratified, launching an experiment in prohibition that many doubt will succeed. Millions of industrial workers still labor in dangerous conditions for inadequate wages. The NAACP has been fighting lynching for a decade without a federal law against it.',
+      charVoice:'A student asks you to assess the Progressive Era. You have the perspective of someone who lived through it and watched what changed and what did not. What is your honest answer?',
+      decision:'Which of the following best evaluates the lasting impact and limitations of the Progressive Era?',
+      choices:[
+        {text:'The Progressive Era fully solved the problems of industrial America by establishing government regulation, consumer protection, and expanded democracy for all citizens',correct:false,feedback:'The Progressive Era did not fully solve the problems of industrial America. Black Americans in the South remained disenfranchised and subjected to legal segregation and racial violence with no federal protection. Working conditions remained dangerous and wages inadequate for millions. The Eighteenth Amendment would generate organized crime and be repealed in 1933. The reforms were real, but the problems they addressed were not fully resolved by 1920.',std:'SS.912.A.3.6,SS.912.A.3.12'},
+        {text:'Progressive reforms established important precedents for government regulation and expanded democracy, but left major inequalities unresolved, particularly for Black Americans and industrial workers',correct:true,feedback:'This is the most historically accurate assessment. The Progressive Era produced genuine, lasting achievements: consumer protection laws still in effect, the Federal Reserve, women\'s suffrage, the income tax, direct election of senators, national parks, and a framework for federal regulation of the economy. But the era also demonstrated the limits of reform: it expanded rights for some while excluding others, addressed some structural problems while leaving deeper inequalities intact. Understanding both the achievements and the failures of Progressive reform is essential to evaluating its legacy honestly.',std:'SS.912.A.3.6,SS.912.A.3.12'},
+        {text:'The Progressive Era actually made things worse by expanding government power and creating federal bureaucracies that reduced individual freedom',correct:false,feedback:'While critics of Progressive reform did make this argument, the historical evidence does not support the conclusion that Americans were better off without these reforms. Food safety regulation prevented contaminated products from reaching consumers. Banking regulation reduced the frequency of financial panics. Conservation preserved resources that would otherwise have been depleted. The Progressive regulatory state was imperfect, but it addressed real problems that unregulated markets had created.',std:'SS.912.A.3.6'},
+        {text:'Because the Eighteenth Amendment failed, all Progressive Era reforms must be considered failures that misunderstood American society',correct:false,feedback:'The Eighteenth Amendment\'s failure tells us something important about the limits of using constitutional law to change deeply ingrained cultural behavior. But it does not invalidate the food safety laws, financial regulations, democratic reforms, and labor protections that the era produced. The Nineteenth Amendment, passed at the same time, was a permanent and consequential expansion of democracy. Historical evaluation requires distinguishing between reforms that worked and those that did not.',std:'SS.912.A.3.6'},
+      ]
+    },
+    {
+      scene:'democracy',location:'The United States, 1920',date:'1920',
+      narrative:'You are a historian writing the final chapter of a book about the Progressive Era. You must answer the essential question that has guided your research: "How should a democratic society respond when industrial growth creates serious social and political problems?" The Progressive Era was America\'s first major experiment in using government power to correct the problems created by industrial capitalism. The reformers believed that exposure, organization, legislation, and constitutional change could make industrial society more fair. You must now judge whether they were right.',
+      charVoice:'Your editor asks you to write one paragraph summarizing what the Progressive Era teaches us about democracy, reform, and the tension between freedom and government regulation. What do you write?',
+      decision:'Which conclusion best synthesizes what the Progressive Era reveals about how democratic societies can respond to industrial capitalism\'s problems?',
+      choices:[
+        {text:'The Progressive Era proved that government regulation always makes society worse, because every reform creates new problems that require more government and reduce freedom',correct:false,feedback:'This conclusion is not supported by the evidence of the era. The specific reforms of the Progressive Era addressed real documented problems. Food safety laws reduced contamination. Banking regulation reduced panics. Child labor restrictions allowed children to attend school. Women\'s suffrage expanded democratic participation. The reforms were imperfect, but the problems they addressed were real and the reforms made meaningful improvements. Ideological rejection of all government intervention is not a historical conclusion.',std:'SS.912.A.3.6,SS.912.A.3.12'},
+        {text:'Democratic societies can use a combination of journalism, organized activism, legislation, and constitutional change to address industrial capitalism\'s problems, though reform is always incomplete and often excludes the most vulnerable',correct:true,feedback:'This is the most defensible synthesis. The Progressive Era demonstrated that democratic reform is possible: exposed problems, organized advocacy, and political pressure can produce real legislation and constitutional change. It also demonstrated reform\'s limits: the same era that gave women the vote denied Black Americans federal civil rights protection for another forty years. The lessons are not simple. Reform works, but it requires constant struggle, and victories for some groups can coexist with injustice toward others. A complete understanding of the Progressive Era requires holding both truths simultaneously.',std:'SS.912.A.3.6,SS.912.A.3.12'},
+        {text:'The most important lesson of the Progressive Era is that individual moral reform, not government action, is the only effective response to social problems',correct:false,feedback:'The Progressive Era specifically demonstrated the insufficiency of purely individual moral responses to structural problems. Private charity could not house the homeless poor on the scale of urban poverty. Individual consumer choices could not make contaminated food safe. Personal virtue could not stop political machines or railroad monopolies. The reformers who achieved the most lasting changes combined moral commitment with legislative action and structural reform.',std:'SS.912.A.3.6'},
+        {text:'Progressive reform ultimately failed because it relied on government, and government always serves the interests of the wealthy rather than the public',correct:false,feedback:'This overstates the failure and understates the achievement. Progressive reforms did face serious resistance from wealthy interests, and some reforms were captured or weakened by those interests. But others produced genuine, lasting benefits for ordinary Americans. The income tax shifted tax burdens toward wealth. Consumer protection laws protected working-class consumers. Women\'s suffrage expanded democracy. The historical record requires a more nuanced evaluation than total failure.',std:'SS.912.A.3.6,SS.912.A.3.12'},
+      ]
+    },
+  ]
+},
+
+]; // END CHAPTERS
+
+// ═══════════════════════════════════════════
+// SCENE ARTWORK
+// ═══════════════════════════════════════════
+const SCENE_ART={
+  tenement:`<svg viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+    <defs><linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0d1018"/><stop offset="100%" stop-color="#181820"/></linearGradient></defs>
+    <rect width="580" height="220" fill="url(#sky1)"/>
+    ${[0,80,160,240,320,400,480].map((x,i)=>`
+      <rect x="${x}" y="${30+i%3*10}" width="72" height="${160-i%3*10}" fill="#${['1a1820','141418','1c1c20','181a1c','141820','1c1820','141c1c'][i]}"/>
+      ${[0,1,2,3].map(row=>[0,1,2].map(col=>`<rect x="${x+8+col*22}" y="${50+i%3*10+row*28}" width="14" height="18" fill="${Math.random()>0.5?'#c8a820':'#0d0d10'}" opacity="0.9"/>`).join('')).join('')}
+    `).join('')}
+    <text x="290" y="100" font-family="Georgia,serif" font-size="16" fill="#c8860a" text-anchor="middle" opacity="0.7" font-style="italic">Lower East Side, 1890</text>
+    <text x="290" y="118" font-family="sans-serif" font-size="7" fill="#808898" text-anchor="middle" letter-spacing="3">THE OTHER HALF · JACOB RIIS</text>
+  </svg>`,
+  factory:`<svg viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+    <defs><linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a0c10"/><stop offset="100%" stop-color="#141820"/></linearGradient></defs>
+    <rect width="580" height="220" fill="url(#sky2)"/>
+    <rect x="40" y="80" width="200" height="130" fill="#141418"/>
+    <rect x="260" y="60" width="280" height="150" fill="#181820"/>
+    ${[60,130,200,300,380,460].map((x,i)=>`<rect x="${x}" y="${20-i%2*10}" width="20" height="${60+i%2*10}" fill="#1c1820"/><ellipse cx="${x+10}" cy="${20-i%2*10}" rx="10" ry="6" fill="#282428"/><ellipse cx="${x+10}" cy="${18-i%2*10}" rx="4" ry="8" fill="#c84820" opacity="0.7"/>`).join('')}
+    <text x="290" y="105" font-family="Georgia,serif" font-size="15" fill="#c8860a" text-anchor="middle" opacity="0.7" font-style="italic">Chicago Meatpacking District, 1905</text>
+    <text x="290" y="122" font-family="sans-serif" font-size="7" fill="#808898" text-anchor="middle" letter-spacing="3">THE JUNGLE · UPTON SINCLAIR</text>
+  </svg>`,
+  tammany:`<svg viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+    <defs><linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a0808"/><stop offset="100%" stop-color="#181010"/></linearGradient></defs>
+    <rect width="580" height="220" fill="url(#sky3)"/>
+    <rect x="180" y="30" width="220" height="180" fill="#201818"/>
+    <polygon points="180,30 290,5 400,30" fill="#1a1010"/>
+    ${[200,220,240,260,280,300,320,340,360].map((x,i)=>`<rect x="${x}" y="${60+i%3*30}" width="18" height="28" fill="${i%4===0?'#c84820':'#0d0808'}" opacity="0.85"/>`).join('')}
+    <text x="290" y="105" font-family="Georgia,serif" font-size="15" fill="#c8860a" text-anchor="middle" opacity="0.7" font-style="italic">New York City Hall, 1901</text>
+    <text x="290" y="122" font-family="sans-serif" font-size="7" fill="#808898" text-anchor="middle" letter-spacing="3">TAMMANY HALL · POLITICAL CORRUPTION</text>
+  </svg>`,
+  monopoly:`<svg viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+    <defs><linearGradient id="sky4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#060810"/><stop offset="100%" stop-color="#0d1018"/></linearGradient></defs>
+    <rect width="580" height="220" fill="url(#sky4)"/>
+    ${[20,80,150,230,320,400,470,520].map((x,i)=>`<rect x="${x}" y="${50+i%4*8}" width="${40+i%3*10}" height="${150-i%4*8}" fill="#${['141820','101018','181820','141418','10141c','181820','141018','101018'][i]}"/>`).join('')}
+    <text x="290" y="105" font-family="Georgia,serif" font-size="15" fill="#c8860a" text-anchor="middle" opacity="0.7" font-style="italic">Standard Oil Monopoly, 1904</text>
+    <text x="290" y="122" font-family="sans-serif" font-size="7" fill="#808898" text-anchor="middle" letter-spacing="3">IDA TARBELL · McCLURE'S MAGAZINE</text>
+  </svg>`,
+  settlement:`<svg viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+    <defs><linearGradient id="sky5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#080c10"/><stop offset="100%" stop-color="#10181c"/></linearGradient></defs>
+    <rect width="580" height="220" fill="url(#sky5)"/>
+    <rect x="150" y="40" width="280" height="170" fill="#141c18"/>
+    <rect x="160" y="30" width="260" height="20" fill="#101814"/>
+    ${[170,210,250,300,340,380].map((x,i)=>`<rect x="${x}" y="${65+i%2*40}" width="28" height="38" fill="${i%3===0?'#c8a820':'#0a1008'}" opacity="0.85"/>`).join('')}
+    <text x="290" y="105" font-family="Georgia,serif" font-size="15" fill="#c8860a" text-anchor="middle" opacity="0.7" font-style="italic">Hull House, Chicago, 1895</text>
+    <text x="290" y="122" font-family="sans-serif" font-size="7" fill="#808898" text-anchor="middle" letter-spacing="3">JANE ADDAMS · SETTLEMENT HOUSE MOVEMENT</text>
+  </svg>`,
+  reform:`<svg viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+    <defs><linearGradient id="sky6" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#080810"/><stop offset="100%" stop-color="#101018"/></linearGradient></defs>
+    <rect width="580" height="220" fill="url(#sky6)"/>
+    ${[30,120,220,320,420,500].map((x,i)=>`<rect x="${x}" y="${40+i%3*12}" width="${50+i%2*20}" height="${170-i%3*12}" fill="#${['14181c','101418','181c20','14181c','101418','181820'][i]}"/>`).join('')}
+    <text x="290" y="105" font-family="Georgia,serif" font-size="15" fill="#c8860a" text-anchor="middle" opacity="0.7" font-style="italic">Progressive Era, 1900-1920</text>
+    <text x="290" y="122" font-family="sans-serif" font-size="7" fill="#808898" text-anchor="middle" letter-spacing="3">THE AGE OF REFORM</text>
+  </svg>`,
+  suffrage:`<svg viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+    <defs><linearGradient id="sky7" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a0810"/><stop offset="100%" stop-color="#14101c"/></linearGradient></defs>
+    <rect width="580" height="220" fill="url(#sky7)"/>
+    ${[40,100,170,250,330,420,500].map((x,i)=>`
+      <ellipse cx="${x+12}" cy="200" rx="8" ry="${60+i%3*15}" fill="#${['1a1428','141028','181428','10101c','14102a','181420','10142a'][i]}" opacity="0.9"/>
+    `).join('')}
+    <rect x="130" y="60" width="320" height="130" fill="none" stroke="#c8860a" stroke-width="0.5" opacity="0.2"/>
+    <text x="290" y="100" font-family="Georgia,serif" font-size="15" fill="#c8860a" text-anchor="middle" opacity="0.7" font-style="italic">Women\'s Suffrage Parade, 1913</text>
+    <text x="290" y="118" font-family="sans-serif" font-size="7" fill="#808898" text-anchor="middle" letter-spacing="3">NAWSA · VOTES FOR WOMEN</text>
+  </svg>`,
+  democracy:`<svg viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+    <defs><linearGradient id="sky8" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#060810"/><stop offset="100%" stop-color="#0c1018"/></linearGradient></defs>
+    <rect width="580" height="220" fill="url(#sky8)"/>
+    <rect x="200" y="20" width="180" height="190" fill="#101418"/>
+    <polygon points="200,20 290,0 380,20" fill="#0c1014"/>
+    ${[6,5,4,3,2,1].map((w,i)=>`<rect x="${200+i*15}" y="${20+i*12}" width="${w*30}" height="${8}" fill="#1a2030" opacity="${0.5+i*0.1}"/>`).join('')}
+    <text x="290" y="105" font-family="Georgia,serif" font-size="15" fill="#c8860a" text-anchor="middle" opacity="0.7" font-style="italic">U.S. Capitol, Washington D.C.</text>
+    <text x="290" y="122" font-family="sans-serif" font-size="7" fill="#808898" text-anchor="middle" letter-spacing="3">REFORM BECOMES THE LAW OF THE LAND</text>
+  </svg>`,
+  white_house:`<svg viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+    <defs><linearGradient id="sky9" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#06080e"/><stop offset="100%" stop-color="#0e1018"/></linearGradient></defs>
+    <rect width="580" height="220" fill="url(#sky9)"/>
+    <rect x="140" y="60" width="300" height="150" fill="#141820"/>
+    <rect x="120" y="50" width="340" height="20" fill="#101418"/>
+    ${[0,1,2,3,4,5].map(i=>`<rect x="${150+i*45}" y="50" width="8" height="120" fill="#0c1014"/>`).join('')}
+    <rect x="250" y="80" width="80" height="130" fill="#101620"/>
+    ${[160,200,240,300,360,400].map((x,i)=>`<rect x="${x}" y="${90+i%2*30}" width="28" height="38" fill="${i%4===0?'#c8a820':'#080c14'}" opacity="0.9"/>`).join('')}
+    <text x="290" y="105" font-family="Georgia,serif" font-size="15" fill="#c8860a" text-anchor="middle" opacity="0.7" font-style="italic">Washington D.C., Progressive Era</text>
+    <text x="290" y="122" font-family="sans-serif" font-size="7" fill="#808898" text-anchor="middle" letter-spacing="3">THE BULLY PULPIT · PRESIDENTIAL REFORM</text>
+  </svg>`,
+  conservation:`<svg viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+    <defs><linearGradient id="sky10" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#040c08"/><stop offset="100%" stop-color="#0a1410"/></linearGradient></defs>
+    <rect width="580" height="220" fill="url(#sky10)"/>
+    ${[20,60,110,180,250,330,400,470,530].map((x,i)=>`
+      <polygon points="${x},220 ${x+15},${80-i%4*15} ${x+30},220" fill="#${['142010','182818','102010','1c3018','142814','183818','102418','1c2810','142018'][i]}" opacity="0.9"/>
+    `).join('')}
+    <text x="290" y="105" font-family="Georgia,serif" font-size="15" fill="#c8860a" text-anchor="middle" opacity="0.7" font-style="italic">Yosemite Valley, California, 1903</text>
+    <text x="290" y="122" font-family="sans-serif" font-size="7" fill="#808898" text-anchor="middle" letter-spacing="3">ROOSEVELT AND MUIR · CONSERVATION</text>
+  </svg>`,
+  election_1912:`<svg viewBox="0 0 580 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+    <defs><linearGradient id="sky11" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#08060e"/><stop offset="100%" stop-color="#0e0c18"/></linearGradient></defs>
+    <rect width="580" height="220" fill="url(#sky11)"/>
+    <rect x="60" y="60" width="140" height="150" fill="#14101c" opacity="0.9"/>
+    <rect x="220" y="40" width="140" height="170" fill="#101418" opacity="0.9"/>
+    <rect x="380" y="55" width="140" height="155" fill="#0c1018" opacity="0.9"/>
+    <text x="130" y="120" font-family="sans-serif" font-size="8" fill="#c84820" text-anchor="middle">TAFT</text>
+    <text x="290" y="110" font-family="sans-serif" font-size="8" fill="#c8860a" text-anchor="middle">ROOSEVELT</text>
+    <text x="450" y="115" font-family="sans-serif" font-size="8" fill="#2060c8" text-anchor="middle">WILSON</text>
+    <text x="290" y="185" font-family="Georgia,serif" font-size="14" fill="#c8860a" text-anchor="middle" opacity="0.7" font-style="italic">The Election of 1912</text>
+    <text x="290" y="200" font-family="sans-serif" font-size="7" fill="#808898" text-anchor="middle" letter-spacing="2">THREE VISIONS OF PROGRESSIVE REFORM</text>
+  </svg>`,
+};
+function getSceneArt(scene){return SCENE_ART[scene]||SCENE_ART.reform;}
+
+// ═══════════════════════════════════════════
+// SAVE / LOAD
+// ═══════════════════════════════════════════
+function newGame(){
+  return{name:'',avatarId:'factory_m',outfitId:'casual',score:0,gold:0,level:1,
+    momentum:100,maxMomentum:100,completedChapters:[],beatenBeats:[],
+    earnedBadges:[],unlockedCards:[],shopOwned:[],unlockedOutfits:['casual'],
+    equippedHat:null,period:'guest',teacher:'guest',isTeacher:false,
+    correctAnswers:0,totalAnswers:0,_completionShown:false};
+}
+function save(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(G));}catch(e){}}
+function load(){try{const d=JSON.parse(localStorage.getItem(SAVE_KEY)||'null');if(d&&d.name){G=d;return true;}}catch(e){}return false;}
+
+// ═══════════════════════════════════════════
+// SHELL INTEGRATION
+// ═══════════════════════════════════════════
+function getShellProfile(){try{const s=JSON.parse(localStorage.getItem(SHELL_KEY)||'null');return s&&s.profile?s:null;}catch(e){return null;}}
+function applyShellProfile(shellState){
+  const p=shellState.profile;if(!G)G=newGame();
+  G.name=p.name;G.teacher=p.teacher||'shell';G.period=p.period||'shell';G.isTeacher=!!p.isTeacher;G.avatarId=p.avatarId||G.avatarId;
+}
+function notifyShellComplete(){
+  try{const s=JSON.parse(localStorage.getItem(SHELL_KEY)||'null');if(!s)return;
+    if(!s.completedUnits)s.completedUnits=[];if(!s.completedUnits.includes(SHELL_UNIT_ID))s.completedUnits.push(SHELL_UNIT_ID);
+    s.lastScore={unit:SHELL_UNIT_ID,score:G.score,accuracy:G.totalAnswers>0?Math.round(G.correctAnswers/G.totalAnswers*100):0};
+    localStorage.setItem(SHELL_KEY,JSON.stringify(s));
+  }catch(e){}
+}
+function returnToShell(){window.location.href='index.html';}
+
+// ═══════════════════════════════════════════
+// SCREENS
+// ═══════════════════════════════════════════
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById(id);if(el)el.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+function init(){
+  if(!G)G=newGame();
+  renderTitleScene();
+  startLoadingBar();
+}
+function startLoadingBar(){
+  const bar=document.getElementById('loading-bar');let p=0;
+  const hard=setTimeout(hideLoading,3000);
+  const iv=setInterval(()=>{p+=Math.random()*25;if(p>=100){p=100;if(bar)bar.style.width='100%';clearInterval(iv);clearTimeout(hard);setTimeout(hideLoading,200);return;}if(bar)bar.style.width=p+'%';},80);
+}
+function hideLoading(){
+  const ls=document.getElementById('loading-screen');if(!ls)return;
+  ls.style.transition='opacity 0.4s';ls.style.opacity='0';
+  setTimeout(()=>{
+    ls.style.display='none';
+    const shellProfile=getShellProfile();
+    if(shellProfile){
+      if(load()&&G&&G.name&&G.teacher==='shell'){showGameUI();renderHub();showScreen('hub-screen');notify('Welcome back, '+G.name+'!','green');}
+      else{applyShellProfile(shellProfile);if(shellProfile.isTeacher){showGameUI();renderHub();showScreen('hub-screen');notify('Welcome, '+shellProfile.name+'! 📊','green');}else{renderAvatarGrid();renderOutfitGridCreator();updateCharPreview();showScreen('char-screen');notify('Welcome, '+shellProfile.name+'! Profile loaded from hub.','green');}}
+      return;
+    }
+    try{if(load()&&G&&G.name){document.getElementById('returning-player-panel').style.display='block';document.getElementById('new-player-panel').style.display='none';document.getElementById('returning-name').textContent=G.name.toUpperCase();document.getElementById('returning-info').textContent='Level '+G.level+' · '+G.score.toLocaleString()+' pts · '+G.completedChapters.length+'/'+CHAPTERS.length+' chapters';}}catch(e){}
+  },420);
+}
+
+function renderTitleScene(){
+  document.getElementById('title-scene-art').innerHTML=`
+  <svg viewBox="0 0 580 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+    <defs><linearGradient id="ts1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#04060c"/><stop offset="100%" stop-color="#0a0e10"/></linearGradient></defs>
+    <rect width="580" height="200" fill="url(#ts1)"/>
+    ${[0,70,150,240,320,410,490].map((x,i)=>`
+      <rect x="${x+2}" y="${30-i%3*8}" width="70" height="${160+i%3*8}" fill="#${['141820','101418','181c20','141418','101820','181420','141020'][i]}"/>
+      ${[0,1,2,3].map(r=>[0,1,2].map(c=>`<rect x="${x+8+c*20}" y="${50+r*30}" width="12" height="16" fill="${(i+r+c)%4===0?'#c8a820':'#070a0e'}" opacity="0.9"/>`).join('')).join('')}
+    `).join('')}
+    <text x="290" y="90" font-family="Georgia,serif" font-size="18" fill="#c8860a" text-anchor="middle" opacity="0.6" font-style="italic">1900 — 1920</text>
+    <text x="290" y="108" font-family="sans-serif" font-size="7" fill="#808898" text-anchor="middle" letter-spacing="4">INDUSTRIAL AMERICA · REFORM · DEMOCRACY</text>
+    <circle cx="50" cy="25" r="1.5" fill="white" opacity="0.4"><animate attributeName="opacity" values="0.4;0.1;0.4" dur="3s" repeatCount="indefinite"/></circle>
+    <circle cx="530" cy="30" r="1" fill="white" opacity="0.3"><animate attributeName="opacity" values="0.3;0.1;0.3" dur="4s" repeatCount="indefinite"/></circle>
+  </svg>`;
+}
+
+// ═══════════════════════════════════════════
+// LOGIN
+// ═══════════════════════════════════════════
+function startNewGame(){goToStep(1);document.getElementById('code-gate-overlay').style.display='flex';}
+let _loginTeacher='',_loginPeriod='';
+function goToStep(n){[1,2,3].forEach(i=>{const el=document.getElementById('login-step-'+i);if(el)el.style.display=i===n?'block':'none';});}
+function selectTeacher(key){
+  if(key==='guest'){_loginTeacher='guest';_loginPeriod='guest';const lbl=document.getElementById('login-step3-label');if(lbl)lbl.textContent='Playing as a guest.';const inp=document.getElementById('class-code-input');if(inp)inp.value='';goToStep(3);return;}
+  const t=TEACHERS[key];if(!t)return;_loginTeacher=key;
+  const grid=document.getElementById('period-buttons');if(grid)grid.innerHTML=t.periods.map(p=>`<div onclick="selectPeriod('${p}')" style="background:var(--bg3);border:1.5px solid var(--border2);padding:14px 6px;text-align:center;cursor:pointer"><div style="font-family:var(--bebas);font-size:24px;color:var(--gold)">${p}</div><div style="font-family:var(--dm);font-size:8px;color:var(--text3)">PERIOD ${p}</div></div>`).join('');
+  goToStep(2);
+}
+function selectPeriod(p){_loginPeriod=_loginTeacher+'-'+p;const t=TEACHERS[_loginTeacher];const lbl=document.getElementById('login-step3-label');if(lbl)lbl.textContent=(t?t.name+' · ':'')+'Period '+p;const inp=document.getElementById('class-code-input');if(inp)inp.value='';goToStep(3);}
+function submitClassCode(){
+  const name=document.getElementById('class-code-input').value.trim();const errEl=document.getElementById('code-error');if(errEl)errEl.textContent='';
+  if(!name){if(errEl)errEl.textContent='Please enter your name.';return;}
+  document.getElementById('code-gate-overlay').style.display='none';if(!G)G=newGame();G.name=name;G.period=_loginPeriod;G.teacher=_loginTeacher;G.isTeacher=false;
+  renderAvatarGrid();renderOutfitGridCreator();updateCharPreview();showScreen('char-screen');
+}
+function submitTeacherCode(){
+  const input=document.getElementById('teacher-code-input');const errEl=document.getElementById('teacher-code-err');const code=(input?input.value:'').trim().toUpperCase();
+  const match=Object.entries(TEACHERS).find(([k,t])=>t.teacherCode===code);
+  if(match){const [key,teacher]=match;if(input)input.value='';document.getElementById('teacher-login-box').style.display='none';if(!G||!G.isTeacher){G=newGame();G.period='T';G.isTeacher=true;G.name=teacher.name;G.teacher=key;save();}showGameUI();renderHub();showScreen('hub-screen');setTimeout(openTeacherDashboard,300);}
+  else{if(errEl)errEl.textContent='Incorrect code.';if(input){input.style.borderColor='#e04040';setTimeout(()=>{input.style.borderColor='var(--teal)';},1500);}}
+}
+function playAgain(){if(!confirm('Begin a new journey from Chapter 1? Score, gold, cards, and badges are kept.'))return;G.completedChapters=[];G.beatenBeats=[];G._completionShown=false;save();renderHub();showScreen('hub-screen');notify('New journey started! 🔦','green');}
+function continueGame(){if(load()&&G&&G.name){showGameUI();renderHub();showScreen('hub-screen');}}
+
+// ═══════════════════════════════════════════
+// CHARACTER CREATOR
+// ═══════════════════════════════════════════
+function renderAvatarGrid(){
+  if(!G)return;const grid=document.getElementById('avatar-grid');if(!grid)return;
+  let html='';
+  AVATAR_ERAS.forEach(era=>{
+    const eraAvatars=AVATARS.filter(a=>a.era===era.id);
+    html+=`<div style="margin-bottom:14px"><div style="font-family:var(--bebas);font-size:11px;letter-spacing:2px;color:var(--text3);border-bottom:1px solid var(--border);padding-bottom:4px;margin-bottom:8px">${era.label}</div><div style="display:flex;flex-wrap:wrap;gap:6px">`;
+    eraAvatars.forEach(av=>{
+      const unlocked=!av.unlockScore||G.score>=av.unlockScore;const selected=G.avatarId===av.id;
+      html+=`<div class="avatar-opt ${selected?'selected':''} ${!unlocked?'locked':''}" onclick="${unlocked?`selectAvatar('${av.id}')`:''}" title="${unlocked?av.desc:'Unlock at '+(av.unlockScore||0)+' pts'}">
+        <div style="width:44px;height:44px">${makeAvatar(av.id)}</div>
+        <div class="avatar-opt-label">${av.badge} ${av.label}</div>
+        ${!unlocked?`<div style="font-family:var(--dm);font-size:6px;color:var(--gold2)">🔒 ${av.unlockScore}</div>`:''}
+      </div>`;
+    });
+    html+=`</div></div>`;
+  });
+  grid.innerHTML=html;
+}
+function selectAvatar(id){G.avatarId=id;renderAvatarGrid();updateCharPreview();}
+function updateCharPreview(){
+  const nameInput=document.getElementById('name-input').value;if(G)G.name=nameInput;
+  document.getElementById('char-preview-name').textContent=nameInput||'Your Name';
+  document.getElementById('char-preview-avatar').innerHTML=`<div style="width:100%;height:100%">${makeAvatar(G?G.avatarId:'factory_m')}</div>`;
+  const av=AVATARS.find(a=>a.id===(G?G.avatarId:'factory_m'));
+  document.getElementById('char-preview-title').textContent=(av?av.label:'American')+' · 1900';
+}
+function renderOutfitGridCreator(){
+  if(!G)return;const grid=document.getElementById('outfit-grid-creator');if(!grid)return;
+  grid.innerHTML=OUTFITS.map(o=>{const locked=o.unlockChapter&&G.completedChapters.length<o.unlockChapter;return `<div class="outfit-opt ${G.outfitId===o.id?'selected':''} ${locked?'locked':''}" onclick="selectOutfit('${o.id}')"><div class="outfit-icon">${o.icon}</div><div class="outfit-name">${o.name}</div><div class="outfit-cost">${locked?'🔒 Unlock Ch.'+o.unlockChapter:(o.cost>0?'⭐ '+o.cost:'FREE')}</div></div>`;}).join('');
+}
+function selectOutfit(id){G.outfitId=id;renderOutfitGridCreator();updateCharPreview();}
+function confirmCharacter(){
+  const name=document.getElementById('name-input').value.trim();if(!name){notify('Please enter your name first','red');return;}
+  G.name=name;G.avatarId=G.avatarId||'factory_m';G.outfitId=G.outfitId||'casual';
+  save();showGameUI();renderHub();showScreen('hub-screen');notify('Welcome to 1900, '+G.name+'!','green');
+  setTimeout(()=>pushLeaderboard(),2000);
+}
+
+// ═══════════════════════════════════════════
+// GAME UI
+// ═══════════════════════════════════════════
+function showGameUI(){
+  document.getElementById('game-header').style.display='block';document.getElementById('bottom-nav').style.display='grid';
+  if(getShellProfile()){const retBtn=document.getElementById('shell-return-btn');if(retBtn)retBtn.style.display='block';const navBtn=document.getElementById('shell-nav-btn');if(navBtn)navBtn.style.display='block';}
+  updateHUD();
+}
+function updateHUD(){
+  if(!G)return;const av=AVATARS.find(a=>a.id===G.avatarId);
+  document.getElementById('hud-avatar-el').innerHTML=`<div style="width:42px;height:42px">${av?makeAvatar(av.id):''}</div>`;
+  document.getElementById('hud-name').textContent=G.name;const rank=getRank();
+  document.getElementById('hud-rank').textContent=rank.name;document.getElementById('hud-score').textContent=G.score.toLocaleString();
+  document.getElementById('hud-level').textContent=G.level;document.getElementById('hud-cards').textContent=G.unlockedCards.length;
+  document.getElementById('hud-gold').textContent=G.gold;document.getElementById('hud-momentum-bar').style.width=(G.momentum/G.maxMomentum*100)+'%';
+}
+
+// ═══════════════════════════════════════════
+// HUB
+// ═══════════════════════════════════════════
+function renderHub(){
+  if(!G)return;updateHUD();checkUnitComplete();
+  const teacherBtn=document.getElementById('teacher-btn-wrap');if(teacherBtn)teacherBtn.style.display=G.isTeacher?'block':'none';
+  if(getShellProfile()){const journeyShellBtn=document.getElementById('journey-shell-btn');if(journeyShellBtn)journeyShellBtn.style.display='inline-flex';}
+  const av=AVATARS.find(a=>a.id===G.avatarId);
+  document.getElementById('hub-avatar').innerHTML=`<div style="width:60px;height:60px">${av?makeAvatar(av.id):''}</div>`;
+  document.getElementById('hub-player-name').textContent=G.name;document.getElementById('hub-player-rank').textContent=getRank().name;
+  document.getElementById('hub-score-display').textContent=G.score.toLocaleString()+' pts';
+  const momPct=(G.momentum/G.maxMomentum*100);
+  document.getElementById('hub-momentum-fill').style.width=momPct+'%';document.getElementById('hub-momentum-text').textContent=`Influence: ${G.momentum} / ${G.maxMomentum}`;
+  const journeyBanner=document.getElementById('journey-banner');if(journeyBanner){journeyBanner.style.display=G.completedChapters.length>=CHAPTERS.length?'block':'none';}
+  const badgesRow=document.getElementById('badges-row');
+  if(badgesRow){badgesRow.innerHTML=BADGES.map(b=>{const earned=G.earnedBadges.includes(b.id);return `<div class="badge-pill ${earned?'earned':''}" onclick="showBadgeInfo('${b.id}')" title="${b.desc}"><span class="badge-icon">${b.icon}</span><span>${b.name}</span></div>`;}).join('');}
+  const unitList=document.getElementById('unit-list');
+  if(unitList){
+    unitList.innerHTML=CHAPTERS.map((ch,i)=>{
+      const completed=G.completedChapters.includes(ch.id);
+      const available=i===0||G.completedChapters.includes(CHAPTERS[i-1].id);
+      const locked=!available&&!completed;
+      const status=completed?'completed':available?'available':'locked';
+      const beatsInChapter=ch.beats.length;const beatenInChapter=ch.beats.filter((_,bi)=>G.beatenBeats&&G.beatenBeats.includes(ch.id+'_'+bi)).length;
+      const pct=beatenInChapter/beatsInChapter*100;
+      return `<div class="unit-card ${status}" onclick="${status!=='locked'?`startChapterById('${ch.id}')`:''}" >
+        <div class="unit-card-header">
+          <div class="unit-icon">${ch.icon}</div>
+          <div class="unit-info">
+            <div class="unit-number">CHAPTER ${ch.num}</div>
+            <div class="unit-name">${ch.title}</div>
+            <div class="unit-desc">${ch.period}</div>
+          </div>
+          <div class="unit-status ${status}">${completed?'✓ DONE':available?'ENTER':'🔒'}</div>
+        </div>
+        <div class="unit-progress-bar"><div class="unit-progress-fill" style="width:${completed?100:pct}%"></div></div>
+      </div>`;
+    }).join('');
+  }
+}
+
+// ═══════════════════════════════════════════
+// CHAPTER START
+// ═══════════════════════════════════════════
+function startChapterById(id){
+  const idx=CHAPTERS.findIndex(c=>c.id===id);if(idx<0)return;currentChapterIdx=idx;showChapterIntro();
+}
+function showChapterIntro(){
+  const ch=CHAPTERS[currentChapterIdx];
+  document.getElementById('chapter-num-display').textContent='CHAPTER '+ch.num;
+  document.getElementById('chapter-name-display').textContent=ch.title;
+  document.getElementById('chapter-period-display').textContent=ch.period;
+  document.getElementById('chapter-context').textContent=ch.context;
+  const standardsEl=document.getElementById('chapter-standards-display');
+  if(standardsEl)standardsEl.innerHTML=ch.standards.map(s=>`<span class="std-tag">${s}</span>`).join('');
+  const vocabEl=document.getElementById('chapter-key-vocab');
+  if(vocabEl)vocabEl.innerHTML=(ch.keyVocab||[]).map(v=>`<div style="background:var(--bg2);border:1px solid var(--border);padding:10px;"><div style="font-family:var(--bebas);font-size:11px;color:var(--gold);letter-spacing:1px;margin-bottom:4px">${v.term}</div><div style="font-family:var(--crimson);font-size:13px;color:var(--text2);line-height:1.5">${v.def}</div></div>`).join('');
+  const sceneEl=document.getElementById('chapter-intro-scene');
+  if(sceneEl)sceneEl.innerHTML=getSceneArt(ch.beats[0]&&ch.beats[0].scene||'reform');
+  showScreen('chapter-intro');
+}
+function startChapter(){
+  const ch=CHAPTERS[currentChapterIdx];
+  currentBeatIdx=0;chapterScore=0;chapterCorrect=0;chapterTotal=0;chapterLog=[];
+  const firstIncomplete=ch.beats.findIndex((_,i)=>!G.beatenBeats||!G.beatenBeats.includes(ch.id+'_'+i));
+  if(firstIncomplete>=0)currentBeatIdx=firstIncomplete;
+  renderBeat();showScreen('story-screen');
+}
+
+// ═══════════════════════════════════════════
+// STORY / BEATS
+// ═══════════════════════════════════════════
+function renderBeat(){
+  const ch=CHAPTERS[currentChapterIdx];const beat=ch.beats[currentBeatIdx];if(!beat)return;
+  answeredCurrent=false;
+  const progress=document.getElementById('beat-progress');
+  if(progress)progress.innerHTML=ch.beats.map((_,i)=>{
+    const done=G.beatenBeats&&G.beatenBeats.includes(ch.id+'_'+i);
+    const cur=i===currentBeatIdx;
+    return `<div class="beat-pip ${done?'done':cur?'current':''}"></div>`;
+  }).join('');
+  const sceneArt=document.getElementById('story-scene-art');
+  if(sceneArt)sceneArt.innerHTML=getSceneArt(beat.scene);
+  document.getElementById('story-location').textContent=beat.location||'';
+  document.getElementById('story-year').textContent=beat.date||'';
+  document.getElementById('story-char-name').textContent=beat.charVoice?'Your Perspective':'';
+  document.getElementById('story-narrative').textContent=beat.narrative+(beat.charVoice?'\n\n'+beat.charVoice:'');
+  document.getElementById('decision-header').textContent=beat.decision||'What do you decide?';
+  document.getElementById('feedback-panel').className='feedback-panel';
+  document.getElementById('feedback-panel').innerHTML='';
+  const nextBtn=document.getElementById('next-btn');if(nextBtn)nextBtn.style.display='none';
+  const momFill=document.getElementById('story-momentum-fill');
+  const momVal=document.getElementById('story-momentum-val');
+  if(momFill)momFill.style.width=(G.momentum/G.maxMomentum*100)+'%';
+  if(momVal)momVal.textContent=`${G.momentum} / ${G.maxMomentum}`;
+  const letters=['A','B','C','D'];
+  const choicesEl=document.getElementById('choices-container');
+  if(choicesEl)choicesEl.innerHTML=beat.choices.map((c,i)=>`
+    <button class="choice-btn" id="choice-${i}" onclick="selectChoice(${i})">
+      <span class="choice-letter">${letters[i]}.</span>
+      <span class="choice-text">${c.text}</span>
+    </button>
+  `).join('');
+}
+
+function selectChoice(idx){
+  if(answeredCurrent)return;
+  answeredCurrent=true;chapterTotal++;G.totalAnswers=(G.totalAnswers||0)+1;
+  const ch=CHAPTERS[currentChapterIdx];const beat=ch.beats[currentBeatIdx];const choice=beat.choices[idx];
+  const allBtns=document.querySelectorAll('.choice-btn');
+  allBtns.forEach(b=>b.disabled=true);
+  const selectedBtn=document.getElementById('choice-'+idx);
+  const correctIdx=beat.choices.findIndex(c=>c.correct);
+  if(choice.correct){
+    selectedBtn.classList.add('correct');
+    const pts=calculatePoints();G.score+=pts;G.gold+=Math.floor(pts/10);G.level=getRank().level;
+    chapterScore+=pts;chapterCorrect++;G.correctAnswers=(G.correctAnswers||0)+1;
+    G.momentum=Math.min(G.maxMomentum,G.momentum+8);
+    showFeedback(true,choice.feedback,choice.std,pts);
+    if(!G.beatenBeats)G.beatenBeats=[];
+    if(!G.beatenBeats.includes(ch.id+'_'+currentBeatIdx))G.beatenBeats.push(ch.id+'_'+currentBeatIdx);
+  } else {
+    selectedBtn.classList.add('wrong');
+    if(correctIdx>=0)document.getElementById('choice-'+correctIdx).classList.add('correct');
+    G.momentum=Math.max(0,G.momentum-12);
+    showFeedback(false,choice.feedback,choice.std,0);
+  }
+  chapterLog.push({beat:currentBeatIdx,correct:choice.correct,pts:choice.correct?calculatePoints():0});
+  const beatPips=document.getElementById('beat-progress');
+  if(beatPips){const pips=beatPips.querySelectorAll('.beat-pip');if(pips[currentBeatIdx])pips[currentBeatIdx].classList.add('done');}
+  const momFill=document.getElementById('story-momentum-fill');
+  const momVal=document.getElementById('story-momentum-val');
+  if(momFill)momFill.style.width=(G.momentum/G.maxMomentum*100)+'%';
+  if(momVal)momVal.textContent=`${G.momentum} / ${G.maxMomentum}`;
+  updateHUD();save();
+  const nextBtn=document.getElementById('next-btn');if(nextBtn)nextBtn.style.display='block';
+}
+
+function calculatePoints(){
+  const base=200;const acc=G.totalAnswers>1?(G.correctAnswers/G.totalAnswers):1;
+  const streak=G.momentum>=80?1.5:G.momentum>=50?1.2:1;
+  return Math.round(base*streak);
+}
+
+function showFeedback(correct,text,std,pts){
+  const panel=document.getElementById('feedback-panel');
+  panel.className='feedback-panel show'+(correct?'':' wrong');
+  panel.innerHTML=`
+    ${correct&&pts?`<div class="score-pop">+${pts} pts</div>`:''}
+    <div class="feedback-correct ${correct?'':'wrong'}">${correct?'✓ CORRECT':'✗ INCORRECT'}</div>
+    <div class="feedback-text">${text}</div>
+    ${std?`<div class="feedback-std">Standard: ${std}</div>`:''}
+  `;
+}
+
+function nextStoryBeat(){
+  const ch=CHAPTERS[currentChapterIdx];
+  currentBeatIdx++;
+  if(currentBeatIdx>=ch.beats.length){completeChapter();}
+  else{renderBeat();}
+}
+function confirmBackToHub(){
+  if(confirm('Return to hub? Your progress in this chapter is saved.'))showScreen('hub-screen');
+}
+function saveGame(){save();notify('Progress saved!','green');}
+
+// ═══════════════════════════════════════════
+// CHAPTER COMPLETE
+// ═══════════════════════════════════════════
+function completeChapter(){
+  const ch=CHAPTERS[currentChapterIdx];
+  if(!G.completedChapters.includes(ch.id)){G.completedChapters.push(ch.id);}
+  checkAchievements();save();pushLeaderboard();
+  document.getElementById('complete-badge-icon').textContent=ch.icon;
+  document.getElementById('complete-chapter-name').textContent=ch.title;
+  const acc=chapterTotal>0?Math.round(chapterCorrect/chapterTotal*100):0;
+  document.getElementById('complete-chapter-outcome').textContent=
+    acc===100?'Perfect. You understood every decision in this moment of history.':
+    acc>=75?'Strong work. You grasped the key tensions and choices of this era.':
+    acc>=50?'Good effort. Some decisions challenged you. Review the feedback to deepen your understanding.':
+    'Keep at it. The complexities of this era take time to understand. Each attempt sharpens your thinking.';
+  document.getElementById('complete-stats').innerHTML=[
+    {icon:'🎯',label:'Accuracy',val:acc+'%'},
+    {icon:'⭐',label:'Points',val:chapterScore.toLocaleString()},
+    {icon:'⚡',label:'Influence',val:G.momentum+'/'+G.maxMomentum}
+  ].map(s=>`<div style="background:var(--bg2);border:1px solid var(--border2);padding:14px;text-align:center"><div style="font-size:28px;margin-bottom:4px">${s.icon}</div><div style="font-family:var(--bebas);font-size:22px;color:var(--gold)">${s.val}</div><div style="font-family:var(--dm);font-size:8px;color:var(--text3);margin-top:2px">${s.label}</div></div>`).join('');
+  if(ch.cardEarned&&!G.unlockedCards.includes(ch.cardEarned)){G.unlockedCards.push(ch.cardEarned);}
+  const card=CARDS.find(c=>c.id===ch.cardEarned);
+  const cardEl=document.getElementById('card-earned-display');
+  if(cardEl&&card)cardEl.innerHTML=`<div class="card-figure">${card.figure}</div><div><div class="card-info-name">${card.name}</div><div class="card-info-desc">${card.desc}</div><div class="card-info-quote">${card.quote}</div></div>`;
+  document.getElementById('complete-standards').innerHTML=(ch.standards||[]).map(s=>`<span class="std-tag" style="border-color:var(--gold2);color:var(--gold)">${s}</span>`).join('');
+  document.getElementById('chapter-complete-overlay').classList.add('show');
+  save();
+}
+function closeChapterComplete(){
+  document.getElementById('chapter-complete-overlay').classList.remove('show');
+  renderHub();showScreen('hub-screen');
+}
+
+// ═══════════════════════════════════════════
+// ACHIEVEMENTS
+// ═══════════════════════════════════════════
+function checkAchievements(){
+  if(!G)return;
+  function add(id){if(!G.earnedBadges.includes(id)){G.earnedBadges.push(id);const b=BADGES.find(x=>x.id===id);if(b)notify(b.icon+' Badge Earned: '+b.name,'green');}}
+  if(G.completedChapters.length>=1)add('first_step');
+  if(G.completedChapters.includes('problems_of_modern_america'))add('muckraker');
+  if(G.completedChapters.includes('reformers_step_in'))add('reformer');
+  if(G.completedChapters.includes('democracy_expands'))add('equality');
+  if(G.completedChapters.includes('progressive_presidents'))add('trustbuster');
+  if(G.completedChapters.includes('national_policy'))add('legislator');
+  if(G.completedChapters.length>=CHAPTERS.length)add('unit_complete');
+  if(G.unlockedCards.length>=CARDS.length)add('historian');
+  if(G.score>=1000)add('score_1000');if(G.score>=5000)add('score_5000');if(G.score>=10000)add('score_10000');
+  if(G.unlockedCards.length>=5)add('card_collector');
+  if(chapterCorrect===chapterTotal&&chapterTotal>0)add('perfect_chapter');
+}
+
+// ═══════════════════════════════════════════
+// PROFILE
+// ═══════════════════════════════════════════
+function openProfile(){
+  const av=AVATARS.find(a=>a.id===G.avatarId);
+  document.getElementById('profile-avatar-large').innerHTML=`<div style="width:90px;height:90px;margin:0 auto">${av?makeAvatar(av.id):''}</div><div style="font-family:var(--playfair);font-size:18px;color:var(--cream);font-style:italic;margin-top:8px">${G.name}</div><div style="font-family:var(--dm);font-size:11px;color:var(--teal)">${getRank().name}</div>`;
+  const acc=G.totalAnswers>0?Math.round(G.correctAnswers/G.totalAnswers*100):0;
+  document.getElementById('profile-stat-grid').innerHTML=[{val:G.score.toLocaleString(),lbl:'Total Score'},{val:'Lv.'+G.level,lbl:'Level'},{val:acc+'%',lbl:'Accuracy'},{val:G.completedChapters.length+'/'+CHAPTERS.length,lbl:'Chapters'}].map(s=>`<div class="profile-stat"><div class="profile-stat-val">${s.val}</div><div class="profile-stat-lbl">${s.lbl}</div></div>`).join('');
+  document.getElementById('profile-outfit-grid').innerHTML=OUTFITS.map(o=>{const locked=o.unlockChapter&&G.completedChapters.length<o.unlockChapter;return `<div class="outfit-opt ${G.outfitId===o.id?'selected':''} ${locked?'locked':''}" onclick="equipOutfit('${o.id}')"><div class="outfit-icon">${o.icon}</div><div class="outfit-name">${o.name}</div><div class="outfit-cost">${locked?'🔒':(G.outfitId===o.id?'✓ WORN':'EQUIP')}</div></div>`;}).join('');
+  document.getElementById('profile-badge-grid').innerHTML=BADGES.map(b=>{const earned=G.earnedBadges.includes(b.id);return `<div class="badge-item ${earned?'earned':''}"><div class="badge-item-icon">${b.icon}</div><div class="badge-item-name">${b.name}</div></div>`;}).join('');
+  document.getElementById('profile-card-grid').innerHTML=CARDS.map(c=>{const unlocked=G.unlockedCards.includes(c.id);return `<div class="coll-card ${unlocked?'unlocked':''}"><div class="coll-card-figure">${c.figure}</div><div class="coll-card-name">${unlocked?c.name:'???'}</div><div class="coll-card-desc">${unlocked?c.desc:'Complete chapters to unlock'}</div></div>`;}).join('');
+  document.getElementById('profile-overlay').classList.add('show');
+}
+function closeProfile(){document.getElementById('profile-overlay').classList.remove('show');}
+function equipOutfit(id){
+  if(!G.unlockedOutfits)G.unlockedOutfits=['casual'];if(!G.unlockedOutfits.includes(id))G.unlockedOutfits.push(id);G.outfitId=id;save();
+  const av=AVATARS.find(a=>a.id===G.avatarId);if(!av)return;const svg=makeAvatar(av.id);
+  const hudAv=document.getElementById('hud-avatar-el');if(hudAv)hudAv.innerHTML=`<div style="width:42px;height:42px">${svg}</div>`;
+  const hubAv=document.getElementById('hub-avatar');if(hubAv)hubAv.innerHTML=`<div style="width:60px;height:60px">${svg}</div>`;
+  if(document.getElementById('shop-overlay').classList.contains('show'))renderShopItems();
+  if(document.getElementById('profile-overlay').classList.contains('show'))openProfile();
+  notify('Outfit equipped! ✓','green');
+}
+
+// ═══════════════════════════════════════════
+// CARD COLLECTION
+// ═══════════════════════════════════════════
+function openCardCollection(){
+  document.getElementById('cardcoll-grid').innerHTML=CARDS.map(c=>{const unlocked=G.unlockedCards.includes(c.id);return `<div class="coll-card ${unlocked?'unlocked':''}"><div class="coll-card-figure">${c.figure}</div><div class="coll-card-name">${unlocked?c.name:'???'}</div><div class="coll-card-desc">${unlocked?c.desc:'Complete chapters to unlock this card'}</div>${unlocked?`<div style="font-family:var(--crimson);font-size:12px;color:var(--gold);font-style:italic;margin-top:6px;border-top:1px solid var(--border);padding-top:6px">${c.quote}</div>`:''}</div>`;}).join('');
+  document.getElementById('cardcoll-overlay').classList.add('show');
+}
+
+// ═══════════════════════════════════════════
+// LEADERBOARD
+// ═══════════════════════════════════════════
+async function fetchLeaderboard(){
+  try{const r=await fetch(SUPA_URL+'/rest/v1/scores?select=*&game=eq.age_of_reform&order=score.desc',{headers:SUPA_HEADERS});const d=await r.json();return(d||[]).map(s=>({name:s.name,score:s.score,level:s.level,rank:s.rank,period:s.period,teacher:s.teacher,chapters:s.chapters,correctAnswers:s.correct_answers,totalAnswers:s.total_answers,cards:s.cards,avatarBadge:s.avatar_badge,isTeacher:s.is_teacher,updatedAt:new Date(s.updated_at).getTime()}));}catch(e){return[];}
+}
+async function pushLeaderboard(){
+  if(!G||!G.name)return;
+  try{const av=AVATARS.find(a=>a.id===G.avatarId);const row={name:G.name,score:G.score,level:G.level,rank:getRank().name,period:G.period,teacher:G.teacher||'',chapters:G.completedChapters.length,correct_answers:G.correctAnswers||0,total_answers:G.totalAnswers||0,cards:G.unlockedCards.length,avatar_badge:av?.badge||'🔦',is_teacher:G.isTeacher||false,updated_at:new Date().toISOString(),game:'age_of_reform'};await fetch(SUPA_URL+'/rest/v1/scores?on_conflict=name,period,game',{method:'POST',headers:{...SUPA_HEADERS,'Prefer':'resolution=merge-duplicates'},body:JSON.stringify(row)});}catch(e){}
+}
+let lbFilter='all';
+async function renderLeaderboard(){
+  const el=document.getElementById('lb-content');const status=document.getElementById('lb-sync-status');if(status)status.textContent='Syncing…';
+  const allScores=await fetchLeaderboard();if(status)status.textContent=allScores.length+' students on the board';
+  const tabsEl=document.getElementById('lb-period-tabs');
+  if(tabsEl){const tabs=[{key:'all',label:'ALL PERIODS'}];if(G&&!G.isTeacher&&G.period&&G.period!=='T')tabs.push({key:G.period,label:'MY CLASS'});const allPeriods=[...new Set(allScores.filter(s=>!s.isTeacher).map(s=>s.period).filter(Boolean))].sort();allPeriods.forEach(p=>{if(p===G.period)return;const parts=p.split('-');const tKey=parts[0];const pNum=parts[1]||p;const tObj=TEACHERS[tKey];const label=tObj?(tObj.name.split(' ')[1]+' Pd '+pNum):('Pd '+p);if(!tabs.find(t=>t.key===p))tabs.push({key:p,label});});tabsEl.innerHTML=tabs.map(t=>`<div class="lb-tab ${lbFilter===t.key?'active':''}" onclick="lbFilter='${t.key}';renderLeaderboard()">${t.label}</div>`).join('');}
+  let scores;if(lbFilter==='all'){scores=allScores;}else{scores=allScores.filter(s=>!s.isTeacher&&String(s.period)===lbFilter);}
+  if(!scores.length){el.innerHTML='<div style="text-align:center;padding:2rem;font-family:var(--crimson);font-size:15px;color:var(--text3);font-style:italic">No entries yet for this period!</div>';return;}
+  const medals=['🥇','🥈','🥉'];
+  el.innerHTML=`<table class="lb-table"><thead><tr><th>#</th><th>STUDENT</th><th>PD</th><th>LVL</th><th>SCORE</th><th>🃏</th></tr></thead><tbody>${scores.slice(0,25).map((s,i)=>`<tr class="${G&&s.name===G.name&&s.period===G.period?'lb-you':''}" ${s.isTeacher?'style="opacity:0.7"':''}><td style="font-family:var(--bebas);font-size:12px;color:${i<3?'var(--gold)':'var(--text3)'}">${i<3?medals[i]:'#'+(i+1)}</td><td><div style="display:flex;align-items:center;gap:8px"><span style="font-size:20px">${s.avatarBadge||'🔦'}</span><div><div class="lb-name">${s.name}${s.isTeacher?' 📚':''}</div><div style="font-size:10px;color:var(--teal)">${s.rank||''}</div></div></div></td><td style="font-family:var(--dm);font-size:9px;color:var(--text2)">${s.isTeacher?'Teacher':'Pd '+(s.period||'?').split('-').pop()}</td><td style="font-size:13px;color:var(--teal)">${s.level}</td><td class="lb-score">${s.score?.toLocaleString()}</td><td style="font-size:13px;color:var(--text2)">${s.cards}</td></tr>`).join('')}</tbody></table>`;
+}
+function showBadgeInfo(id){const b=BADGES.find(x=>x.id===id);if(!b)return;const earned=G.earnedBadges.includes(id);notify(b.icon+' '+b.name+': '+b.desc+(earned?' ✓':''),earned?'green':'');}
+function openLeaderboard(){if(G&&!G.isTeacher&&G.period)lbFilter=G.period;else lbFilter='all';document.getElementById('leaderboard-overlay').classList.add('show');renderLeaderboard();}
+function closeLeaderboard(){document.getElementById('leaderboard-overlay').classList.remove('show');}
+
+// ═══════════════════════════════════════════
+// NOTIFY
+// ═══════════════════════════════════════════
+function notify(msg,type){const n=document.createElement('div');n.className='notif '+(type||'');n.textContent=msg;document.body.appendChild(n);setTimeout(()=>n.remove(),3200);}
+
+// ═══════════════════════════════════════════
+// SHOP
+// ═══════════════════════════════════════════
+let shopCat='Hats';
+function openShop(){document.getElementById('shop-gold-display').textContent=G.gold;renderShopTabs();renderShopItems();document.getElementById('shop-overlay').classList.add('show');}
+function renderShopTabs(){document.getElementById('shop-tabs').innerHTML=SHOP_CATEGORIES.map(cat=>`<div class="lb-tab ${shopCat===cat?'active':''}" onclick="shopCat='${cat}';renderShopTabs();renderShopItems()">${cat}</div>`).join('');}
+function renderShopItems(){
+  if(!G.shopOwned)G.shopOwned=[];const items=SHOP_ITEMS.filter(i=>i.cat===shopCat);
+  const grid=document.getElementById('shop-items-grid');grid.style.display='grid';grid.style.gridTemplateColumns='repeat(3,1fr)';grid.style.gap='8px';
+  grid.innerHTML=items.map(item=>{
+    const owned=G.shopOwned.includes(item.id)||(item.cat==='Outfits'&&G.unlockedOutfits&&G.unlockedOutfits.includes(item.id));
+    const meetsChapter=!item.reqChapter||G.completedChapters.includes(item.reqChapter);const meetsScore=!item.reqScore||G.score>=item.reqScore;
+    const canBuy=meetsChapter&&meetsScore&&!owned&&G.gold>=item.cost;const locked=!meetsChapter||!meetsScore;
+    const equipped=(item.cat==='Hats'&&G.equippedHat===item.id)||(item.cat==='Outfits'&&G.outfitId===item.id);
+    let statusLabel=owned?(equipped?'✓ WEARING':'TAP TO WEAR'):(canBuy?`⭐ ${item.cost}`:(locked?`🔒 ${item.req||''}`:` ⭐ ${item.cost}`));
+    let statusColor=owned?(equipped?'var(--green2)':'var(--gold)'):(canBuy?'var(--gold)':(locked?'var(--text3)':'var(--red2)'));
+    const clickAction=owned?(item.cat==='Outfits'?`equipOutfit('${item.id}')`:``):canBuy?`buyItem('${item.id}')`:'' ;
+    return `<div class="shop-item ${owned?'owned':''} ${canBuy?'affordable':''} ${locked?'locked':''}" style="${equipped?'border-color:var(--green2);opacity:1':''}" onclick="${clickAction}" title="${item.desc}"><div class="shop-item-icon">${item.icon}</div><div class="shop-item-name">${item.name}</div><div class="shop-item-cost" style="color:${statusColor}">${statusLabel}</div>${item.req&&!owned?`<div class="shop-item-req">Req: ${item.req}</div>`:''}</div>`;
+  }).join('');
+}
+function buyItem(id){
+  if(!G.shopOwned)G.shopOwned=[];const item=SHOP_ITEMS.find(i=>i.id===id);if(!item||G.gold<item.cost)return;
+  G.gold-=item.cost;G.shopOwned.push(id);
+  if(item.cat==='Outfits'){if(!G.unlockedOutfits)G.unlockedOutfits=['casual'];if(!G.unlockedOutfits.includes(id))G.unlockedOutfits.push(id);G.outfitId=id;}
+  if(item.cat==='Hats')G.equippedHat=id;
+  save();updateHUD();document.getElementById('shop-gold-display').textContent=G.gold;renderShopItems();notify(`${item.icon} ${item.name} equipped!`,'green');checkAchievements();
+}
+
+// ═══════════════════════════════════════════
+// COMPLETION
+// ═══════════════════════════════════════════
+function checkUnitComplete(){
+  if(G.completedChapters.length>=CHAPTERS.length&&!G._completionShown){G._completionShown=true;save();notifyShellComplete();setTimeout(showCompletionScreen,800);}
+}
+function showCompletionScreen(){
+  const acc=G.totalAnswers>0?Math.round(G.correctAnswers/G.totalAnswers*100):0;const rank=getRank();
+  document.getElementById('completion-name').textContent=G.name;document.getElementById('completion-rank').textContent=rank.name+' · Level '+G.level;
+  document.getElementById('completion-stats').innerHTML=[{icon:'🎯',label:'Overall Accuracy',val:acc+'%'},{icon:'⭐',label:'Total Score',val:G.score.toLocaleString()},{icon:'🃏',label:'Cards Collected',val:G.unlockedCards.length+'/'+CARDS.length}].map(s=>`<div style="background:var(--bg2);border:1px solid var(--border2);padding:14px;text-align:center"><div style="font-size:28px;margin-bottom:4px">${s.icon}</div><div style="font-family:var(--bebas);font-size:22px;color:var(--gold)">${s.val}</div><div style="font-family:var(--dm);font-size:8px;color:var(--text3);margin-top:2px">${s.label}</div></div>`).join('');
+  document.getElementById('completion-badges').innerHTML=G.earnedBadges.map(bid=>{const b=BADGES.find(x=>x.id===bid);return b?`<div title="${b.name}" style="font-size:24px">${b.icon}</div>`:''}).join('');
+  const msg=acc>=90?'Exceptional analysis. You demonstrated a sophisticated understanding of the Progressive Era. You grasped not only the reforms but the tensions, limits, and contradictions that made this era so complex.':acc>=75?'Outstanding work. Your decisions showed strong understanding of the Progressive Era\'s causes, responses, and legacies. You would have made an excellent reformer.':acc>=60?'Good effort. You grasped many key turning points. Revisit the chapters where the complexity of reform challenged you.':'You completed the journey through one of America\'s most consequential eras. Every replay sharpens your understanding of how democratic societies respond to industrial capitalism.';
+  document.getElementById('completion-message').textContent=msg;document.getElementById('completion-overlay').style.display='block';
+  const shellBtn=document.getElementById('completion-shell-btn');if(shellBtn&&getShellProfile())shellBtn.style.display='block';
+}
+function printCertificate(){
+  const acc=G.totalAnswers>0?Math.round(G.correctAnswers/G.totalAnswers*100):0;const rank=getRank();
+  const certHTML=`<div style="font-family:Georgia,serif;background:#fff;color:#1a1008;padding:48px;max-width:680px;margin:0 auto;box-sizing:border-box"><div style="border:4px double #8b6010;padding:40px;text-align:center"><div style="font-size:11px;letter-spacing:4px;color:#8b6010;text-transform:uppercase;margin-bottom:8px">Certificate of Completion</div><div style="font-size:30px;font-weight:bold;margin:10px 0;color:#1a0808">Age of Reform</div><div style="font-size:14px;color:#5a3810;margin:6px 0">The Progressive Era · US History</div><div style="margin:20px 0;font-size:14px">This certifies that</div><div style="font-size:26px;font-style:italic;color:#c07010;margin:14px 0;border-bottom:2px solid #c07010;padding-bottom:8px;display:inline-block">${G.name}</div><div style="margin:12px 0;font-size:13px;line-height:1.6">has completed all ${CHAPTERS.length} chapters of the Progressive Era unit<br>achieving the rank of <strong>${rank.name}</strong></div><div style="display:flex;justify-content:center;gap:36px;margin:20px 0;flex-wrap:wrap">${[{v:acc+'%',l:'Accuracy'},{v:G.score.toLocaleString(),l:'Total Score'},{v:G.earnedBadges.length,l:'Badges'},{v:G.unlockedCards.length+'/'+CARDS.length,l:'Cards'}].map(s=>`<div style="text-align:center"><div style="font-size:26px;font-weight:bold;color:#c07010">${s.v}</div><div style="font-size:9px;letter-spacing:2px;color:#8b6010;text-transform:uppercase;margin-top:2px">${s.l}</div></div>`).join('')}</div><div style="font-style:italic;font-size:13px;color:#584840;margin:18px 0;line-height:1.6;border-left:3px solid #c07010;padding:8px 16px;text-align:left">"The government is us; we are the government, you and I."<br><span style="font-style:normal;font-size:11px">— Theodore Roosevelt</span></div><div style="font-size:10px;color:#8b6010;letter-spacing:2px;margin-top:20px">Created by Joshua Olson · Florida EOC Aligned</div><div style="font-size:9px;color:#a09080;letter-spacing:1px;margin-top:6px">SS.912.A.3.6 · SS.912.A.3.8 · SS.912.A.3.9 · SS.912.A.3.12 · Industrial Society · Reform Movements · Progressive Presidents · National Policy</div></div></div>`;
+  const area=document.getElementById('print-area');area.style.display='block';area.innerHTML=certHTML;setTimeout(()=>{window.print();setTimeout(()=>{area.style.display='none';},500);},100);
+}
+
+// ═══════════════════════════════════════════
+// TEACHER DASHBOARD
+// ═══════════════════════════════════════════
+let tdPeriod='all',tdSort='score',tdSortDir=-1;
+function openTeacherDashboard(){if(!G||!G.isTeacher){notify('Teacher access only','red');return;}document.getElementById('teacher-dashboard').classList.add('show');loadTeacherData();}
+async function loadTeacherData(){
+  const statusEl=document.getElementById('td-sync-status');if(statusEl)statusEl.textContent='Fetching class data…';
+  const allScores=await fetchLeaderboard();const myKey=G.teacher||'olson';
+  const everyone=allScores.filter(s=>s.isTeacher?s.name===G.name:String(s.period).startsWith(myKey+'-'));const students=everyone.filter(s=>!s.isTeacher);
+  if(statusEl)statusEl.textContent=students.length+' students · last sync: '+new Date().toLocaleTimeString();
+  const periods=[...new Set(everyone.map(s=>s.period).filter(Boolean))].sort();
+  const tabsEl=document.getElementById('td-period-tabs');
+  if(tabsEl){const tabs=[{key:'all',label:'ALL ('+everyone.length+')'}, ...periods.map(p=>{if(p==='T')return{key:p,label:'TEACHER ('+everyone.filter(s=>String(s.period)===p).length+')'};const parts=p.split('-');const pNum=parts[1]||p;return{key:p,label:'PD '+pNum+' ('+everyone.filter(s=>String(s.period)===p).length+')'};})] ;tabsEl.innerHTML=tabs.map(t=>`<div class="lb-tab ${tdPeriod===t.key?'active':''}" onclick="tdPeriod='${t.key}';renderTeacherView(window._tdStudents)">${t.label}</div>`).join('');}
+  window._tdStudents=everyone;renderTeacherView(everyone);
+}
+function renderTeacherView(allStudents){
+  const everyone=tdPeriod==='all'?allStudents:allStudents.filter(s=>String(s.period)===tdPeriod);const students=everyone.filter(s=>!s.isTeacher);
+  const avgScore=students.length?Math.round(students.reduce((a,s)=>a+(s.score||0),0)/students.length):0;
+  const avgChapters=students.length?Math.round(students.reduce((a,s)=>a+(s.chapters||0),0)/students.length*10)/10:0;
+  const completed=students.filter(s=>s.chapters>=CHAPTERS.length).length;
+  const sumEl=document.getElementById('td-summary');
+  if(sumEl)sumEl.innerHTML=[{icon:'👥',val:students.length,lbl:'Students'},{icon:'⭐',val:avgScore.toLocaleString(),lbl:'Avg Score'},{icon:'📖',val:avgChapters+'/'+CHAPTERS.length,lbl:'Avg Chapters'},{icon:'🏆',val:completed,lbl:'Finished Unit'}].map(s=>`<div style="background:var(--bg2);border:1px solid var(--border2);padding:12px;text-align:center"><div style="font-size:22px;margin-bottom:4px">${s.icon}</div><div style="font-family:var(--bebas);font-size:22px;color:var(--gold)">${s.val}</div><div style="font-family:var(--dm);font-size:8px;color:var(--text3);margin-top:2px;letter-spacing:1px">${s.lbl}</div></div>`).join('');
+  const barsEl=document.getElementById('td-chapter-bars');
+  if(barsEl){let barsHTML='';CHAPTERS.forEach((ch,i)=>{const reached=students.filter(s=>(s.chapters||0)>i).length;const pct=students.length?Math.round(reached/students.length*100):0;const barColor=pct>=75?'var(--green2)':pct>=50?'var(--gold)':'var(--red2)';barsHTML+=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div style="font-family:var(--dm);font-size:9px;color:var(--text2);min-width:80px;text-align:right">${ch.title.substring(0,14)}</div><div style="flex:1;height:12px;background:var(--bg3);border:1px solid var(--border)"><div style="height:100%;background:${barColor};width:${pct}%;transition:width 0.5s"></div></div><div style="font-family:var(--bebas);font-size:11px;color:${barColor};min-width:30px">${pct}%</div></div>`;});barsEl.innerHTML=barsHTML;}
+  const rosterEl=document.getElementById('td-roster');
+  if(rosterEl){const sorted=[...everyone].sort((a,b)=>(b.score||0)-(a.score||0));rosterEl.innerHTML=`<table class="lb-table"><thead><tr><th>#</th><th>NAME</th><th>PD</th><th>SCORE</th><th>CH</th><th>ACC%</th></tr></thead><tbody>${sorted.slice(0,40).map((s,i)=>{const acc=s.totalAnswers>0?Math.round((s.correctAnswers||0)/s.totalAnswers*100):0;return `<tr ${s.isTeacher?'style="opacity:0.6"':''}><td style="font-family:var(--bebas);font-size:11px;color:var(--text3)">${i+1}</td><td class="lb-name">${s.name}${s.isTeacher?' 📚':''}</td><td style="font-family:var(--dm);font-size:9px;color:var(--text2)">${(s.period||'').split('-').pop()}</td><td class="lb-score">${(s.score||0).toLocaleString()}</td><td style="font-size:11px;color:var(--teal)">${s.chapters||0}</td><td style="font-family:var(--dm);font-size:9px;color:${acc>=75?'var(--green2)':acc>=50?'var(--gold)':'var(--red2)'}">${acc}%</td></tr>`;}).join('')}</tbody></table>`;}
+}
+
+window.addEventListener('load',init);
+</script>
+</body>
+</html>
