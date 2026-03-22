@@ -847,7 +847,21 @@ function renderHub(){
     const cardClass='unit-card '+(done?'completed':avail?'available':'locked');
     return `<div class="${cardClass}" onclick="${avail||done?`startChapter(${i})`:''}"><div class="unit-card-header"><div class="unit-icon">${ch.icon}</div><div class="unit-info"><div class="unit-number">Unit 2B — Chapter ${ch.num}</div><div class="unit-name">${ch.title}</div><div class="unit-desc">${ch.period}</div></div><div class="unit-status ${statusClass}">${statusLabel}</div></div><div class="unit-progress-bar"><div class="unit-progress-fill" style="width:${done?100:0}%"></div></div></div>`;
   }).join('')+`<div class="${eocCardClass}" onclick="${eocOnClick}"><div class="unit-card-header"><div class="unit-icon">📋</div><div class="unit-info"><div class="unit-number">Progressive Era — EOC Review</div><div class="unit-name">EOC Practice Quiz</div><div class="unit-desc">15 randomized EOC-style questions · reshuffled each attempt</div></div><div class="unit-status ${eocStatusClass}">${eocStatusLabel}</div></div><div class="unit-progress-bar"><div class="unit-progress-fill" style="width:${eocDone?100:0}%"></div></div></div>`;
+  if(allDone){
+    document.getElementById('hub-chapters').innerHTML+=`<div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border2)"><div style="font-family:var(--dm);font-size:9px;color:var(--text3);letter-spacing:1px;margin-bottom:8px;text-align:center">UNIT COMPLETE — Want to improve your score?</div><button class="btn full" onclick="replayUnit()" style="border-color:var(--teal2);color:var(--teal2)"><span>↺ Replay Unit from Chapter 1</span></button><div style="font-family:var(--dm);font-size:8px;color:var(--text3);text-align:center;margin-top:6px">Score accumulates · Trophy uses your best accuracy</div></div>`;
+  }
   const certRow=document.getElementById('hub-cert-row');if(certRow)certRow.style.display=G.chaptersCompleted.length>0?'block':'none';
+}
+
+function replayUnit(){
+  if(!confirm('Replay the entire unit from Chapter 1? Your score will keep adding up, and your trophy will use your best accuracy.'))return;
+  if(_unitCompleteTimer){clearTimeout(_unitCompleteTimer);_unitCompleteTimer=null;}
+  document.getElementById('chapter-complete-overlay').classList.remove('show');
+  G.chaptersCompleted=[];
+  G.eocCompleted=false;
+  saveGame();
+  renderHub();
+  notify('Starting over from Chapter 1 — good luck!','green');
 }
 
 // ── CHAPTER ───────────────────────────────────────────────────────────────
