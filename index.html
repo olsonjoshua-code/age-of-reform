@@ -657,14 +657,90 @@ function returnToShell(){window.location.href='https://olsonjoshua-code.github.i
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const el=document.getElementById(id);if(el)el.classList.add('active');window.scrollTo(0,0);}
 function setActiveNav(idx){document.querySelectorAll('.bn-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));}
 function notify(msg,type){const n=document.createElement('div');n.className='notif '+(type||'');n.textContent=msg;document.body.appendChild(n);setTimeout(()=>n.remove(),3200);}
-function renderAvatar(size){const s=size||44;return `<svg viewBox="0 0 40 50" xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" style="display:block"><rect x="14" y="3" width="12" height="12" fill="#c8906a" rx="2"/><rect x="12" y="5" width="2" height="8" fill="#c8906a"/><rect x="26" y="5" width="2" height="8" fill="#c8906a"/><rect x="14" y="2" width="12" height="5" fill="#5a3020"/><rect x="16" y="8" width="2" height="2" fill="#1a0a00" opacity="0.8"/><rect x="22" y="8" width="2" height="2" fill="#1a0a00" opacity="0.8"/><rect x="17" y="11" width="6" height="1" fill="#b05040" opacity="0.7"/><rect x="11" y="15" width="18" height="13" fill="${G&&G.score>1000?'#2a2848':'#c87060'}"/><rect x="8" y="15" width="4" height="11" fill="#c8906a"/><rect x="28" y="15" width="4" height="11" fill="#c8906a"/><rect x="13" y="28" width="7" height="14" fill="#241820"/><rect x="20" y="28" width="7" height="14" fill="#241820"/><rect x="12" y="40" width="8" height="4" fill="#1a1818"/><rect x="20" y="40" width="8" height="4" fill="#1a1818"/></svg>`;}
+// ── PORTRAIT ENGINE (matches shell + other games) ─────────────────────────
+function svgMedallion(bg,ring,face,size=44){
+  return `<svg viewBox="0 0 40 40" width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg" style="display:block;border-radius:50%;overflow:visible">
+    <circle cx="20" cy="20" r="19.5" fill="${ring}"/>
+    <circle cx="20" cy="20" r="17.5" fill="${darkenRing(ring)}"/>
+    <circle cx="20" cy="20" r="15.5" fill="${bg}"/>
+    ${face}
+    <circle cx="20" cy="20" r="15.5" fill="none" stroke="${ring}" stroke-width=".35" opacity=".5"/>
+  </svg>`;}
+function darkenRing(c){const m={'#c9a84c':'#a8863a','#208878':'#156658','#7a2010':'#4a1008','#2a4a8a':'#1a3060','#6a4a20':'#4a3010','#c07818':'#905010'};return m[c]||'#0a0808';}
+function faceBase(skin,eyes,hair,outfit,extra=''){return `<circle cx="20" cy="17" r="6" fill="${skin}"/><ellipse cx="20" cy="26" rx="8.5" ry="5.5" fill="${outfit}"/><rect x="13" y="21" width="14" height="8" fill="${outfit}"/><ellipse cx="17.5" cy="16" rx="1.1" ry="1.4" fill="${eyes}"/><ellipse cx="22.5" cy="16" rx="1.1" ry="1.4" fill="${eyes}"/>${hair}${extra}`;}
+function hairShort(c,y=12){return `<ellipse cx="20" cy="${y}" rx="6" ry="3.5" fill="${c}"/>`;}
+function hairLong(c){return `<ellipse cx="20" cy="11" rx="6" ry="4" fill="${c}"/><path d="M14 14 Q12 20 14 25" fill="none" stroke="${c}" stroke-width="2.5"/><path d="M26 14 Q28 20 26 25" fill="none" stroke="${c}" stroke-width="2.5"/>`;}
+function hairAfro(c){return `<ellipse cx="20" cy="10" rx="8" ry="6" fill="${c}"/>`;}
+function hairStraightLong(c){return `<ellipse cx="20" cy="11" rx="6.5" ry="4" fill="${c}"/><path d="M13.5 14 Q12 22 13.5 27" fill="none" stroke="${c}" stroke-width="3"/><path d="M26.5 14 Q28 22 26.5 27" fill="none" stroke="${c}" stroke-width="3"/>`;}
+function hairBun(c){return `<ellipse cx="20" cy="11.5" rx="5.5" ry="3" fill="${c}"/><circle cx="20" cy="9.5" r="2.5" fill="${c}"/>`;}
+function hatMilitary(c){return `<ellipse cx="20" cy="12" rx="6.5" ry="3.5" fill="${c}"/><rect x="16" y="8" width="8" height="4.5" rx=".5" fill="${c}"/>`;}
+function hatCowboy(c){return `<ellipse cx="20" cy="12.5" rx="6" ry="3.2" fill="${c}"/><rect x="16" y="9" width="8" height="4" rx=".5" fill="${c}"/><path d="M13 13 Q12 15 14 16" fill="none" stroke="${c}" stroke-width="2"/><path d="M27 13 Q28 15 26 16" fill="none" stroke="${c}" stroke-width="2"/>`;}
+function hatTop(c){return `<rect x="15" y="5.5" width="10" height="9" rx=".8" fill="${c}"/><rect x="12" y="14" width="16" height="2" rx=".5" fill="${c}"/>`;}
+function nurseCap(){return `<rect x="15" y="8" width="10" height="7" rx="2" fill="#f0f0f0"/><line x1="20" y1="9.5" x2="20" y2="13.5" stroke="#cc0000" stroke-width="1.2"/><line x1="17.5" y1="11.5" x2="22.5" y2="11.5" stroke="#cc0000" stroke-width="1.2"/>`;}
+function glasses(){return `<rect x="14.5" y="14" width="4" height="3.5" rx="1.5" fill="none" stroke="#2a1a0a" stroke-width=".9"/><rect x="21.5" y="14" width="4" height="3.5" rx="1.5" fill="none" stroke="#2a1a0a" stroke-width=".9"/><line x1="18.5" y1="15.5" x2="21.5" y2="15.5" stroke="#2a1a0a" stroke-width=".8"/>`;}
+function beard(c,op=1){return `<path d="M15 20 Q16 24 20 25 Q24 24 25 20" fill="${c}" opacity="${op}"/>`;}
+function detailBook(){return `<rect x="22" y="19" width="5" height="7" rx=".5" fill="#f5ead8" opacity=".8"/>`;}
+
+function getPortraitSVG(charId,size=44){
+  const portraits={
+    scholar_f:      ()=>svgMedallion('#0d1a2e','#c9a84c',faceBase('#f0c8a0','#1a1a1a',hairLong('#3a2010'),'#1a3060',detailBook()),size),
+    activist_m:     ()=>svgMedallion('#100808','#c9a84c',faceBase('#a06040','#1a1a1a',hairAfro('#1a0a0a'),'#3a0a0a'),size),
+    reporter_f:     ()=>svgMedallion('#0a0c08','#c9a84c',faceBase('#8a5530','#0a0a0a',hairStraightLong('#2a1a0a'),'#1a2a1a'),size),
+    soldier_m:      ()=>svgMedallion('#2a3a1a','#c9a84c',faceBase('#d4a870','#1a1a0a',hatMilitary('#556644'),'#3a4a2a',beard('#a07040',.35)),size),
+    pioneer_f:      ()=>svgMedallion('#0c0a06','#c9a84c',faceBase('#c89870','#2a1a0a',hatCowboy('#8b4513'),'#5a3010'),size),
+    worker_m_asian: ()=>svgMedallion('#080a0a','#c9a84c',faceBase('#d4b080','#1a0a00',hatMilitary('#555544'),'#1a1a1a'),size),
+    lincoln:        ()=>svgMedallion('#0a0c18','#c9a84c',faceBase('#d4a870','#1a1a1a',hatTop('#1a1a1a'),'#00205b'),size),
+    harriet_tubman: ()=>svgMedallion('#080408','#c9a84c',faceBase('#5a2a10','#0a0a0a',hairShort('#2a1a0a',11),'#1a0808'),size),
+    fred_douglass:  ()=>svgMedallion('#0a0808','#c9a84c',faceBase('#6a3820','#0a0a0a',hairAfro('#2a1a0a'),'#1a0808',beard('#3a1a08',.6)),size),
+    ida_wells:      ()=>svgMedallion('#0a0c0a','#c9a84c',faceBase('#7a4520','#0a0a0a',hairBun('#1a0a0a'),'#0a1a0a'),size),
+    mlk:            ()=>svgMedallion('#040810','#c9a84c',faceBase('#7a4020','#1a0a00',hairShort('#2a1a0a'),'#00205b'),size),
+    rosa_parks:     ()=>svgMedallion('#060810','#c9a84c',faceBase('#7a4828','#0a0a0a',hairBun('#1a1a1a'),'#1a0a0a'),size),
+    sojourner_truth:()=>svgMedallion('#060808','#c9a84c',faceBase('#6a3018','#0a0808',hairBun('#0a0808'),'#2a1a1a'),size),
+    cesar_chavez:   ()=>svgMedallion('#060808','#c9a84c',faceBase('#b07040','#1a0a00',hairShort('#1a0808'),'#1a0a0a'),size),
+    fdr:            ()=>svgMedallion('#060810','#c9a84c',faceBase('#e8c8a0','#2a1a0a',hairShort('#6b4520'),'#00205b',glasses()),size),
+    teddy:          ()=>svgMedallion('#0c0a06','#c9a84c',faceBase('#d4a870','#1a0a00',hairShort('#4a2010',11),'#3a2010',beard('#3a1a08',.8)+glasses()),size),
+    jfk:            ()=>svgMedallion('#06080e','#c9a84c',faceBase('#d4b080','#1a1a0a',hairShort('#6b4520'),'#00205b'),size),
+    lincoln_pres:   ()=>svgMedallion('#080c14','#c9a84c',faceBase('#d4a870','#1a1a1a',hatTop('#1a1a1a'),'#1a2a1a'),size),
+    reagan:         ()=>svgMedallion('#08080c','#c9a84c',faceBase('#e8c8a0','#1a1a0a',hairShort('#3a2010'),'#8b0000'),size),
+    ali:            ()=>svgMedallion('#040810','#c9a84c',faceBase('#7a4020','#1a0800',hairShort('#2a1a0a'),'#000080'),size),
+    jesse_owens:    ()=>svgMedallion('#060408','#c9a84c',faceBase('#7a4020','#0a0a0a',hairShort('#1a0a0a'),'#1a0808'),size),
+    babe_ruth:      ()=>svgMedallion('#080a08','#c9a84c',faceBase('#e8c8a0','#1a1a1a',hatMilitary('#cc0000'),'#cc0000'),size),
+    jackie_robinson:()=>svgMedallion('#060408','#c9a84c',faceBase('#7a4020','#1a0800',hatMilitary('#003366'),'#003366'),size),
+    serena:         ()=>svgMedallion('#040810','#c9a84c',faceBase('#6a3818','#0a0a0a',hairLong('#1a0808'),'#000080'),size),
+    billie_jean:    ()=>svgMedallion('#060810','#c9a84c',faceBase('#d4b090','#2a1a0a',hairShort('#8b6a30',11),'#1a2a4a',glasses()),size),
+    elvis:          ()=>svgMedallion('#080408','#c9a84c',faceBase('#e8c8a0','#1a1a1a',hairLong('#1a1a1a'),'#1a0808'),size),
+    beyonce:        ()=>svgMedallion('#0a0608','#c9a84c',faceBase('#c89060','#0a0a0a',hairLong('#c8a060'),'#1a0808'),size),
+    billie_holiday: ()=>svgMedallion('#080408','#c9a84c',faceBase('#8a5030','#0a0800',hairBun('#0a0808'),'#1a0a0a'),size),
+    jimi_hendrix:   ()=>svgMedallion('#060408','#c9a84c',faceBase('#7a3a18','#0a0808',hairAfro('#1a0808'),'#2a1a3a'),size),
+    suffragist:     ()=>svgMedallion('#060810','#c9a84c',faceBase('#e8c8b0','#2a1a0a',hairLong('#e8d0c0'),'#6a1a6a'),size),
+    cowboy:         ()=>svgMedallion('#0c0a06','#c9a84c',faceBase('#c8a070','#2a1a0a',hatCowboy('#8b4513'),'#5a2a0a'),size),
+    factory_worker: ()=>svgMedallion('#080a08','#c9a84c',faceBase('#d4a870','#1a1a1a',hatMilitary('#3a3a3a'),'#1a1a1a'),size),
+    nurse_ww2:      ()=>svgMedallion('#06080c','#c9a84c',faceBase('#e8c8b0','#2a1a0a',nurseCap(),'#f0f0f0'),size),
+    immigrant:      ()=>svgMedallion('#060a08','#c9a84c',faceBase('#c8a080','#2a1a0a',hairShort('#6a4a20',12),'#1a2a1a'),size),
+    protester_70s:  ()=>svgMedallion('#060606','#c9a84c',faceBase('#d0a070','#1a1a1a',hairLong('#6a4a20'),'#1a1a2a'),size),
+    mr_olson:       ()=>svgMedallion('#0a0c14','#c9a84c',`<ellipse cx="11.5" cy="17" rx="2" ry="2.8" fill="#c8956a"/><ellipse cx="28.5" cy="17" rx="2" ry="2.8" fill="#c8956a"/><circle cx="20" cy="15" r="7.5" fill="#c8956a"/><ellipse cx="20" cy="27" rx="9.5" ry="6" fill="#1a2a3a"/><rect x="12.5" y="22" width="15" height="9" fill="#1a2a3a"/><rect x="16" y="21.5" width="8" height="3.5" fill="#f0f0f0"/><rect x="13.8" y="11.5" width="5.6" height="4.8" rx="1.6" fill="none" stroke="#1a0800" stroke-width="1.2"/><rect x="20.6" y="11.5" width="5.6" height="4.8" rx="1.6" fill="none" stroke="#1a0800" stroke-width="1.2"/><line x1="19.4" y1="13.7" x2="20.6" y2="13.7" stroke="#1a0800" stroke-width=".9"/><ellipse cx="16.8" cy="14" rx="1.1" ry="1.2" fill="#1a0a00"/><ellipse cx="23.2" cy="14" rx="1.1" ry="1.2" fill="#1a0a00"/><path d="M17 18.5 Q20 19.5 23 18.5" stroke="#a07040" stroke-width=".8" fill="none"/><rect x="13.5" y="29.5" width="13" height="4" rx=".6" fill="#c9a84c"/><text x="20" y="33" text-anchor="middle" font-size="2.6" fill="#0a0800" font-family="serif" font-weight="bold">MR. OLSON</text>`,size),
+  };
+  const fn=portraits[charId];
+  if(fn) return fn();
+  // fallback: default scholar portrait
+  return svgMedallion('#1a1208','#c9a84c',faceBase('#c8a070','#1a0a00',hairShort('#4a3010'),'#2a1a08'),size);
+}
+
+function renderAvatar(size=44){
+  // Use avatarId stored on G (synced from shell at login), fall back to shell profile, then default
+  if(G&&G.avatarId) return getPortraitSVG(G.avatarId,size);
+  const sp=getShellProfile();
+  if(sp&&sp.avatar) return getPortraitSVG(sp.avatar,size);
+  return getPortraitSVG('scholar_f',size);
+}
 
 // ── WELCOME GATE ──────────────────────────────────────────────────────────
 function showWelcomeGate(savedGame, shellProfile){
   const wg=document.getElementById('welcome-gate');
   const name=savedGame?savedGame.name:(shellProfile?shellProfile.name:'');
   const period=savedGame?savedGame.period:(shellProfile?shellProfile.period:'');
-  document.getElementById('wg-avatar').innerHTML=renderAvatar(60);
+  const wgAvatarId=(savedGame&&savedGame.avatarId)||(shellProfile&&shellProfile.avatar)||'scholar_f';
+  document.getElementById('wg-avatar').innerHTML=getPortraitSVG(wgAvatarId,60);
   document.getElementById('wg-name').textContent=name||'Unknown';
   document.getElementById('wg-detail').textContent=period&&period!=='0'?'Mr. Olson — Period '+period:'Guest / Other';
   let progress='No progress saved yet';
@@ -677,8 +753,8 @@ function showWelcomeGate(savedGame, shellProfile){
 function welcomeContinue(){
   const wg=document.getElementById('welcome-gate');const saved=wg._savedGame;const sp=wg._shellProfile;
   wg.style.display='none';
-  if(saved){G=saved;if(sp)G.avatarId=sp.avatar||G.avatarId;saveGame();}
-  else if(sp){G=newGame();G.name=sp.name;G.period=sp.period||'0';G.shellLinked=true;G.teacher='olson';saveGame();}
+  if(saved){G=saved;if(sp&&sp.avatar)G.avatarId=sp.avatar;saveGame();}
+  else if(sp){G=newGame();G.name=sp.name;G.period=sp.period||'0';G.avatarId=sp.avatar||'scholar_f';G.shellLinked=true;G.teacher='olson';saveGame();}
   afterLogin();
 }
 
@@ -999,9 +1075,11 @@ async function syncScore(){
   try{await fetch(OLD_SUPA_URL+'/rest/v1/scores',{method:'POST',headers:{...OLD_HEADERS,'Prefer':'resolution=merge-duplicates'},body:JSON.stringify({game:'age_of_reform_v2',name:G.name,period:G.period||'0',score:G.score||0,level:1,chapters:G.chaptersCompleted.length,cards:G.cardsEarned.length,correctAnswers:G.correctAnswers||0,totalAnswers:G.totalAnswers||0,updatedAt:new Date().toISOString()})});}catch(e){}
 }
 async function pushACResult(){
-  if(!G||!G.name||G.name==='Guest')return;if(G.isTeacher)return;
+  if(!G||!G.name||G.name==='Guest')return;
+  const sp=getShellProfile();if(sp&&sp.isTeacher)return;if(G.isTeacher)return;
+  // Use story accuracy alone if EOC not yet done; use combined best once EOC is complete
   const storyAcc=G.totalAnswers>0?Math.round(G.correctAnswers/G.totalAnswers*100):0;
-  const acc=G.combinedBestAccuracy||storyAcc;
+  const acc=G.eocCompleted&&G.combinedBestAccuracy?G.combinedBestAccuracy:storyAcc;
   const trophy=acc===100?'historian':acc>=90?'gold':acc>=80?'silver':acc>=70?'bronze':acc>=60?'completed':'tryagain';
   try{
     const existing=await fetch(AC_SUPA_URL+'/rest/v1/ac_results?name=eq.'+encodeURIComponent(G.name)+'&period=eq.'+encodeURIComponent(G.period||'')+'&unit_id=eq.'+SHELL_UNIT_ID,{headers:AC_HEADERS});
@@ -1013,7 +1091,7 @@ async function pushACResult(){
     const attempts=(prev?prev.attempts||1:0)+1;
     await fetch(AC_SUPA_URL+'/rest/v1/ac_results?on_conflict=name,period,unit_id',{method:'POST',headers:{...AC_HEADERS,'Prefer':'resolution=merge-duplicates'},body:JSON.stringify({name:G.name,period:G.period||'',unit_id:SHELL_UNIT_ID,best_score:bestScore,best_accuracy:bestAcc,trophy:bestTrophy,attempts:attempts,cards:G.cardsEarned.length,updated_at:new Date().toISOString()})});
     notifyShellComplete();
-  }catch(e){}
+  }catch(e){console.warn('pushACResult failed:',e);}
 }
 
 // ── TEACHER DASHBOARD ─────────────────────────────────────────────────────
