@@ -420,8 +420,8 @@ const SAVE_KEY='age_of_reform_v2_save';
 const OLD_SUPA_URL='https://iluvuartxsenbgylogit.supabase.co';
 const OLD_SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsdXZ1YXJ0eHNlbmJneWxvZ2l0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NjA2OTIsImV4cCI6MjA4OTQzNjY5Mn0.stAmdi5xy7ofDAB4AiRg78Eoky-7FXZEa-Ui1dgwHd0';
 const OLD_HEADERS={'Content-Type':'application/json','apikey':OLD_SUPA_KEY,'Authorization':'Bearer '+OLD_SUPA_KEY};
-const AC_SUPA_URL='https://jlxydlvfsdwgaetpamaf.supabase.co';
-const AC_SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpseHlkbHZmc2R3Z2FldHBhbWFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA2MTM4NzAsImV4cCI6MjA1NjE4OTg3MH0.tFaFe0mUGLFuN3YRKw7BrNRrHdBdQa6ym09FBVepBaE';
+const AC_SUPA_URL='https://dnmrwglrcvlbamzhlzlx.supabase.co';
+const AC_SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRubXJ3Z2xyY3ZsYmFtemhsemx4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NjA2OTEsImV4cCI6MjA4OTQzNjY5MX0.jEIM-dGgB0cUS0A6w31LJ5AK9QDCS_UqdVnPrb8dlXM';
 const AC_HEADERS={'Content-Type':'application/json','apikey':AC_SUPA_KEY,'Authorization':'Bearer '+AC_SUPA_KEY};
 const SHELL_KEY='ac_shell_state';
 const SHELL_UNIT_ID='unit2b';
@@ -924,9 +924,11 @@ function showChapterComplete(){
   const stds=new Set();if(ch.beats)ch.beats.forEach(b=>b.choices.forEach(c=>{if(c.std)stds.add(c.std);}));
   document.getElementById('complete-standards').innerHTML=[...stds].map(s=>`<span class="std-tag">${s}</span>`).join(' ');
   document.getElementById('chapter-complete-overlay').classList.add('show');
-  if(G.chaptersCompleted.length>=CHAPTERS.length){
+  // Only auto-advance to unit complete when the LAST chapter (by index) was just finished,
+  // not whenever the completed array happens to be full (which breaks replay of earlier chapters)
+  if(currentChapterIdx===CHAPTERS.length-1&&G.chaptersCompleted.length>=CHAPTERS.length){
     if(_unitCompleteTimer)clearTimeout(_unitCompleteTimer);
-    _unitCompleteTimer=setTimeout(()=>{if(G.chaptersCompleted.length>=CHAPTERS.length&&G.eocCompleted){document.getElementById('chapter-complete-overlay').classList.remove('show');showUnitComplete();}_unitCompleteTimer=null;},3000);
+    _unitCompleteTimer=setTimeout(()=>{if(G.eocCompleted){document.getElementById('chapter-complete-overlay').classList.remove('show');showUnitComplete();}  _unitCompleteTimer=null;},3000);
   }
 }
 function closeChapterComplete(){
