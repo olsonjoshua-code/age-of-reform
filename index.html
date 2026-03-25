@@ -2671,11 +2671,20 @@ function switchPlayer() {
   showLoginGate();
 }
 
-// ── Anti-copy
+// ── Anti-cheat
 (function(){
   function isInput(el){return el&&(el.tagName==='INPUT'||el.tagName==='TEXTAREA');}
   document.addEventListener('contextmenu',e=>{if(!isInput(e.target))e.preventDefault();});
   document.addEventListener('copy',e=>{if(!isInput(e.target))e.preventDefault();});
+  document.addEventListener('cut',e=>{if(!isInput(e.target))e.preventDefault();});
+  document.addEventListener('keydown',e=>{
+    if(isInput(e.target))return;
+    const ctrl=e.ctrlKey||e.metaKey;
+    if(ctrl&&['c','x','a','u','s','C','X','A','U','S'].includes(e.key))e.preventDefault();
+    if(e.key==='F12'||(ctrl&&e.shiftKey&&['i','I','j','J'].includes(e.key)))e.preventDefault();
+  });
+  document.addEventListener('selectstart',e=>{if(!isInput(e.target))e.preventDefault();});
+  document.addEventListener('dragstart',e=>e.preventDefault());
 })();
 
 </script>
